@@ -17,7 +17,6 @@ public class solved extends AppCompatActivity {
         ((TextView)findViewById(R.id.textView2)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>X<sub><small>1</small></sub>+B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
     }
     public void graph(View h) {
-        //inicializar una nueva actividad
         Intent j = new Intent(this, graphx.class);
         startActivity(j);
     }
