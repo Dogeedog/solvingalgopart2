@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">LinearPlex Solver</string>
+    <string name="text1">No deberías ver esto</string>
+    <string name="confidence">Nivel de Confianza:</string>
+    <string name="mean">I.C. Respuesta Media</string>
+    <string name="predict">I.C. Predicción</string>
+    <string name="solve">Resolver</string>
+    <string name="reg">Modelo de Regresión</string>
+    <string name="given">Dado</string>
+    <string name="signific">Significancia General</string>
+    <string name="ic1">I.C. Variables</string>
+    <string name="ic2">I.C. Respuesta</string>
+    <string name="ic3">I.C. Predicción</string>
+    <string name="calc">Calc</string>
+    <string name="varsigni1">Variable 1</string>
+    <string name="varsigni2">Variable 2</string>
+    <string name="coef">Coeficiente Determinación</string>
+    <string name="resid">Residuales</string>
+    <string name="graf">Gráfica 3D</string>
+</resources>

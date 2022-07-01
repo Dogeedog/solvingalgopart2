@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LinearPlex Solver</string>
+    <string name="text1">You shouldn\'t see this</string>
+    <string name="confidence">Confidence level:</string>
+    <string name="mean">C.I. Mean Response</string>
+    <string name="predict">C.I. Predicted</string>
+    <string name="solve">Solve</string>
+    <string name="reg">Regression Model</string>
+    <string name="given">Given</string>
+    <string name="signific">General Significance</string>
+    <string name="ic1">C.I. Variables</string>
+    <string name="ic2">I.C. Response</string>
+    <string name="ic3">I.C. Predicted</string>
+    <string name="calc">Calc</string>
+    <string name="varsigni1">Variable 1</string>
+    <string name="varsigni2">Variable 2</string>
+    <string name="coef">Determination Coefficient</string>
+    <string name="resid">Residuals</string>
+    <string name="graf">3D Graph</string>
+</resources>
