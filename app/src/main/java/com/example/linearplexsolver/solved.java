@@ -21,7 +21,7 @@ public class solved extends AppCompatActivity {
         startActivity(j);
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         long sum = 0;
         int dimension = 3;
         int i, j;
@@ -35,9 +35,6 @@ public class solved extends AppCompatActivity {
             }
             System.out.println();
         }
-
-
     }
-
 
 }
