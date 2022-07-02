@@ -24,14 +24,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        choices = (NumberPicker)findViewById(R.id.numberepicker);
+        choices = findViewById(R.id.numberepicker);
         String[] choicesstrings = {
                 "1", "2"
         };
+        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
+                "X<sub><small>1</small></sub>"));
+
+        choices.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            int OneOrTwoVar = choices.getValue();
+            if (OneOrTwoVar == 0){
+                ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
+                        "X<sub><small>1</small></sub>"));
+            } else {
+                ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
+                        "X<sub><small>1</small></sub>+B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
+            }
+        });
         choices.setDisplayedValues(choicesstrings);
         choices.setMinValue(0);
         choices.setMaxValue(choicesstrings.length - 1);
-        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>X<sub><small>1</small></sub>+B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
         /*AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         *
         *
