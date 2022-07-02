@@ -10,10 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +59,26 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             nvalueint = Integer.parseInt(nvaluestr);
                             if (nvalueint >= 4){
+                                /* to do
                                 Toast.makeText(MainActivity.this, "my Message", Toast.LENGTH_LONG).show();
+                                LinearLayout layout = (LinearLayout) findViewById(R.id.CAMBIARLAYOUT); // combinar 1 linear layout vertical con 4 horizontales
+
+                                String[] items = {"item 1", "item 2", "item 3", "item 4", "item 5"}; // hacerlo con el n value
+
+                                for (int i = 0; i < items.length; i++) {
+                                    Button btn = new Button(this);
+                                    btn.setText(items[i]);
+                                    btn.setId(i);
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    params.setMargins(10, 10, 10, 10);
+                                    btn.setLayoutParams(params);
+                                    layout.addView(btn);
+                                }
+                                */
+
                             }else{
                                 return;
                             }
