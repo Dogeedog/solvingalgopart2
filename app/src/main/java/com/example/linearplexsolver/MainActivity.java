@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 nvalue = findViewById(R.id.nnumber);
                 nvalue.setOnFocusChangeListener((v, hasFocus) -> {
                     if(!hasFocus) {
-                        String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas TO DO: limpiar las layout para volver a poner views y no se acumulen
+                        String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
                         int nvalueint;
                         try {
                             nvalueint = Integer.parseInt(nvaluestr);
@@ -65,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
                                 LinearLayout layouty = (LinearLayout) findViewById(R.id.ylayout);
                                 LinearLayout layoutxa = (LinearLayout) findViewById(R.id.xalayout);
                                 LinearLayout layoutxb = (LinearLayout) findViewById(R.id.xblayout);
+                                layout.removeAllViews();
+                                layouty.removeAllViews();
+                                layoutxa.removeAllViews();
+
+
 
                                 for (int i = 1; i <= nvalueint; i++) {
                                     Button btn = new Button(this);
