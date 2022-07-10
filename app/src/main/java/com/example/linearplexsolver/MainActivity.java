@@ -1,4 +1,9 @@
 package com.example.linearplexsolver;
+
+
+import static org.matheclipse.core.expression.ID.LinearModelFit;
+import static org.matheclipse.core.expression.S.x;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +19,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.matheclipse.core.interfaces.ISymbol;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -302,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
                                             double contentint = Double.parseDouble(contentstring);
                                             b[i-1][1] = contentint;
                                             System.out.println(b[i-1][1]);
+
+                                             // Normal
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -324,9 +332,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void LinearModelFit(double v, ISymbol x, ISymbol x1) {
+    }
+
+
+
     public void solver(View h){
         //inicializar una nueva actividad
         Intent j = new Intent(this, solved.class);
         startActivity(j);
     }
 }
+
+

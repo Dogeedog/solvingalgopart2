@@ -5,6 +5,13 @@ plugins {
 android {
     compileSdk 32
 
+    packagingOptions {
+        exclude 'graphml.xsd'
+        exclude 'xlink.xsd'
+        exclude 'viz.xsd'
+        exclude 'gexf.xsd'
+    }
+
     defaultConfig {
         applicationId "com.example.linearplexsolver"
         minSdk 21
