@@ -1,9 +1,5 @@
 package com.example.linearplexsolver;
 
-
-import static org.matheclipse.core.expression.ID.LinearModelFit;
-import static org.matheclipse.core.expression.S.x;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,7 +15,9 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.matheclipse.core.interfaces.ISymbol;
+import org.hipparchus.stat.regression.OLSMultipleLinearRegression;
+
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -185,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
                         int nvalueint;
                         try {
                             nvalueint = Integer.parseInt(nvaluestr);
-                            double[][] b = new double[nvalueint][3];
+                            double[][] b = new double[nvalueint][2];
+                            double[] ym = new double[nvalueint];
                             if (nvalueint >= 4){
                                 Toast.makeText(MainActivity.this, "2var", Toast.LENGTH_LONG).show();
                                 LinearLayout layout = findViewById(R.id.nlayout);
@@ -280,8 +279,8 @@ public class MainActivity extends AppCompatActivity {
                                         String contentstring = content.getText().toString();
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
-                                            b[i-1][0] = contentint;
-                                            System.out.println(b[i-1][0]);
+                                            ym[i-1] = contentint;
+                                            System.out.println(ym[i-1]);
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -293,8 +292,8 @@ public class MainActivity extends AppCompatActivity {
                                         String contentstring = content.getText().toString();
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
-                                            b[i-1][1] = contentint;
-                                            System.out.println(b[i-1][1]);
+                                            b[i-1][0] = contentint;
+                                            System.out.println(b[i-1][0]);
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -308,12 +307,14 @@ public class MainActivity extends AppCompatActivity {
                                             double contentint = Double.parseDouble(contentstring);
                                             b[i-1][1] = contentint;
                                             System.out.println(b[i-1][1]);
-
-                                             // Normal
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
                                     }
+                                    OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+                                    regression.newSampleData(ym, b);
+                                    System.out.println(Arrays.toString(regression.estimateRegressionParameters()));
+
                                 });
                             }else{
 
@@ -332,8 +333,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void LinearModelFit(double v, ISymbol x, ISymbol x1) {
-    }
 
 
 
