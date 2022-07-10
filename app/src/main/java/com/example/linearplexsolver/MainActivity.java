@@ -14,6 +14,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     NumberPicker choices;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         int nvalueint;
                         try {
                             nvalueint = Integer.parseInt(nvaluestr);
-                            float[][] a = new float[nvalueint][2];
+                            double[][] a = new double[nvalueint][2];
                             if (nvalueint >= 4){
                                 Toast.makeText(MainActivity.this, "1var", Toast.LENGTH_LONG).show();
                                 LinearLayout layout = findViewById(R.id.nlayout);
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                         EditText content = layouty.findViewWithTag(butagy);
                                         String contentstring = content.getText().toString();
                                             try {
-                                                float contentint = Float.parseFloat(contentstring);
+                                                double contentint = Double.parseDouble(contentstring);
                                                 a[i-1][0] = contentint;
                                                 System.out.println(a[i-1][0]);
                                         } catch(NumberFormatException ex) {
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                                         EditText content = layoutxa.findViewWithTag(butagxa);
                                         String contentstring = content.getText().toString();
                                         try {
-                                            float contentint = Float.parseFloat(contentstring);
+                                            double contentint = Double.parseDouble(contentstring);
                                             a[i-1][1] = contentint;
                                             System.out.println(a[i-1][1]);
                                         } catch(NumberFormatException ex) {
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         int nvalueint;
                         try {
                             nvalueint = Integer.parseInt(nvaluestr);
-                            float[][] b = new float[nvalueint][3];
+                            double[][] b = new double[nvalueint][3];
                             if (nvalueint >= 4){
                                 Toast.makeText(MainActivity.this, "2var", Toast.LENGTH_LONG).show();
                                 LinearLayout layout = findViewById(R.id.nlayout);
@@ -271,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                                         EditText content = layouty.findViewWithTag(butagy);
                                         String contentstring = content.getText().toString();
                                         try {
-                                            float contentint = Float.parseFloat(contentstring);
+                                            double contentint = Double.parseDouble(contentstring);
                                             b[i-1][0] = contentint;
                                             System.out.println(b[i-1][0]);
                                         } catch(NumberFormatException ex) {
@@ -284,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                                         EditText content = layoutxa.findViewWithTag(butagxa);
                                         String contentstring = content.getText().toString();
                                         try {
-                                            float contentint = Float.parseFloat(contentstring);
+                                            double contentint = Double.parseDouble(contentstring);
                                             b[i-1][1] = contentint;
                                             System.out.println(b[i-1][1]);
                                         } catch(NumberFormatException ex) {
@@ -297,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
                                         EditText content = layoutxb.findViewWithTag(butagxa);
                                         String contentstring = content.getText().toString();
                                         try {
-                                            float contentint = Float.parseFloat(contentstring);
+                                            double contentint = Double.parseDouble(contentstring);
                                             b[i-1][1] = contentint;
                                             System.out.println(b[i-1][1]);
                                         } catch(NumberFormatException ex) {
@@ -306,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                             }else{
+
                                 return;
                             }
                         }
