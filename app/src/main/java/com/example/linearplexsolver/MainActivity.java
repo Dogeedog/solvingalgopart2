@@ -16,7 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.hipparchus.stat.regression.OLSMultipleLinearRegression;
+import org.hipparchus.stat.regression.SimpleRegression;
+import org.matheclipse.core.expression.data.FittedModelExpr;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 
@@ -133,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                     btn.setLayoutParams(params);
                                     layoutxa.addView(btn);
                                 }
-                                Button tebtn = findViewById(R.id.btntest);
+                                Button tebtn = findViewById(R.id.button2);
                                 tebtn.setOnClickListener(v1 -> {
                                     //(y) for para encontrar cada boton por tag
                                     for (int i=1; i <= nvalueint; i++) {
@@ -142,8 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                         String contentstring = content.getText().toString();
                                             try {
                                                 double contentint = Double.parseDouble(contentstring);
-                                                a[i-1][0] = contentint;
-                                                System.out.println(a[i-1][0]);
+                                                a[i-1][1] = contentint;
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -155,12 +158,26 @@ public class MainActivity extends AppCompatActivity {
                                         String contentstring = content.getText().toString();
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
-                                            a[i-1][1] = contentint;
-                                            System.out.println(a[i-1][1]);
+                                            a[i-1][0] = contentint;
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
                                     }
+                                    SimpleRegression regression = new SimpleRegression();
+                                    DecimalFormat df = new DecimalFormat("#.####; - #");
+                                    df.setRoundingMode(RoundingMode.CEILING);
+                                    DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
+                                    df2.setRoundingMode(RoundingMode.CEILING);
+                                    // a array {x, y }
+                                    regression.addData(a);
+                                    double[] coef = regression.regress().getParameterEstimates();
+                                    String b0 = (df.format(coef[0]));
+                                    String b1 = (df2.format(coef[1]));
+                                    String modelstr = "y= " + b0 + " " + b1 +
+                                            Html.fromHtml("X<sub><small>1</small></sub> ");
+                                    Intent j = new Intent(this, solved.class);
+                                    j.putExtra("modelstr", modelstr);
+                                    startActivity(j);
                                 });
                             }else{
                                 return;
@@ -270,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                                     btn.setLayoutParams(params);
                                     layoutxb.addView(btn);
                                 }
-                                Button tebtn = findViewById(R.id.btntest);
+                                Button tebtn = findViewById(R.id.button2);
                                 tebtn.setOnClickListener(v12 -> {
                                     //(y) for para encontrar cada boton por tag
                                     for (int i=1; i <= nvalueint; i++) {
@@ -280,7 +297,6 @@ public class MainActivity extends AppCompatActivity {
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
                                             ym[i-1] = contentint;
-                                            System.out.println(ym[i-1]);
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -293,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
                                             b[i-1][0] = contentint;
-                                            System.out.println(b[i-1][0]);
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
@@ -306,15 +321,25 @@ public class MainActivity extends AppCompatActivity {
                                         try {
                                             double contentint = Double.parseDouble(contentstring);
                                             b[i-1][1] = contentint;
-                                            System.out.println(b[i-1][1]);
                                         } catch(NumberFormatException ex) {
                                             return;
                                         }
                                     }
                                     OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+                                    DecimalFormat df = new DecimalFormat("#.####; - #");
+                                    df.setRoundingMode(RoundingMode.CEILING);
+                                    DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
+                                    df2.setRoundingMode(RoundingMode.CEILING);
                                     regression.newSampleData(ym, b);
-                                    System.out.println(Arrays.toString(regression.estimateRegressionParameters()));
-
+                                    double[] coef = regression.estimateRegressionParameters();
+                                    String b0 = (df.format(coef[0]));
+                                    String b1 = (df2.format(coef[1]));
+                                    String b2 = (df2.format(coef[2]));
+                                    String modelstr = "y= " + b0 + " " + b1 +
+                                            Html.fromHtml("X<sub><small>1</small></sub> ") + b2 + Html.fromHtml("X<sub><small>2</small></sub>");
+                                    Intent j = new Intent(this, solved.class);
+                                    j.putExtra("modelstr", modelstr);
+                                    startActivity(j);
                                 });
                             }else{
 
@@ -333,14 +358,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-    public void solver(View h){
-        //inicializar una nueva actividad
-        Intent j = new Intent(this, solved.class);
-        startActivity(j);
-    }
 }
 
 
