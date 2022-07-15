@@ -1,6 +1,10 @@
 package com.example.linearplexsolver;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,10 +16,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.hipparchus.stat.regression.OLSMultipleLinearRegression;
 import org.hipparchus.stat.regression.SimpleRegression;
@@ -30,12 +37,27 @@ public class MainActivity extends AppCompatActivity  {
     EditText nvalue;
     EditText nvaluedel;
     RadioGroup choicesv2;
+    ImageButton toggle;
+    DrawerLayout mdrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        (findViewById(R.id.buttontexst)).setVisibility(View.INVISIBLE);
+
+
+        mdrawer = findViewById(R.id.drawer_layout);
+        toggle = findViewById(R.id.savingbutton);
+        toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mdrawer.isDrawerOpen(GravityCompat.START))
+                    mdrawer.openDrawer(GravityCompat.START);
+                else mdrawer.closeDrawer(GravityCompat.END);
+            }
+
+        });
+
         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>")); //asigna texto a la view donde va el modelo
         (findViewById(R.id.textView)).setEnabled(false);
 
