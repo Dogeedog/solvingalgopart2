@@ -28,13 +28,13 @@ public class MainActivity extends AppCompatActivity  {
 
 
     EditText nvalue;
+    EditText nvaluedel;
     RadioGroup choicesv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         (findViewById(R.id.buttontexst)).setVisibility(View.INVISIBLE);
         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>")); //asigna texto a la view donde va el modelo
         (findViewById(R.id.textView)).setEnabled(false);
@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity  {
                         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
                                 "X<sub><small>1</small></sub>"));
                         nvalue = findViewById(R.id.nnumber);
+                        nvalue.setVisibility(View.VISIBLE);
+                        nvaluedel = findViewById(R.id.nnumber2);
+                        nvaluedel.setVisibility(View.INVISIBLE);
                         nvalue.getText().clear();
                         nvalue.addTextChangedListener(new TextWatcher() {
                             @Override
@@ -76,9 +79,13 @@ public class MainActivity extends AppCompatActivity  {
                                 int nvalueint;
                                 try {
                                     nvalueint = Integer.parseInt(nvaluestr);
+                                }
+                                catch(NumberFormatException ex) {
+                                    return;
+                                }
                                     double[][] a = new double[nvalueint][2];
                                     if (nvalueint >= 4){
-                                        Toast.makeText(MainActivity.this, "1var", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, "1var", Toast.LENGTH_SHORT).show();
                                         LinearLayout layout = findViewById(R.id.nlayout);
                                         LinearLayout layouty = findViewById(R.id.ylayout);
                                         LinearLayout layoutxa = findViewById(R.id.xalayout);
@@ -104,7 +111,6 @@ public class MainActivity extends AppCompatActivity  {
                                             params.setMargins(0, 0, 0, topmargin);
                                             btn.setLayoutParams(params);
                                             layout.addView(btn);
-
                                         }
 
                                         //for para n edittexts(y)
@@ -187,23 +193,18 @@ public class MainActivity extends AppCompatActivity  {
                                             j.putExtra("modelstr", modelstr);
                                             startActivity(j);
                                         });
-                                    }else{
-                                        return;
                                     }
-                                }
-                                catch(NumberFormatException ex) {
-                                    return;
-                                }
-
                             }
-
                         });
                         break;
                     //Para 2 entradas y 1 respuesta
                     case R.id.twovar:
                         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
                                 "X<sub><small>1</small></sub>+B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
-                        nvalue = findViewById(R.id.nnumber);
+                        nvalue = findViewById(R.id.nnumber2);
+                        nvalue.setVisibility(View.VISIBLE);
+                        nvaluedel = findViewById(R.id.nnumber);
+                        nvaluedel.setVisibility(View.INVISIBLE);
                         nvalue.getText().clear();
                         nvalue.addTextChangedListener(new TextWatcher() {
                             @Override
@@ -223,14 +224,60 @@ public class MainActivity extends AppCompatActivity  {
                                 int nvalueint;
                                 try {
                                     nvalueint = Integer.parseInt(nvaluestr);
+                                }
+                                catch(NumberFormatException ex) {
+                                    return;
+                                }
                                     double[][] b = new double[nvalueint][2];
                                     double[] ym = new double[nvalueint];
                                     if (nvalueint >= 4){
-                                        Toast.makeText(MainActivity.this, "2var", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, "2var", Toast.LENGTH_SHORT).show();
                                         LinearLayout layout = findViewById(R.id.nlayout);
                                         LinearLayout layouty = findViewById(R.id.ylayout);
                                         LinearLayout layoutxa = findViewById(R.id.xalayout);
                                         LinearLayout layoutxb = findViewById(R.id.xblayout);
+                                        //serie de try's para evitar eliminar (guarda info en las matrices) el input al añadir mas filas
+                                        try {
+                                            for (int i=1; i <= nvalueint; i++) {
+                                                String butagy = "ytwo"+i;
+                                                EditText content = layouty.findViewWithTag(butagy);
+                                                String contentstring = content.getText().toString();
+                                                try {
+                                                    double contentint = Double.parseDouble(contentstring);
+                                                    ym[i-1] = contentint;
+                                                } catch(Exception ignored) {
+                                                }
+                                            }
+                                        } catch (Exception ignored) {
+                                        }
+                                        try {
+                                            //(xa) for para encontrar cada boton por tag
+                                            for (int i=1; i <= nvalueint; i++) {
+                                                String butagxa = "xatwo"+i;
+                                                EditText content = layoutxa.findViewWithTag(butagxa);
+                                                String contentstring = content.getText().toString();
+                                                try {
+                                                    double contentint = Double.parseDouble(contentstring);
+                                                    b[i-1][0] = contentint;
+                                                } catch(Exception ignored) {
+                                                }
+                                            }
+                                        } catch (Exception ignored) {
+                                        }
+                                        try {
+                                            //(xb) for para encontrar cada boton por tag
+                                            for (int i=1; i <= nvalueint; i++) {
+                                                String butagxa = "xbtwo"+i;
+                                                EditText content = layoutxb.findViewWithTag(butagxa);
+                                                String contentstring = content.getText().toString();
+                                                try {
+                                                    double contentint = Double.parseDouble(contentstring);
+                                                    b[i-1][1] = contentint;
+                                                } catch(Exception ignored) {
+                                                }
+                                            }
+                                        } catch (Exception ignored) {
+                                        }
                                         layout.removeAllViews();
                                         layouty.removeAllViews();
                                         layoutxa.removeAllViews();
@@ -261,6 +308,10 @@ public class MainActivity extends AppCompatActivity  {
                                             int textsize = (int) getResources().getDimension(R.dimen.text); //text size 15dp
                                             EditText btn = new EditText(MainActivity.this);
                                             btn.setTextSize(textsize);
+                                            String pastextt = String.valueOf(ym[i-1]);
+                                            if(!pastextt.equals("0.0")){
+                                                btn.setText(pastextt);
+                                            }
                                             String butag = "ytwo"+i;
                                             btn.setTag(butag);
                                             btn.setId(i);
@@ -280,6 +331,10 @@ public class MainActivity extends AppCompatActivity  {
                                             int textsize = (int) getResources().getDimension(R.dimen.text); //text size 15dp
                                             EditText btn = new EditText(MainActivity.this);
                                             btn.setTextSize(textsize);
+                                            String pastextt = String.valueOf(b[i-1][0]);
+                                            if(!pastextt.equals("0.0")){
+                                                btn.setText(pastextt);
+                                            }
                                             String butag = "xatwo"+i;
                                             btn.setTag(butag);
                                             btn.setId(i);
@@ -299,6 +354,10 @@ public class MainActivity extends AppCompatActivity  {
                                             int textsize = (int) getResources().getDimension(R.dimen.text); //text size 15dp
                                             EditText btn = new EditText(MainActivity.this);
                                             btn.setTextSize(textsize);
+                                            String pastextt = String.valueOf(b[i-1][1]);
+                                            if(!pastextt.equals("0.0")){
+                                                btn.setText(pastextt);
+                                            }
                                             String butag = "xbtwo"+i;
                                             btn.setTag(butag);
                                             btn.setId(i);
@@ -364,25 +423,13 @@ public class MainActivity extends AppCompatActivity  {
                                             j.putExtra("modelstr", modelstr);
                                             startActivity(j);
                                         });
-                                    }else{
-
-                                        return;
                                     }
-                                }
-                                catch(NumberFormatException ex) {
-                                    return;
-                                }
-
-
                             }
-
-
                         });
                         break;
                 }
             }
         });
-
     }
     /*
     public void save(View v){

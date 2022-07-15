@@ -98,6 +98,22 @@
             app:layout_constraintStart_toEndOf="@+id/n"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <EditText
+            android:id="@+id/nnumber2"
+            android:layout_width="37dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="18"
+            android:background="@drawable/rect"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/n"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
 
         <TextView
@@ -328,12 +344,14 @@
             <RadioButton
                 android:id="@+id/onevar"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="1" />
 
             <RadioButton
                 android:id="@+id/twovar"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="2" />
         </RadioGroup>
