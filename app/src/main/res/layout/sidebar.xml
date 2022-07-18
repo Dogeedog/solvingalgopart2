@@ -2,25 +2,69 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".MainActivity">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/addstate"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:onClick="newstate"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/saveloadlayout"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
+        tools:ignore="OnClick,UsingOnClickInXml">
+
+    </Button>
+
+
     <LinearLayout
+        android:id="@+id/saveloadlayout"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="720dp"
+        app:layout_constraintTop_toBottomOf="@id/addstate"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="90dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="elo">
-        </Button>
     </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/saveorload"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="146dp"
+        app:layout_constraintBottom_toTopOf="@id/addstate"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="46dp"
+        android:layout_marginBottom="10dp">
+
+        <RadioButton
+            android:id="@+id/onevar"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/saveswitch" />
+
+        <RadioButton
+            android:id="@+id/twovar"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/loadswitch" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

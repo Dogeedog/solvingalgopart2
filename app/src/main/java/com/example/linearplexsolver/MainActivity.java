@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +41,40 @@ public class MainActivity extends AppCompatActivity  {
     RadioGroup choicesv2;
     ImageButton toggle;
     DrawerLayout mdrawer;
+    TextView xbhead;
+    RadioGroup state;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Genera los botones de guardar/cargar que el usuario añadió previamente
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        //sp.edit().clear().apply();
+        int count = sp.getInt("count", 0);
+
+        for (int i = 0; i < count; i++) {
+            LinearLayout layout = findViewById(R.id.saveloadlayout);
+            int width = (int) getResources().getDimension(R.dimen.widthstate);
+            int height = (int) getResources().getDimension(R.dimen.heightstate);
+            int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
+            int textsize = (int) getResources().getDimension(R.dimen.textstate);
+            Button btn = new Button(MainActivity.this);
+            btn.setTextSize(textsize);
+            btn.setText(String.valueOf(i+1));
+            btn.setId(i+1);
+            btn.setTag("state"+i+1);
+            btn.setBackgroundResource(R.drawable.rect4);
+            btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            btn.setTextColor(Color.BLACK);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+            params.setMargins(0, 0, 0, topmargin);
+            btn.setLayoutParams(params);
+            layout.addView(btn);
+        }
+
 
 
         mdrawer = findViewById(R.id.drawer_layout);
@@ -58,10 +89,10 @@ public class MainActivity extends AppCompatActivity  {
 
         });
 
+
         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>")); //asigna texto a la view donde va el modelo
         (findViewById(R.id.textView)).setEnabled(false);
 
-        //cambia el modelo en base a la cantidad de variables
         ((TextView)findViewById(R.id.mean1)).setHint(Html.fromHtml("x<sub><small>1</small></sub>"));
         ((TextView)findViewById(R.id.mean2)).setHint(Html.fromHtml("x<sub><small>2</small></sub>"));
         ((TextView)findViewById(R.id.pre1)).setHint(Html.fromHtml("x<sub><small>1</small></sub>"));
@@ -77,7 +108,9 @@ public class MainActivity extends AppCompatActivity  {
                 switch (checkedId){
                     //Para 1 entrada y 1 de respuesta
                     case R.id.onevar:
-                        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
+                        xbhead = findViewById(R.id.xbcol);
+                        xbhead.setVisibility(View.INVISIBLE);
+                        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub> + B<sub><small>1</small></sub>" +
                                 "X<sub><small>1</small></sub>"));
                         nvalue = findViewById(R.id.nnumber);
                         nvalue.setVisibility(View.VISIBLE);
@@ -112,6 +145,40 @@ public class MainActivity extends AppCompatActivity  {
                                         LinearLayout layouty = findViewById(R.id.ylayout);
                                         LinearLayout layoutxa = findViewById(R.id.xalayout);
                                         LinearLayout layoutxb = findViewById(R.id.xblayout);
+
+                                        //save function
+                                        state = findViewById(R.id.saveorload);
+
+
+                                        //serie de try's para evitar eliminar (guarda info en las matrices) el input al añadir mas filas
+                                        try {
+                                            //(y) for para encontrar cada boton por tag
+                                            for (int i=1; i <= nvalueint; i++) {
+                                                String butagy = "y"+i;
+                                                EditText content = layouty.findViewWithTag(butagy);
+                                                String contentstring = content.getText().toString();
+                                                try {
+                                                    double contentint = Double.parseDouble(contentstring);
+                                                    a[i-1][1] = contentint;
+                                                } catch(Exception ignored) {
+                                                }
+                                            }
+                                        } catch (Exception ignored) {
+                                        }
+                                        try {
+                                            //(xa) for para encontrar cada boton por tag
+                                            for (int i=1; i <= nvalueint; i++) {
+                                                String butagxa = "xa"+i;
+                                                EditText content = layoutxa.findViewWithTag(butagxa);
+                                                String contentstring = content.getText().toString();
+                                                try {
+                                                    double contentint = Double.parseDouble(contentstring);
+                                                    a[i-1][0] = contentint;
+                                                } catch(Exception ignored) {
+                                                }
+                                            }
+                                        } catch (Exception ignored) {
+                                        }
                                         layout.removeAllViews();
                                         layouty.removeAllViews();
                                         layoutxa.removeAllViews();
@@ -143,6 +210,10 @@ public class MainActivity extends AppCompatActivity  {
                                             int textsize = (int) getResources().getDimension(R.dimen.text); //text size 15dp
                                             EditText btn = new EditText(MainActivity.this);
                                             btn.setTextSize(textsize);
+                                            String pastextt = String.valueOf(a[i-1][1]);
+                                            if(!pastextt.equals("0.0")){
+                                                btn.setText(pastextt);
+                                            }
                                             String butag = "y"+i;
                                             btn.setTag(butag);
                                             btn.setId(i);
@@ -162,6 +233,10 @@ public class MainActivity extends AppCompatActivity  {
                                             int textsize = (int) getResources().getDimension(R.dimen.text); //text size 15dp
                                             EditText btn = new EditText(MainActivity.this);
                                             btn.setTextSize(textsize);
+                                            String pastextt = String.valueOf(a[i-1][0]);
+                                            if(!pastextt.equals("0.0")){
+                                                btn.setText(pastextt);
+                                            }
                                             String butag = "xa"+i;
                                             btn.setTag(butag);
                                             btn.setId(i);
@@ -221,8 +296,10 @@ public class MainActivity extends AppCompatActivity  {
                         break;
                     //Para 2 entradas y 1 respuesta
                     case R.id.twovar:
-                        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>+B<sub><small>1</small></sub>" +
-                                "X<sub><small>1</small></sub>+B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
+                        xbhead = findViewById(R.id.xbcol);
+                        xbhead.setVisibility(View.VISIBLE);
+                        ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub> + B<sub><small>1</small></sub>" +
+                                "X<sub><small>1</small></sub> + B<sub><small>2</small></sub>X<sub><small>2</small></sub>"));
                         nvalue = findViewById(R.id.nnumber2);
                         nvalue.setVisibility(View.VISIBLE);
                         nvaluedel = findViewById(R.id.nnumber);
@@ -453,7 +530,36 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-    /*
+
+
+
+    public void newstate(View v){
+        LinearLayout layout = findViewById(R.id.saveloadlayout);
+        int width = (int) getResources().getDimension(R.dimen.widthstate);
+        int height = (int) getResources().getDimension(R.dimen.heightstate);
+        int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
+        int textsize = (int) getResources().getDimension(R.dimen.textstate);
+        Button btn = new Button(MainActivity.this);
+        btn.setTextSize(textsize);
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        int count = sp.getInt("count", 0);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("count", (count + 1));
+        editor.putInt("state" + count, count);
+        editor.apply();
+        int numbtn = sp.getInt("count", 1);
+        btn.setText(String.valueOf(numbtn));
+        btn.setId(numbtn);
+        btn.setTag("state"+numbtn);
+        btn.setBackgroundResource(R.drawable.rect4);
+        btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        btn.setTextColor(Color.BLACK);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+        params.setMargins(0, 0, 0, topmargin);
+        btn.setLayoutParams(params);
+        layout.addView(btn);
+    }
+
     public void save(View v){
         LinearLayout layoutxa = findViewById(R.id.xalayout);
         String butagxa = "xatwo1";
@@ -465,7 +571,7 @@ public class MainActivity extends AppCompatActivity  {
         choicesv2.check(R.id.onevar);
         nnumberx.setText("4");
     }
-    */
+
 
 }
 

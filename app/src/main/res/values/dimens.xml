@@ -9,4 +9,8 @@
     <dimen name="widthinput">90dp</dimen>
     <dimen name="text">4sp</dimen>
     <dimen name="text1stbutton">6sp</dimen>
+    <dimen name="widthstate">88dp</dimen>
+    <dimen name="heightstate">45dp</dimen>
+    <dimen name="textstate">5sp</dimen>
+    <dimen name="marginstate">14dp</dimen>
 </resources>

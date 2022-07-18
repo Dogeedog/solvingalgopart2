@@ -18,4 +18,6 @@
     <string name="coef">Determination Coefficient</string>
     <string name="resid">Residuals</string>
     <string name="graf">3D Graph</string>
+    <string name="saveswitch">Save</string>
+    <string name="loadswitch">Load</string>
 </resources>

@@ -17,4 +17,6 @@
     <string name="coef">Coeficiente Determinación</string>
     <string name="resid">Residuales</string>
     <string name="graf">Gráfica 3D</string>
+    <string name="saveswitch">Guardar</string>
+    <string name="loadswitch">Cargar</string>
 </resources>
