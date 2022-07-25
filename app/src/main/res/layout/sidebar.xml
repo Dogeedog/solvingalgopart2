@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/saveloadlayout"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="180dp"
         tools:ignore="OnClick,UsingOnClickInXml">
 
     </Button>
@@ -43,9 +43,8 @@
         android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rect"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="146dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@id/addstate"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="46dp"
@@ -53,17 +52,28 @@
 
         <RadioButton
             android:id="@+id/save"
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:gravity="center"
             android:text="@string/saveswitch" />
 
         <RadioButton
             android:id="@+id/load"
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:gravity="center"
             android:text="@string/loadswitch" />
+
+        <RadioButton
+            android:id="@+id/eraseslot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF4545"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/delete" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

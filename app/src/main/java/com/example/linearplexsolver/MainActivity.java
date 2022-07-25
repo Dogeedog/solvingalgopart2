@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity  {
     RadioButton loadradio;
     RadioButton onevar;
     RadioButton twovar;
+    RadioButton del;
     Gson gson = new GsonBuilder().create();
 
 
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity  {
                     choicesv2 = findViewById(R.id.vargroup);
                     onevar = findViewById(R.id.onevar);
                     twovar = findViewById(R.id.twovar);
+                    del = findViewById(R.id.eraseslot);
                     LinearLayout layouty = findViewById(R.id.ylayout);
                     LinearLayout layoutxa = findViewById(R.id.xalayout);
                     LinearLayout layoutxb = findViewById(R.id.xblayout);
@@ -320,6 +322,17 @@ public class MainActivity extends AppCompatActivity  {
                             editor.apply();
                             Toast.makeText(MainActivity.this, ivalue + " guardar", Toast.LENGTH_SHORT).show();
                         }
+                    } else if(del.isChecked()){
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.remove("arrayonev"+ivalue);
+                        editor.remove("arrayY"+ivalue);
+                        editor.remove("arrayX"+ivalue);
+                        editor.remove("nvalueone"+ivalue);
+                        editor.remove("nvaluetwo"+ivalue);
+                        editor.remove("varvalueone"+ivalue);
+                        editor.remove("varvaluetwo"+ivalue);
+                        editor.apply();
+                        btn.setBackgroundResource(R.drawable.rect5);
                     }
                 }
             });
@@ -814,6 +827,7 @@ public class MainActivity extends AppCompatActivity  {
                 choicesv2 = findViewById(R.id.vargroup);
                 onevar = findViewById(R.id.onevar);
                 twovar = findViewById(R.id.twovar);
+                del = findViewById(R.id.eraseslot);
                 LinearLayout layouty = findViewById(R.id.ylayout);
                 LinearLayout layoutxa = findViewById(R.id.xalayout);
                 LinearLayout layoutxb = findViewById(R.id.xblayout);
@@ -1034,6 +1048,17 @@ public class MainActivity extends AppCompatActivity  {
                         }
                         Toast.makeText(MainActivity.this, numbtn + " guardar", Toast.LENGTH_SHORT).show();
                     }
+                } else if(del.isChecked()){
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.remove("arrayonev"+numbtn);
+                    editor.remove("arrayY"+numbtn);
+                    editor.remove("arrayX"+numbtn);
+                    editor.remove("nvalueone"+numbtn);
+                    editor.remove("nvaluetwo"+numbtn);
+                    editor.remove("varvalueone"+numbtn);
+                    editor.remove("varvaluetwo"+numbtn);
+                    editor.apply();
+                    btn.setBackgroundResource(R.drawable.rect5);
                 }
             }
         });
