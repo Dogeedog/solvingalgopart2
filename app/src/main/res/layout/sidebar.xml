@@ -52,14 +52,14 @@
         android:layout_marginBottom="10dp">
 
         <RadioButton
-            android:id="@+id/onevar"
+            android:id="@+id/save"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/saveswitch" />
 
         <RadioButton
-            android:id="@+id/twovar"
+            android:id="@+id/load"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:gravity="center"
