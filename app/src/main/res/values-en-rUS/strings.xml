@@ -10,8 +10,8 @@
     <string name="given">Given</string>
     <string name="signific">General Significance</string>
     <string name="ic1">C.I. Variables</string>
-    <string name="ic2">I.C. Response</string>
-    <string name="ic3">I.C. Predicted</string>
+    <string name="ic2">C.I. Response</string>
+    <string name="ic3">C.I. Predicted</string>
     <string name="calc">Calc</string>
     <string name="varsigni1">Variable 1</string>
     <string name="varsigni2">Variable 2</string>
@@ -21,4 +21,12 @@
     <string name="saveswitch">Save</string>
     <string name="loadswitch">Load</string>
     <string name="delete">Delete</string>
+    <string name="varpobl">Population Variance (σ<sup><small>2</small></sup>)</string>
+    <string name="errstd1">Standard Error (B<sub><small>0</small></sub>)</string>
+    <string name="errstd2">Standard Error (B<sub><small>1</small></sub>)</string>
+    <string name="signifone">Significance</string>
+    <string name="icb1">C.I. (B<sub><small>0</small></sub>)</string>
+    <string name="icb2">C.I. (B<sub><small>1</small></sub>)</string>
+    <string name="x1">X<sub><small>1</small></sub></string>
+    <string name="x2">X<sub><small>2</small></sub></string>
 </resources>

@@ -13,10 +13,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.SubscriptSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -53,6 +62,12 @@ public class MainActivity extends AppCompatActivity  {
     RadioButton onevar;
     RadioButton twovar;
     RadioButton del;
+    CheckBox icmean;
+    CheckBox icpred;
+    EditText mean1;
+    EditText mean2;
+    EditText pre1;
+    EditText pre2;
     Gson gson = new GsonBuilder().create();
 
 
@@ -356,6 +371,60 @@ public class MainActivity extends AppCompatActivity  {
         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub>")); //asigna texto a la view donde va el modelo
         (findViewById(R.id.textView)).setEnabled(false);
 
+        mean1 = findViewById(R.id.mean1);
+        mean1.setEnabled(false);
+        mean1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        mean2 = findViewById(R.id.mean2);
+        mean2.setEnabled(false);
+        mean2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        pre1 = findViewById(R.id.pre1);
+        pre1.setEnabled(false);
+        pre1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        pre2 = findViewById(R.id.pre2);
+        pre2.setEnabled(false);
+        pre2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+        icmean = findViewById(R.id.respuesta);
+        icpred = findViewById(R.id.prediccion);
+
+        //listener del checkbox ic media para abilitar/desabilitar el input
+        icmean.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mean1.setEnabled(true);
+                mean2.setEnabled(true);
+                mean1.setBackgroundResource(R.drawable.rect);
+                mean2.setBackgroundResource(R.drawable.rect);
+                if (!isChecked){
+                    mean1.getText().clear();
+                    mean2.getText().clear();
+                    mean1.setEnabled(false);
+                    mean2.setEnabled(false);
+                    mean1.setBackgroundResource(R.drawable.rectblocked);
+                    mean2.setBackgroundResource(R.drawable.rectblocked);
+                }
+            }
+        });
+
+        //listener del checkbox ic predicción para abilitar/desabilitar el input
+        icpred.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                pre1.setEnabled(true);
+                pre2.setEnabled(true);
+                pre1.setBackgroundResource(R.drawable.rect);
+                pre2.setBackgroundResource(R.drawable.rect);
+                if (!isChecked){
+                    pre1.getText().clear();
+                    pre2.getText().clear();
+                    pre1.setEnabled(false);
+                    pre2.setEnabled(false);
+                    pre1.setBackgroundResource(R.drawable.rectblocked);
+                    pre2.setBackgroundResource(R.drawable.rectblocked);
+                }
+            }
+        });
+
         ((TextView)findViewById(R.id.mean1)).setHint(Html.fromHtml("x<sub><small>1</small></sub>"));
         ((TextView)findViewById(R.id.mean2)).setHint(Html.fromHtml("x<sub><small>2</small></sub>"));
         ((TextView)findViewById(R.id.pre1)).setHint(Html.fromHtml("x<sub><small>1</small></sub>"));
@@ -542,9 +611,12 @@ public class MainActivity extends AppCompatActivity  {
                                             double[] coef = regression.regress().getParameterEstimates();
                                             String b0 = (df.format(coef[0]));
                                             String b1 = (df2.format(coef[1]));
-                                            String modelstr = "y= " + b0 + " " + b1 +
-                                                    Html.fromHtml("X<sub><small>1</small></sub> ");
-                                            Intent j = new Intent(MainActivity.this, solved.class);
+                                            String xone = "X1";
+                                            String fullstr = "y= " + b0 + " " + b1 + xone;
+                                            Spannable modelstr = new SpannableString(fullstr);
+                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            Intent j = new Intent(MainActivity.this, solvedone.class);
                                             j.putExtra("modelstr", modelstr);
                                             startActivity(j);
                                         });
@@ -774,8 +846,14 @@ public class MainActivity extends AppCompatActivity  {
                                             String b0 = (df.format(coef[0]));
                                             String b1 = (df2.format(coef[1]));
                                             String b2 = (df2.format(coef[2]));
-                                            String modelstr = "y= " + b0 + " " + b1 +
-                                                    Html.fromHtml("X<sub><small>1</small></sub> ") + b2 + Html.fromHtml("X<sub><small>2</small></sub>");
+                                            String xone = "X1 ";
+                                            String xtwo = "X2";
+                                            String fullstr = "y= " + b0 + " " + b1 + xone + b2 + xtwo;
+                                            Spannable modelstr = new SpannableString(fullstr);
+                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             Intent j = new Intent(MainActivity.this, solved.class);
                                             j.putExtra("modelstr", modelstr);
                                             startActivity(j);

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/roundbutton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:context=".solvedone">
+
+        <TextView
+            android:id="@+id/regmodone"
+            android:layout_width="85dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/reg"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView2one"
+            android:layout_width="280dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/regmodone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/givenone"
+            android:layout_width="50dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="84dp"
+            android:gravity="center"
+            android:text="@string/given"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/meanone"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="84dp"
+            android:ems="10"
+            android:hint="@string/x1"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/givenone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/mean3one"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="84dp"
+            android:ems="10"
+            android:hint="@string/x2"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/meanone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button3one"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="84dp"
+            android:text="@string/calc"
+            app:layout_constraintStart_toEndOf="@+id/mean3one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/given2one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="84dp"
+            android:gravity="center"
+            android:text="303.3"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/button3one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/regmod3one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="151dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/varpobl"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/given3one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:background="@drawable/rect"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="151dp"
+            android:gravity="center"
+            android:text="7.48 > 4.26"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod3one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/regmod4one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="218dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/errstd1"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/given4one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:background="@drawable/rect"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="216dp"
+            android:gravity="center"
+            android:text="3.93 > 2.26"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod4one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/regmod5one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="285dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/errstd2"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/given5one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:background="@drawable/rect"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="285dp"
+            android:gravity="center"
+            android:text="4.33 > 2.26"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod5one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3one"
+            android:layout_width="53dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="352dp"
+            app:layout_constraintStart_toEndOf="@+id/given6one"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/check" />
+
+        <TextView
+            android:id="@+id/regmod6one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="352dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/signifone"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/given6one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:background="@drawable/rect"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="352dp"
+            android:gravity="center"
+            android:text="4.33 > 2.26"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod6one"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/regmod7one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/icb1"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod6one" />
+
+        <TextView
+            android:id="@+id/given9one"
+            android:layout_width="230dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="290.40 &lt; My &lt; 410.64"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/regmod7one"
+            app:layout_constraintTop_toBottomOf="@+id/given6one" />
+
+        <TextView
+            android:id="@+id/regmod8one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/icb2"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod7one" />
+
+        <TextView
+            android:id="@+id/given10one"
+            android:layout_width="230dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="279.56 &lt; Yo &lt; 421.48"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod8one"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/given9one" />
+
+        <TextView
+            android:id="@+id/regmod10one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/ic2"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod8one" />
+
+        <TextView
+            android:id="@+id/given11one"
+            android:layout_width="230dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="62.32%"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod10one"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/given10one" />
+
+        <TextView
+            android:id="@+id/regmod12one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/ic3"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod10one" />
+
+        <TextView
+            android:id="@+id/given13one"
+            android:layout_width="230dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="62.32%"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod12one"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/given11one" />
+
+        <TextView
+            android:id="@+id/regmod13one"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/coef"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod12one" />
+
+        <TextView
+            android:id="@+id/given14one"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rect"
+            android:gravity="center"
+            android:text="62.32%"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toEndOf="@+id/regmod13one"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/given13one" />
+
+        <Button
+            android:id="@+id/button4one"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="240dp"
+            android:text="@string/resid"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod13one" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:onClick="graphx"
+            android:text="@string/graf"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/regmod13one" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
