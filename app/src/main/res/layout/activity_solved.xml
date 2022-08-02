@@ -47,7 +47,7 @@
             android:layout_width="50dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
-
+            android:background="@drawable/rect2"
             android:layout_marginTop="84dp"
             android:gravity="center"
             android:text="@string/given"
@@ -63,12 +63,13 @@
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="84dp"
+            android:background="@drawable/rect"
             android:ems="10"
-            android:hint="x1"
+            android:hint="@string/x1"
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/given"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,12 +79,13 @@
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="84dp"
+            android:background="@drawable/rect"
             android:ems="10"
-            android:hint="x2"
+            android:hint="@string/x2"
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/mean"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,18 +96,20 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="84dp"
             android:text="@string/calc"
+            android:onClick="eval2"
             app:layout_constraintStart_toEndOf="@+id/mean3"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UsingOnClickInXml" />
 
         <TextView
             android:id="@+id/given2"
             android:layout_width="80dp"
             android:layout_height="51dp"
-
+            android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="84dp"
             android:gravity="center"
-            android:text="303.3"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
@@ -113,7 +117,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/regmod3"
+            android:id="@+id/signiftwo"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -128,18 +132,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given3"
+            android:id="@+id/signifvaltwo"
             android:layout_width="80dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="151dp"
             android:gravity="center"
-            android:text="7.48 > 4.26"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod3"
+            app:layout_constraintStart_toEndOf="@+id/signiftwo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -148,12 +152,12 @@
             android:layout_height="49dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="151dp"
-            app:layout_constraintStart_toEndOf="@+id/given3"
+            app:layout_constraintStart_toEndOf="@+id/signifvaltwo"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/check" />
 
         <TextView
-            android:id="@+id/regmod4"
+            android:id="@+id/signifvar1two"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -168,18 +172,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given4"
+            android:id="@+id/signifvar1valtwo"
             android:layout_width="80dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="216dp"
             android:gravity="center"
-            android:text="3.93 > 2.26"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod4"
+            app:layout_constraintStart_toEndOf="@+id/signifvar1two"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -188,12 +192,12 @@
             android:layout_height="49dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="216dp"
-            app:layout_constraintStart_toEndOf="@+id/given4"
+            app:layout_constraintStart_toEndOf="@+id/signifvar1valtwo"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/check" />
 
         <TextView
-            android:id="@+id/regmod5"
+            android:id="@+id/signifvar2two"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -208,18 +212,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given5"
+            android:id="@+id/signifvar2valtwo"
             android:layout_width="80dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="285dp"
             android:gravity="center"
-            android:text="4.33 > 2.26"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod5"
+            app:layout_constraintStart_toEndOf="@+id/signifvar2two"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -228,19 +232,19 @@
             android:layout_height="49dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="285dp"
-            app:layout_constraintStart_toEndOf="@+id/given5"
+            app:layout_constraintStart_toEndOf="@+id/signifvar2valtwo"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/check" />
 
         <TextView
-            android:id="@+id/regmod6"
+            android:id="@+id/icvar1two"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="352dp"
             android:background="@drawable/rect2"
             android:gravity="center"
-            android:text="@string/ic1"
+            android:text="@string/icb1"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
@@ -248,52 +252,83 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given6"
+            android:id="@+id/icvar2two"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/icb2"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icvar1two" />
+
+        <TextView
+            android:id="@+id/icvar3two"
+            android:layout_width="120dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rect2"
+            android:gravity="center"
+            android:text="@string/icb3"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:flow_verticalAlign="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icvar2two" />
+
+
+        <TextView
+            android:id="@+id/icvar1valuetwo"
             android:layout_width="230dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="352dp"
             android:gravity="center"
-            android:text="-373.72 &lt; Bo &lt; 184.67"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod6"
+            app:layout_constraintStart_toEndOf="@+id/icvar1two"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given7"
+            android:id="@+id/icvar2valuetwo"
             android:layout_width="230dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="144dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="6.43 &lt; B1 &lt; 23.89"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/given6" />
+            app:layout_constraintTop_toBottomOf="@+id/icvar1valuetwo" />
 
         <TextView
-            android:id="@+id/given8"
+            android:id="@+id/icvar3valuetwo"
             android:layout_width="230dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="144dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="-1.72 &lt; B2 &lt; 1.81"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/given7" />
+            app:layout_constraintTop_toBottomOf="@+id/icvar2valuetwo" />
 
         <TextView
-            android:id="@+id/regmod7"
+            android:id="@+id/icrestwo"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -308,22 +343,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given9"
+            android:id="@+id/icresvaluetwo"
             android:layout_width="230dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="537dp"
             android:gravity="center"
-            android:text="290.40 &lt; My &lt; 410.64"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod7"
+            app:layout_constraintStart_toEndOf="@+id/icrestwo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/regmod8"
+            android:id="@+id/icpretwo"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -338,22 +373,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given10"
+            android:id="@+id/icprevaluetwo"
             android:layout_width="230dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="604dp"
             android:gravity="center"
-            android:text="279.56 &lt; Yo &lt; 421.48"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod8"
+            app:layout_constraintStart_toEndOf="@+id/icpretwo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/regmod10"
+            android:id="@+id/coeftwo"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="16dp"
@@ -368,18 +403,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/given11"
+            android:id="@+id/coefvaluetwo"
             android:layout_width="120dp"
             android:layout_height="51dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="671dp"
             android:background="@drawable/rect"
             android:gravity="center"
-            android:text="62.32%"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:flow_verticalAlign="bottom"
-            app:layout_constraintStart_toEndOf="@+id/regmod10"
+            app:layout_constraintStart_toEndOf="@+id/coeftwo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button

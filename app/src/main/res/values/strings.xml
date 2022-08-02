@@ -28,4 +28,6 @@
     <string name="icb2">I.C. (B<sub><small>1</small></sub>)</string>
     <string name="x1">X<sub><small>1</small></sub></string>
     <string name="x2">X<sub><small>2</small></sub></string>
+    <string name="icb3">I.C. (B<sub><small>2</small></sub>)</string>
+    <string name="confalert">Introduce un valor entre 1-100.</string>
 </resources>

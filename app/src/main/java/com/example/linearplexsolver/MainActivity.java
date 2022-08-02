@@ -39,8 +39,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.hipparchus.distribution.continuous.TDistribution;
+import org.hipparchus.stat.descriptive.moment.StandardDeviation;
+import org.hipparchus.stat.descriptive.moment.Variance;
 import org.hipparchus.stat.regression.OLSMultipleLinearRegression;
 import org.hipparchus.stat.regression.SimpleRegression;
+import org.matheclipse.core.expression.S;
+import org.matheclipse.core.interfaces.IExpr;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity  {
     EditText mean2;
     EditText pre1;
     EditText pre2;
+    EditText conf;
     Gson gson = new GsonBuilder().create();
 
 
@@ -80,7 +86,6 @@ public class MainActivity extends AppCompatActivity  {
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         //sp.edit().clear().apply();
         int count = sp.getInt("count", 0);
-
         for (int i = 0; i < count; i++) {
             LinearLayout layout = findViewById(R.id.saveloadlayout);
             int width = (int) getResources().getDimension(R.dimen.widthstate);
@@ -384,6 +389,38 @@ public class MainActivity extends AppCompatActivity  {
         pre2.setEnabled(false);
         pre2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
+        conf = findViewById(R.id.percetagenumber);
+        conf.setInputType(InputType.TYPE_CLASS_NUMBER);
+        conf.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String conflevel = conf.getText().toString();
+                int confnumber;
+                try {
+                    confnumber = Integer.parseInt(conflevel);
+                }
+                catch(NumberFormatException ex) {
+                    return;
+                }
+                if(confnumber >= 1 && confnumber <= 100){
+                    conf.setTextColor(Color.WHITE);
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
+                    conf.setTextColor(Color.RED);
+                }
+            }
+        });
+
         icmean = findViewById(R.id.respuesta);
         icpred = findViewById(R.id.prediccion);
 
@@ -618,7 +655,43 @@ public class MainActivity extends AppCompatActivity  {
                                             modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             Intent j = new Intent(MainActivity.this, solvedone.class);
                                             j.putExtra("modelstr", modelstr);
-                                            startActivity(j);
+                                            j.putExtra("b0", coef[0]);
+                                            j.putExtra("b1", coef[1]);
+
+                                            double variance = regression.regress().getMeanSquareError();
+                                            j.putExtra("varianceone", variance);
+
+                                            double[] varstderror = regression.regress().getStdErrorOfEstimates();
+                                            j.putExtra("var1stdone", varstderror[0]);
+                                            j.putExtra("var2stdone", varstderror[1]);
+
+                                            //TO DO, este method usa Biviriate Normal Distribution.
+                                            double b1slope = regression.getSlope();
+                                            TDistribution x = new TDistribution(.94);
+                                            double icb1left = b1slope - regression.getSlopeConfidenceInterval(.95);
+                                            double icb1right = b1slope + regression.getSlopeConfidenceInterval(.95);
+                                            j.putExtra("icb1left", icb1left);
+                                            j.putExtra("icb1right", icb1right);
+
+                                            double coefreg = regression.getRSquare();
+                                            j.putExtra("coefregone", coefreg);
+
+                                            String conflevel = conf.getText().toString();
+                                            int confnumber;
+                                            try {
+                                                confnumber = Integer.parseInt(conflevel);
+                                            }
+                                            catch(NumberFormatException ex) {
+                                                return;
+                                            }
+                                            if(confnumber >= 1 && confnumber <= 100){
+                                                startActivity(j);
+                                            } else {
+                                                Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            //((TextView)findViewById(R.id.textView)).setText(Arrays.toString(varstderror));
+
                                         });
                                     }
                             }
@@ -801,38 +874,38 @@ public class MainActivity extends AppCompatActivity  {
                                         Button tebtn = findViewById(R.id.button2);
                                         tebtn.setOnClickListener(v12 -> {
                                             //(y) for para encontrar cada boton por tag
-                                            for (int i=1; i <= nvalueint; i++) {
-                                                String butagy = "ytwo"+i;
+                                            for (int i = 1; i <= nvalueint; i++) {
+                                                String butagy = "ytwo" + i;
                                                 EditText content = layouty.findViewWithTag(butagy);
                                                 String contentstring = content.getText().toString();
                                                 try {
                                                     double contentint = Double.parseDouble(contentstring);
-                                                    ym[i-1] = contentint;
-                                                } catch(NumberFormatException ex) {
+                                                    ym[i - 1] = contentint;
+                                                } catch (NumberFormatException ex) {
                                                     return;
                                                 }
                                             }
                                             //(xa) for para encontrar cada boton por tag
-                                            for (int i=1; i <= nvalueint; i++) {
-                                                String butagxa = "xatwo"+i;
+                                            for (int i = 1; i <= nvalueint; i++) {
+                                                String butagxa = "xatwo" + i;
                                                 EditText content = layoutxa.findViewWithTag(butagxa);
                                                 String contentstring = content.getText().toString();
                                                 try {
                                                     double contentint = Double.parseDouble(contentstring);
-                                                    b[i-1][0] = contentint;
-                                                } catch(NumberFormatException ex) {
+                                                    b[i - 1][0] = contentint;
+                                                } catch (NumberFormatException ex) {
                                                     return;
                                                 }
                                             }
                                             //(xb) for para encontrar cada boton por tag
-                                            for (int i=1; i <= nvalueint; i++) {
-                                                String butagxa = "xbtwo"+i;
+                                            for (int i = 1; i <= nvalueint; i++) {
+                                                String butagxa = "xbtwo" + i;
                                                 EditText content = layoutxb.findViewWithTag(butagxa);
                                                 String contentstring = content.getText().toString();
                                                 try {
                                                     double contentint = Double.parseDouble(contentstring);
-                                                    b[i-1][1] = contentint;
-                                                } catch(NumberFormatException ex) {
+                                                    b[i - 1][1] = contentint;
+                                                } catch (NumberFormatException ex) {
                                                     return;
                                                 }
                                             }
@@ -850,13 +923,33 @@ public class MainActivity extends AppCompatActivity  {
                                             String xtwo = "X2";
                                             String fullstr = "y= " + b0 + " " + b1 + xone + b2 + xtwo;
                                             Spannable modelstr = new SpannableString(fullstr);
-                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                             Intent j = new Intent(MainActivity.this, solved.class);
                                             j.putExtra("modelstr", modelstr);
-                                            startActivity(j);
+                                            j.putExtra("b0t", coef[0]);
+                                            j.putExtra("b1t", coef[1]);
+                                            j.putExtra("b2t", coef[2]);
+
+                                            double reg = regression.calculateRSquared();
+                                            j.putExtra("regtwo", reg);
+
+                                            String conflevel = conf.getText().toString();
+                                            int confnumber;
+                                            try {
+                                                confnumber = Integer.parseInt(conflevel);
+                                            }
+                                            catch(NumberFormatException ex) {
+                                                return;
+                                            }
+                                            if(confnumber >= 1 && confnumber <= 100){
+                                                startActivity(j);
+                                            } else {
+                                                Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
+                                            }
+
                                         });
                                     }
                             }
