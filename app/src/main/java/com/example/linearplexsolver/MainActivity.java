@@ -39,7 +39,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.hipparchus.distribution.continuous.FDistribution;
 import org.hipparchus.distribution.continuous.TDistribution;
+import org.hipparchus.linear.MatrixUtils;
+import org.hipparchus.linear.RealMatrix;
 import org.hipparchus.stat.descriptive.moment.StandardDeviation;
 import org.hipparchus.stat.descriptive.moment.Variance;
 import org.hipparchus.stat.regression.OLSMultipleLinearRegression;
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity  {
     EditText pre1;
     EditText pre2;
     EditText conf;
+    RadioButton choiceonevar;
+    RadioButton choicetwovar;
     Gson gson = new GsonBuilder().create();
 
 
@@ -422,16 +427,25 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         icmean = findViewById(R.id.respuesta);
+        choicesv2 = findViewById(R.id.vargroup);
+        choiceonevar = findViewById(R.id.onevar);
+        choicetwovar = findViewById(R.id.twovar);
         icpred = findViewById(R.id.prediccion);
 
         //listener del checkbox ic media para abilitar/desabilitar el input
         icmean.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mean1.setEnabled(true);
-                mean2.setEnabled(true);
-                mean1.setBackgroundResource(R.drawable.rect);
-                mean2.setBackgroundResource(R.drawable.rect);
+                if(choiceonevar.isChecked()){
+                    mean1.setEnabled(true);
+                    mean1.setBackgroundResource(R.drawable.rect);
+                } else if(choicetwovar.isChecked()){
+                    mean1.setEnabled(true);
+                    mean1.setBackgroundResource(R.drawable.rect);
+                    mean2.setEnabled(true);
+                    mean2.setBackgroundResource(R.drawable.rect);
+                }
+
                 if (!isChecked){
                     mean1.getText().clear();
                     mean2.getText().clear();
@@ -447,10 +461,15 @@ public class MainActivity extends AppCompatActivity  {
         icpred.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                pre1.setEnabled(true);
-                pre2.setEnabled(true);
-                pre1.setBackgroundResource(R.drawable.rect);
-                pre2.setBackgroundResource(R.drawable.rect);
+                if(choiceonevar.isChecked()){
+                    pre1.setEnabled(true);
+                    pre1.setBackgroundResource(R.drawable.rect);
+                } else if(choicetwovar.isChecked()){
+                    pre1.setEnabled(true);
+                    pre1.setBackgroundResource(R.drawable.rect);
+                    pre2.setEnabled(true);
+                    pre2.setBackgroundResource(R.drawable.rect);
+                }
                 if (!isChecked){
                     pre1.getText().clear();
                     pre2.getText().clear();
@@ -470,7 +489,7 @@ public class MainActivity extends AppCompatActivity  {
         ((TextView)findViewById(R.id.xacol)).setText(Html.fromHtml("x<sub><small>1</small></sub>"));
         ((TextView)findViewById(R.id.xbcol)).setText(Html.fromHtml("x<sub><small>2</small></sub>"));
 
-        choicesv2 = findViewById(R.id.vargroup);
+
         choicesv2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -638,59 +657,166 @@ public class MainActivity extends AppCompatActivity  {
                                                     return;
                                                 }
                                             }
-                                            SimpleRegression regression = new SimpleRegression();
-                                            DecimalFormat df = new DecimalFormat("#.####; - #");
-                                            df.setRoundingMode(RoundingMode.CEILING);
-                                            DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
-                                            df2.setRoundingMode(RoundingMode.CEILING);
-                                            // a array {x, y }
-                                            regression.addData(a);
-                                            double[] coef = regression.regress().getParameterEstimates();
-                                            String b0 = (df.format(coef[0]));
-                                            String b1 = (df2.format(coef[1]));
-                                            String xone = "X1";
-                                            String fullstr = "y= " + b0 + " " + b1 + xone;
-                                            Spannable modelstr = new SpannableString(fullstr);
-                                            modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            Intent j = new Intent(MainActivity.this, solvedone.class);
-                                            j.putExtra("modelstr", modelstr);
-                                            j.putExtra("b0", coef[0]);
-                                            j.putExtra("b1", coef[1]);
-
-                                            double variance = regression.regress().getMeanSquareError();
-                                            j.putExtra("varianceone", variance);
-
-                                            double[] varstderror = regression.regress().getStdErrorOfEstimates();
-                                            j.putExtra("var1stdone", varstderror[0]);
-                                            j.putExtra("var2stdone", varstderror[1]);
-
-                                            //TO DO, este method usa Biviriate Normal Distribution.
-                                            double b1slope = regression.getSlope();
-                                            TDistribution x = new TDistribution(.94);
-                                            double icb1left = b1slope - regression.getSlopeConfidenceInterval(.95);
-                                            double icb1right = b1slope + regression.getSlopeConfidenceInterval(.95);
-                                            j.putExtra("icb1left", icb1left);
-                                            j.putExtra("icb1right", icb1right);
-
-                                            double coefreg = regression.getRSquare();
-                                            j.putExtra("coefregone", coefreg);
 
                                             String conflevel = conf.getText().toString();
-                                            int confnumber;
+                                            double confnumber;
                                             try {
-                                                confnumber = Integer.parseInt(conflevel);
+                                                confnumber = Double.parseDouble(conflevel);
                                             }
                                             catch(NumberFormatException ex) {
                                                 return;
                                             }
+
+                                            //obtiene el double del valor del nivel de confianza
                                             if(confnumber >= 1 && confnumber <= 100){
+                                                //obtiene el modelo
+                                                SimpleRegression regression = new SimpleRegression();
+                                                DecimalFormat df = new DecimalFormat("#.####; - #");
+                                                df.setRoundingMode(RoundingMode.CEILING);
+                                                DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
+                                                df2.setRoundingMode(RoundingMode.CEILING);
+                                                // a array {x, y }
+                                                regression.addData(a);
+                                                double[] coef = regression.regress().getParameterEstimates();
+                                                String b0 = (df.format(coef[0]));
+                                                String b1 = (df2.format(coef[1]));
+                                                String xone = "X1";
+                                                String fullstr = "y= " + b0 + " " + b1 + xone;
+                                                Spannable modelstr = new SpannableString(fullstr);
+                                                modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                Intent j = new Intent(MainActivity.this, solvedone.class);
+                                                j.putExtra("modelstr", modelstr);
+                                                j.putExtra("b0", coef[0]);
+                                                j.putExtra("b1", coef[1]);
+
+                                                //valor de t student
+                                                double confnumberpercent = (1 - confnumber/100)/2;
+                                                TDistribution tdist = new TDistribution(nvalueint-2);
+                                                double tvalue = (tdist.inverseCumulativeProbability(confnumberpercent)*(-1));
+
+                                                //MSE^2
+                                                double variance = regression.regress().getMeanSquareError();
+                                                j.putExtra("varianceone", variance);
+
+                                                //error estándar por cada coeficiente
+                                                double[] varstderror = regression.regress().getStdErrorOfEstimates();
+                                                j.putExtra("var1stdone", varstderror[0]);
+                                                j.putExtra("var2stdone", varstderror[1]);
+
+                                                //coef determinacion
+                                                double coefreg = regression.getRSquare();
+                                                j.putExtra("coefregone", coefreg);
+
+                                                //significancia de regresión
+                                                double To = coef[1]/varstderror[1];
+                                                j.putExtra("tovalue", To);
+                                                if(To > 0){
+                                                    j.putExtra("tvalue", tvalue);
+                                                    if(To > tvalue){
+                                                        j.putExtra("signif", "true");
+                                                    }else{
+                                                        j.putExtra("signif", "false");
+                                                    }
+                                                }else{
+                                                    double tvalue2 = -tvalue;
+                                                    j.putExtra("tvalue", tvalue2);
+                                                    if(To > tvalue2){
+                                                        j.putExtra("signif", "false");
+                                                    }else{
+                                                        j.putExtra("signif", "true");
+                                                    }
+                                                }
+
+                                                //intervalo coef b1
+                                                Double cb1left = coef[1]-(tvalue*varstderror[1]);
+                                                Double cb1right = coef[1]+(tvalue*varstderror[1]);
+                                                j.putExtra("icb1left", cb1left);
+                                                j.putExtra("icb1right", cb1right);
+
+                                                //intervalo coef b0
+                                                Double cb0left = coef[0]-(tvalue*varstderror[0]);
+                                                Double cb0right = coef[0]+(tvalue*varstderror[0]);
+                                                j.putExtra("icb0left", cb0left);
+                                                j.putExtra("icb0right", cb0right);
+
+                                                //intervalo media
+                                                if(icmean.isChecked()) {
+                                                    String mediainput = mean1.getText().toString();
+                                                    double mediadouble;
+                                                    try{
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                    } catch(NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double myox = coef[0] + coef[1]*mediadouble;
+                                                    double totalx = 0;
+                                                    SharedPreferences.Editor editor = sp.edit();
+                                                    for (int i = 1; i <= nvalueint; i++){
+                                                        totalx = totalx + a[i-1][0];
+                                                        editor.putString("totalx", String.valueOf(totalx));
+                                                        editor.apply();
+                                                    }
+                                                    String totalxstr = sp.getString("totalx", "0");
+                                                    double totalxd;
+                                                    try{
+                                                        totalxd = Double.parseDouble(totalxstr);
+                                                    } catch(NumberFormatException ex){
+                                                        return;
+                                                    }
+                                                    double totalxavg = totalxd/nvalueint;
+                                                    double sxxmedia = regression.getXSumSquares();
+                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
+                                                    double mediapart2 = variance*((1.0/nvalueint) + mediapart1);
+                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
+                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
+                                                    j.putExtra("icmedleft", icmedleft);
+                                                    j.putExtra("icmedright", icmedright);
+                                                }
+
+                                                //intervalo prediccion
+                                                if(icpred.isChecked()) {
+                                                    String mediainput = pre1.getText().toString();
+                                                    double mediadouble;
+                                                    try{
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                    } catch(NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double myox = coef[0] + coef[1]*mediadouble;
+                                                    double totalx = 0;
+                                                    SharedPreferences.Editor editor = sp.edit();
+                                                    for (int i = 1; i <= nvalueint; i++){
+                                                        totalx = totalx + a[i-1][0];
+                                                        editor.putString("totalx", String.valueOf(totalx));
+                                                        editor.apply();
+                                                    }
+                                                    String totalxstr = sp.getString("totalx", "0");
+                                                    double totalxd;
+                                                    try{
+                                                        totalxd = Double.parseDouble(totalxstr);
+                                                    } catch(NumberFormatException ex){
+                                                        return;
+                                                    }
+                                                    double totalxavg = totalxd/nvalueint;
+                                                    double sxxmedia = regression.getXSumSquares();
+                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
+                                                    double mediapart2 = variance*(1 + (1.0/nvalueint) + mediapart1);
+                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
+                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
+                                                    j.putExtra("icpredleft", icmedleft);
+                                                    j.putExtra("icpredright", icmedright);
+                                                    //((TextView)findViewById(R.id.textView)).setText(String.valueOf(icmedright));
+                                                }
+
+
+
                                                 startActivity(j);
                                             } else {
                                                 Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
                                             }
 
-                                            //((TextView)findViewById(R.id.textView)).setText(Arrays.toString(varstderror));
+
 
                                         });
                                     }
@@ -909,42 +1035,270 @@ public class MainActivity extends AppCompatActivity  {
                                                     return;
                                                 }
                                             }
-                                            OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
-                                            DecimalFormat df = new DecimalFormat("#.####; - #");
-                                            df.setRoundingMode(RoundingMode.CEILING);
-                                            DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
-                                            df2.setRoundingMode(RoundingMode.CEILING);
-                                            regression.newSampleData(ym, b);
-                                            double[] coef = regression.estimateRegressionParameters();
-                                            String b0 = (df.format(coef[0]));
-                                            String b1 = (df2.format(coef[1]));
-                                            String b2 = (df2.format(coef[2]));
-                                            String xone = "X1 ";
-                                            String xtwo = "X2";
-                                            String fullstr = "y= " + b0 + " " + b1 + xone + b2 + xtwo;
-                                            Spannable modelstr = new SpannableString(fullstr);
-                                            modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                            Intent j = new Intent(MainActivity.this, solved.class);
-                                            j.putExtra("modelstr", modelstr);
-                                            j.putExtra("b0t", coef[0]);
-                                            j.putExtra("b1t", coef[1]);
-                                            j.putExtra("b2t", coef[2]);
 
-                                            double reg = regression.calculateRSquared();
-                                            j.putExtra("regtwo", reg);
 
                                             String conflevel = conf.getText().toString();
-                                            int confnumber;
+                                            double confnumber;
                                             try {
-                                                confnumber = Integer.parseInt(conflevel);
+                                                confnumber = Double.parseDouble(conflevel);
                                             }
                                             catch(NumberFormatException ex) {
                                                 return;
                                             }
                                             if(confnumber >= 1 && confnumber <= 100){
+                                                //modelo de regresion
+                                                OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+                                                //formato
+                                                DecimalFormat df = new DecimalFormat("#.####; - #");
+                                                df.setRoundingMode(RoundingMode.CEILING);
+                                                DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
+                                                df2.setRoundingMode(RoundingMode.CEILING);
+                                                regression.newSampleData(ym, b);
+                                                double[] coef = regression.estimateRegressionParameters();
+                                                String b0 = (df.format(coef[0]));
+                                                String b1 = (df2.format(coef[1]));
+                                                String b2 = (df2.format(coef[2]));
+                                                String xone = "X1 ";
+                                                String xtwo = "X2";
+                                                String fullstr = "y= " + b0 + " " + b1 + xone + b2 + xtwo;
+                                                Spannable modelstr = new SpannableString(fullstr);
+                                                modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                                Intent j = new Intent(MainActivity.this, solved.class);
+                                                j.putExtra("modelstr", modelstr);
+                                                j.putExtra("b0t", coef[0]);
+                                                j.putExtra("b1t", coef[1]);
+                                                j.putExtra("b2t", coef[2]);
+
+                                                //regresión
+                                                double reg = regression.calculateRSquared();
+                                                j.putExtra("regtwo", reg);
+
+                                                //valor de t student
+                                                double confnumberpercent = (1 - confnumber/100)/2;
+                                                TDistribution tdist = new TDistribution(nvalueint-3);
+                                                double tvalue = (tdist.inverseCumulativeProbability(confnumberpercent)*(-1));
+
+                                                //ic coeficiente 0
+                                                double[] stder = regression.estimateRegressionParametersStandardErrors();
+                                                Double cb0left = coef[0]-(tvalue*stder[0]);
+                                                Double cb0right = coef[0]+(tvalue*stder[0]);
+                                                j.putExtra("ic0left", cb0left);
+                                                j.putExtra("ic0right", cb0right);
+
+                                                //ic coeficiente 1
+                                                Double cb1left = coef[1]-(tvalue*stder[1]);
+                                                Double cb1right = coef[1]+(tvalue*stder[1]);
+                                                j.putExtra("ic1left", cb1left);
+                                                j.putExtra("ic1right", cb1right);
+
+                                                //ic coeficiente 2
+                                                Double cb2left = coef[2]-(tvalue*stder[2]);
+                                                Double cb2right = coef[2]+(tvalue*stder[2]);
+                                                j.putExtra("ic2left", cb2left);
+                                                j.putExtra("ic2right", cb2right);
+
+                                                //valor fisher
+                                                double confnumberpercentf = (confnumber/100);
+                                                FDistribution fdist = new FDistribution(2,nvalueint-3);
+                                                double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
+
+
+                                                //significancia de regresión general
+                                                double errosq = (regression.estimateErrorVariance());
+                                                double totalsq = regression.calculateTotalSumOfSquares();
+                                                double fountvar = ((totalsq - errosq*(nvalueint-3))/2)/errosq;
+                                                j.putExtra("fountvalue", fountvar);
+                                                if(fountvar > 0){
+                                                    j.putExtra("fvalue", fvalue);
+                                                    if(fountvar > fvalue){
+                                                        j.putExtra("signifg", "true");
+                                                    }else{
+                                                        j.putExtra("signifg", "false");
+                                                    }
+                                                }else{
+                                                    double fvalue2 = -fvalue;
+                                                    j.putExtra("tvalue", fvalue2);
+                                                    if(fountvar > fvalue2){
+                                                        j.putExtra("signifg", "false");
+                                                    }else{
+                                                        j.putExtra("signifg", "true");
+                                                    }
+                                                }
+
+                                                //significancia de regresión b1
+                                                double To1 = coef[1]/stder[1];
+                                                j.putExtra("tovalue1", To1);
+                                                if(To1 > 0){
+                                                    j.putExtra("tvalue", tvalue);
+                                                    if(To1 > tvalue){
+                                                        j.putExtra("signif1", "true");
+                                                    }else{
+                                                        j.putExtra("signif1", "false");
+                                                    }
+                                                }else{
+                                                    double tvalue2 = -tvalue;
+                                                    j.putExtra("tvalue", tvalue2);
+                                                    if(To1 > tvalue2){
+                                                        j.putExtra("signif1", "false");
+                                                    }else{
+                                                        j.putExtra("signif1", "true");
+                                                    }
+                                                }
+
+                                                //significancia de regresión b2
+                                                double To2 = coef[2]/stder[2];
+                                                j.putExtra("tovalue2", To2);
+                                                if(To2 > 0){
+                                                    j.putExtra("tvalue", tvalue);
+                                                    if(To2 > tvalue){
+                                                        j.putExtra("signif2", "true");
+                                                    }else{
+                                                        j.putExtra("signif2", "false");
+                                                    }
+                                                }else{
+                                                    double tvalue2 = -tvalue;
+                                                    j.putExtra("tvalue", tvalue2);
+                                                    if(To2 > tvalue2){
+                                                        j.putExtra("signif2", "false");
+                                                    }else{
+                                                        j.putExtra("signif2", "true");
+                                                    }
+                                                }
+
+                                                //ic media **pending
+                                                if(icmean.isChecked()) {
+                                                    String mediainput = mean1.getText().toString();
+                                                    String mediainput2 = mean2.getText().toString();
+                                                    double mediadouble;
+                                                    double mediadouble2;
+                                                    try{
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                        mediadouble2 = Double.parseDouble(mediainput2);
+                                                    } catch(NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double variance = regression.estimateErrorVariance();
+
+                                                    double myox = coef[0] + coef[1]*mediadouble + coef[2]*mediadouble2;
+
+
+
+                                                    /*
+                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
+                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
+                                                    j.putExtra("icmedleft", icmedleft);
+                                                    j.putExtra("icmedright", icmedright);
+                                                    ((TextView)findViewById(R.id.textView)).setText(String.valueOf(myox));
+
+                                                     */
+                                                }
+
+
+
+
+
+
+
+
+                                                /*
+
+
+
+                                                //significancia de regresión
+                                                double To = coef[1]/varstderror[1];
+                                                j.putExtra("tovalue", To);
+                                                if(To > 0){
+                                                    j.putExtra("tvalue", tvalue);
+                                                    if(To > tvalue){
+                                                        j.putExtra("signif", "true");
+                                                    }else{
+                                                        j.putExtra("signif", "false");
+                                                    }
+                                                }else{
+                                                    double tvalue2 = -tvalue;
+                                                    j.putExtra("tvalue", tvalue2);
+                                                    if(To > tvalue2){
+                                                        j.putExtra("signif", "false");
+                                                    }else{
+                                                        j.putExtra("signif", "true");
+                                                    }
+                                                }
+
+
+
+                                                //intervalo media
+                                                if(icmean.isChecked()) {
+                                                    String mediainput = mean1.getText().toString();
+                                                    double mediadouble;
+                                                    try{
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                    } catch(NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double myox = coef[0] + coef[1]*mediadouble;
+                                                    double totalx = 0;
+                                                    SharedPreferences.Editor editor = sp.edit();
+                                                    for (int i = 1; i <= nvalueint; i++){
+                                                        totalx = totalx + a[i-1][0];
+                                                        editor.putString("totalx", String.valueOf(totalx));
+                                                        editor.apply();
+                                                    }
+                                                    String totalxstr = sp.getString("totalx", "0");
+                                                    double totalxd;
+                                                    try{
+                                                        totalxd = Double.parseDouble(totalxstr);
+                                                    } catch(NumberFormatException ex){
+                                                        return;
+                                                    }
+                                                    double totalxavg = totalxd/nvalueint;
+                                                    double sxxmedia = regression.getXSumSquares();
+                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
+                                                    double mediapart2 = variance*((1.0/nvalueint) + mediapart1);
+                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
+                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
+                                                    j.putExtra("icmedleft", icmedleft);
+                                                    j.putExtra("icmedright", icmedright);
+                                                }
+
+                                                //intervalo prediccion
+                                                if(icpred.isChecked()) {
+                                                    String mediainput = pre1.getText().toString();
+                                                    double mediadouble;
+                                                    try{
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                    } catch(NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double myox = coef[0] + coef[1]*mediadouble;
+                                                    double totalx = 0;
+                                                    SharedPreferences.Editor editor = sp.edit();
+                                                    for (int i = 1; i <= nvalueint; i++){
+                                                        totalx = totalx + a[i-1][0];
+                                                        editor.putString("totalx", String.valueOf(totalx));
+                                                        editor.apply();
+                                                    }
+                                                    String totalxstr = sp.getString("totalx", "0");
+                                                    double totalxd;
+                                                    try{
+                                                        totalxd = Double.parseDouble(totalxstr);
+                                                    } catch(NumberFormatException ex){
+                                                        return;
+                                                    }
+                                                    double totalxavg = totalxd/nvalueint;
+                                                    double sxxmedia = regression.getXSumSquares();
+                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
+                                                    double mediapart2 = variance*(1 + (1.0/nvalueint) + mediapart1);
+                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
+                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
+                                                    j.putExtra("icpredleft", icmedleft);
+                                                    j.putExtra("icpredright", icmedright);
+                                                    ((TextView)findViewById(R.id.textView)).setText(String.valueOf(icmedright));
+
+                                                 */
+
                                                 startActivity(j);
                                             } else {
                                                 Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();

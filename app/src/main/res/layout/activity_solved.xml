@@ -133,7 +133,7 @@
 
         <TextView
             android:id="@+id/signifvaltwo"
-            android:layout_width="80dp"
+            android:layout_width="180dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
@@ -153,8 +153,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="151dp"
             app:layout_constraintStart_toEndOf="@+id/signifvaltwo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/check" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/signifvar1two"
@@ -173,7 +172,7 @@
 
         <TextView
             android:id="@+id/signifvar1valtwo"
-            android:layout_width="80dp"
+            android:layout_width="180dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
@@ -193,8 +192,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="216dp"
             app:layout_constraintStart_toEndOf="@+id/signifvar1valtwo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/check" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/signifvar2two"
@@ -213,7 +211,7 @@
 
         <TextView
             android:id="@+id/signifvar2valtwo"
-            android:layout_width="80dp"
+            android:layout_width="180dp"
             android:layout_height="51dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
@@ -233,8 +231,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="285dp"
             app:layout_constraintStart_toEndOf="@+id/signifvar2valtwo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/check" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/icvar1two"
