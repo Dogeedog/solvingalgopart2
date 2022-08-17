@@ -144,10 +144,10 @@ public class solvedone extends AppCompatActivity {
 
         //intervalo prediccion
         icpred = findViewById(R.id.given13one);
-        double icpredright = j.getDoubleExtra("icpredleft", 0);
-        double icpredleft = j.getDoubleExtra("icpredright", 0);
+        double icpredleft = j.getDoubleExtra("icpredleft", 0);
+        double icpredright = j.getDoubleExtra("icpredright", 0);
         String Yo = "Yo";
-        String icpredstrbf = df.format(icpredright) + " < " + Yo + " < " + df.format(icpredleft);
+        String icpredstrbf = df.format(icpredleft) + " < " + Yo + " < " + df.format(icpredright);
         Spannable icbpredstr = new SpannableString(icpredstrbf);
         icbpredstr.setSpan(new SubscriptSpan(),(icpredstrbf.indexOf(Yo) + 1), (icpredstrbf.indexOf(Yo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         icbpredstr.setSpan(new RelativeSizeSpan(0.75f), (icpredstrbf.indexOf(Yo)) + 1, (icpredstrbf.indexOf(Yo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

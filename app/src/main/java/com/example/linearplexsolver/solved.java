@@ -34,6 +34,8 @@ public class solved extends AppCompatActivity {
     ImageView sigb1png;
     ImageView sigb2png;
     ImageView siggpng;
+    TextView icmed;
+    TextView icpred;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,30 @@ public class solved extends AppCompatActivity {
         icb2str.setSpan(new SubscriptSpan(),(icb2strbs.indexOf(b2sub) + 1), (icb2strbs.indexOf(b2sub) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         icb2str.setSpan(new RelativeSizeSpan(0.75f), (icb2strbs.indexOf(b2sub)) + 1, (icb2strbs.indexOf(b2sub) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ic2.setText(icb2str);
-        ic2.setTextIsSelectable(true);
+
+        //ic media
+        icmed = findViewById(R.id.icresvaluetwo);
+        double icmedleft = j.getDoubleExtra("icmedleft", 0);
+        double icmedright = j.getDoubleExtra("icmedright", 0);
+        String Myox = "MY|Xo";
+        String icbmedstrbf = df.format(icmedleft) + " < " + Myox + " < " + df.format(icmedright);
+        Spannable icbmedstr = new SpannableString(icbmedstrbf);
+        icbmedstr.setSpan(new SubscriptSpan(),(icbmedstrbf.indexOf(Myox) + 1), (icbmedstrbf.indexOf(Myox) + 5), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icbmedstr.setSpan(new RelativeSizeSpan(0.75f), (icbmedstrbf.indexOf(Myox)) + 1, (icbmedstrbf.indexOf(Myox) + 5), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icmed.setText(icbmedstr);
+        icmed.setTextIsSelectable(true);
+
+        //ic prediccion
+        icpred = findViewById(R.id.icprevaluetwo);
+        double icpredleft = j.getDoubleExtra("icpredleft", 0);
+        double icpredright = j.getDoubleExtra("icpredright", 0);
+        String Yo = "Yo";
+        String icpredstrbf = df.format(icpredleft) + " < " + Yo + " < " + df.format(icpredright);
+        Spannable icbpredstr = new SpannableString(icpredstrbf);
+        icbpredstr.setSpan(new SubscriptSpan(),(icpredstrbf.indexOf(Yo) + 1), (icpredstrbf.indexOf(Yo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icbpredstr.setSpan(new RelativeSizeSpan(0.75f), (icpredstrbf.indexOf(Yo)) + 1, (icpredstrbf.indexOf(Yo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icpred.setText(icbpredstr);
+        icpred.setTextIsSelectable(true);
 
         //significancia general
         siggpng = findViewById(R.id.imageView);

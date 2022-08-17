@@ -41,6 +41,7 @@ import com.google.gson.GsonBuilder;
 
 import org.hipparchus.distribution.continuous.FDistribution;
 import org.hipparchus.distribution.continuous.TDistribution;
+import org.hipparchus.linear.Array2DRowRealMatrix;
 import org.hipparchus.linear.MatrixUtils;
 import org.hipparchus.linear.RealMatrix;
 import org.hipparchus.stat.descriptive.moment.StandardDeviation;
@@ -1083,20 +1084,20 @@ public class MainActivity extends AppCompatActivity  {
 
                                                 //ic coeficiente 0
                                                 double[] stder = regression.estimateRegressionParametersStandardErrors();
-                                                Double cb0left = coef[0]-(tvalue*stder[0]);
-                                                Double cb0right = coef[0]+(tvalue*stder[0]);
+                                                double cb0left = coef[0]-(tvalue*stder[0]);
+                                                double cb0right = coef[0]+(tvalue*stder[0]);
                                                 j.putExtra("ic0left", cb0left);
                                                 j.putExtra("ic0right", cb0right);
 
                                                 //ic coeficiente 1
-                                                Double cb1left = coef[1]-(tvalue*stder[1]);
-                                                Double cb1right = coef[1]+(tvalue*stder[1]);
+                                                double cb1left = coef[1]-(tvalue*stder[1]);
+                                                double cb1right = coef[1]+(tvalue*stder[1]);
                                                 j.putExtra("ic1left", cb1left);
                                                 j.putExtra("ic1right", cb1right);
 
                                                 //ic coeficiente 2
-                                                Double cb2left = coef[2]-(tvalue*stder[2]);
-                                                Double cb2right = coef[2]+(tvalue*stder[2]);
+                                                double cb2left = coef[2]-(tvalue*stder[2]);
+                                                double cb2right = coef[2]+(tvalue*stder[2]);
                                                 j.putExtra("ic2left", cb2left);
                                                 j.putExtra("ic2right", cb2right);
 
@@ -1168,10 +1169,60 @@ public class MainActivity extends AppCompatActivity  {
                                                     }
                                                 }
 
-                                                //ic media **pending
+                                                //ic media
                                                 if(icmean.isChecked()) {
                                                     String mediainput = mean1.getText().toString();
                                                     String mediainput2 = mean2.getText().toString();
+                                                    double mediadouble;
+                                                    double mediadouble2;
+                                                    try {
+                                                        mediadouble = Double.parseDouble(mediainput);
+                                                        mediadouble2 = Double.parseDouble(mediainput2);
+                                                    } catch (NumberFormatException ex) {
+                                                        return;
+                                                    }
+                                                    double variance = regression.estimateErrorVariance();
+
+                                                    double myox = coef[0] + coef[1] * mediadouble + coef[2] * mediadouble2;
+                                                    double[][] Xo = new double[][]{
+                                                            {1.0},
+                                                            {mediadouble},
+                                                            {mediadouble2}
+                                                    };
+                                                    double totalx1 = 0;
+                                                    double totalx2 = 0;
+                                                    double totalx1pwr2 = 0;
+                                                    double totalx2pwr2 = 0;
+                                                    double totalx1x2 = 0;
+                                                    RealMatrix Xor = new Array2DRowRealMatrix(Xo);
+                                                    RealMatrix Xotr = Xor.transpose();
+                                                    for (int i = 1; i <= nvalueint; i++) {
+                                                        totalx1 = totalx1 + b[i - 1][0];
+                                                        totalx2 = totalx2 + b[i - 1][1];
+                                                        totalx1pwr2 = totalx1pwr2 + Math.pow(b[i - 1][0], 2);
+                                                        totalx2pwr2 = totalx2pwr2 + Math.pow(b[i - 1][1], 2);
+                                                        totalx1x2 = totalx1x2 + b[i - 1][0] * b[i - 1][1];
+                                                    }
+                                                    double[][] XtX = new double[][]{
+                                                            {nvalueint, totalx1, totalx2},
+                                                            {totalx1, totalx1pwr2, totalx1x2},
+                                                            {totalx2, totalx1x2, totalx2pwr2}
+                                                    };
+                                                    RealMatrix XtXr = new Array2DRowRealMatrix(XtX);
+                                                    RealMatrix XtXrinverse = MatrixUtils.inverse(XtXr);
+                                                    RealMatrix hat = Xotr.multiply(XtXrinverse.multiply(Xor));
+                                                    double hatvalue = hat.getEntry(0, 0);
+                                                    double v = tvalue * (Math.sqrt(variance * hatvalue));
+                                                    double icmedleft = myox - v;
+                                                    double icmedright = myox + v;
+                                                    j.putExtra("icmedleft", icmedleft);
+                                                    j.putExtra("icmedright", icmedright);
+                                                }
+
+                                                //ic prediccion
+                                                if(icpred.isChecked()) {
+                                                    String mediainput = pre1.getText().toString();
+                                                    String mediainput2 = pre2.getText().toString();
                                                     double mediadouble;
                                                     double mediadouble2;
                                                     try{
@@ -1183,121 +1234,42 @@ public class MainActivity extends AppCompatActivity  {
                                                     double variance = regression.estimateErrorVariance();
 
                                                     double myox = coef[0] + coef[1]*mediadouble + coef[2]*mediadouble2;
-
-
-
-                                                    /*
-                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
-                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
-                                                    j.putExtra("icmedleft", icmedleft);
-                                                    j.putExtra("icmedright", icmedright);
-                                                    ((TextView)findViewById(R.id.textView)).setText(String.valueOf(myox));
-
-                                                     */
-                                                }
-
-
-
-
-
-
-
-
-                                                /*
-
-
-
-                                                //significancia de regresión
-                                                double To = coef[1]/varstderror[1];
-                                                j.putExtra("tovalue", To);
-                                                if(To > 0){
-                                                    j.putExtra("tvalue", tvalue);
-                                                    if(To > tvalue){
-                                                        j.putExtra("signif", "true");
-                                                    }else{
-                                                        j.putExtra("signif", "false");
-                                                    }
-                                                }else{
-                                                    double tvalue2 = -tvalue;
-                                                    j.putExtra("tvalue", tvalue2);
-                                                    if(To > tvalue2){
-                                                        j.putExtra("signif", "false");
-                                                    }else{
-                                                        j.putExtra("signif", "true");
-                                                    }
-                                                }
-
-
-
-                                                //intervalo media
-                                                if(icmean.isChecked()) {
-                                                    String mediainput = mean1.getText().toString();
-                                                    double mediadouble;
-                                                    try{
-                                                        mediadouble = Double.parseDouble(mediainput);
-                                                    } catch(NumberFormatException ex) {
-                                                        return;
-                                                    }
-                                                    double myox = coef[0] + coef[1]*mediadouble;
-                                                    double totalx = 0;
-                                                    SharedPreferences.Editor editor = sp.edit();
+                                                    double[][] Xo = new double[][]{
+                                                            {1.0},
+                                                            {mediadouble},
+                                                            {mediadouble2}
+                                                    };
+                                                    double totalx1 = 0;
+                                                    double totalx2 = 0;
+                                                    double totalx1pwr2 = 0;
+                                                    double totalx2pwr2 = 0;
+                                                    double totalx1x2 = 0;
+                                                    RealMatrix Xor = new Array2DRowRealMatrix(Xo);
+                                                    RealMatrix Xotr = Xor.transpose();
                                                     for (int i = 1; i <= nvalueint; i++){
-                                                        totalx = totalx + a[i-1][0];
-                                                        editor.putString("totalx", String.valueOf(totalx));
-                                                        editor.apply();
+                                                        totalx1 = totalx1 + b[i-1][0];
+                                                        totalx2 = totalx2 + b[i-1][1];
+                                                        totalx1pwr2 = totalx1pwr2 + Math.pow(b[i-1][0], 2);
+                                                        totalx2pwr2 = totalx2pwr2 + Math.pow(b[i-1][1], 2);
+                                                        totalx1x2 = totalx1x2 + b[i-1][0]*b[i-1][1];
                                                     }
-                                                    String totalxstr = sp.getString("totalx", "0");
-                                                    double totalxd;
-                                                    try{
-                                                        totalxd = Double.parseDouble(totalxstr);
-                                                    } catch(NumberFormatException ex){
-                                                        return;
-                                                    }
-                                                    double totalxavg = totalxd/nvalueint;
-                                                    double sxxmedia = regression.getXSumSquares();
-                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
-                                                    double mediapart2 = variance*((1.0/nvalueint) + mediapart1);
-                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
-                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
-                                                    j.putExtra("icmedleft", icmedleft);
-                                                    j.putExtra("icmedright", icmedright);
+                                                    double[][] XtX = new double[][]{
+                                                            {nvalueint, totalx1, totalx2},
+                                                            {totalx1, totalx1pwr2, totalx1x2},
+                                                            {totalx2, totalx1x2, totalx2pwr2}
+                                                    };
+                                                    RealMatrix XtXr = new Array2DRowRealMatrix(XtX);
+                                                    RealMatrix XtXrinverse = MatrixUtils.inverse(XtXr);
+                                                    RealMatrix hat = Xotr.multiply(XtXrinverse.multiply(Xor));
+                                                    double hatvalue = hat.getEntry(0,0);
+
+                                                    double u = tvalue * (Math.sqrt(variance*(1+hatvalue)));
+                                                    double icpredleft = myox - u;
+                                                    double icpredright = myox + u;
+                                                    j.putExtra("icpredleft", icpredleft);
+                                                    j.putExtra("icpredright", icpredright);
                                                 }
 
-                                                //intervalo prediccion
-                                                if(icpred.isChecked()) {
-                                                    String mediainput = pre1.getText().toString();
-                                                    double mediadouble;
-                                                    try{
-                                                        mediadouble = Double.parseDouble(mediainput);
-                                                    } catch(NumberFormatException ex) {
-                                                        return;
-                                                    }
-                                                    double myox = coef[0] + coef[1]*mediadouble;
-                                                    double totalx = 0;
-                                                    SharedPreferences.Editor editor = sp.edit();
-                                                    for (int i = 1; i <= nvalueint; i++){
-                                                        totalx = totalx + a[i-1][0];
-                                                        editor.putString("totalx", String.valueOf(totalx));
-                                                        editor.apply();
-                                                    }
-                                                    String totalxstr = sp.getString("totalx", "0");
-                                                    double totalxd;
-                                                    try{
-                                                        totalxd = Double.parseDouble(totalxstr);
-                                                    } catch(NumberFormatException ex){
-                                                        return;
-                                                    }
-                                                    double totalxavg = totalxd/nvalueint;
-                                                    double sxxmedia = regression.getXSumSquares();
-                                                    double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
-                                                    double mediapart2 = variance*(1 + (1.0/nvalueint) + mediapart1);
-                                                    double icmedleft = myox - (tvalue)*(Math.sqrt(mediapart2));
-                                                    double icmedright = myox + (tvalue)*(Math.sqrt(mediapart2));
-                                                    j.putExtra("icpredleft", icmedleft);
-                                                    j.putExtra("icpredright", icmedright);
-                                                    ((TextView)findViewById(R.id.textView)).setText(String.valueOf(icmedright));
-
-                                                 */
 
                                                 startActivity(j);
                                             } else {
