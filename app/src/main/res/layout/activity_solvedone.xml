@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="@string/reg"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
             android:text="TextView"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/regmodone"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +53,7 @@
             android:gravity="center"
             android:text="@string/given"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/givenone"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/button3one"
             app:layout_constraintTop_toTopOf="parent" />
@@ -111,7 +111,7 @@
             android:gravity="center"
             android:text="@string/varpobl"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +126,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod3one"
             app:layout_constraintTop_toTopOf="parent" />
@@ -141,7 +141,7 @@
             android:gravity="center"
             android:text="@string/errstd1"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -156,7 +156,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod4one"
             app:layout_constraintTop_toTopOf="parent" />
@@ -171,7 +171,7 @@
             android:gravity="center"
             android:text="@string/errstd2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -186,7 +186,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod5one"
             app:layout_constraintTop_toTopOf="parent" />
@@ -210,7 +210,7 @@
             android:gravity="center"
             android:text="@string/signifone"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -225,7 +225,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod6one"
             app:layout_constraintTop_toTopOf="parent" />
@@ -240,7 +240,7 @@
             android:gravity="center"
             android:text="@string/icb1"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/regmod6one" />
@@ -255,7 +255,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod7one"
             app:layout_constraintTop_toBottomOf="@+id/given6one" />
@@ -270,7 +270,7 @@
             android:gravity="center"
             android:text="@string/icb2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/regmod7one" />
@@ -285,7 +285,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod8one"
             app:layout_constraintTop_toBottomOf="@+id/given9one" />
@@ -300,7 +300,7 @@
             android:gravity="center"
             android:text="@string/ic2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/regmod8one" />
@@ -315,7 +315,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod10one"
             app:layout_constraintTop_toBottomOf="@+id/given10one" />
@@ -330,7 +330,7 @@
             android:gravity="center"
             android:text="@string/ic3"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/regmod10one" />
@@ -345,7 +345,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod12one"
             app:layout_constraintTop_toBottomOf="@+id/given11one" />
@@ -360,7 +360,7 @@
             android:gravity="center"
             android:text="@string/coef"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/regmod12one" />
@@ -375,7 +375,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/regmod13one"
             app:layout_constraintTop_toBottomOf="@+id/given13one" />
@@ -386,10 +386,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="240dp"
+            android:onClick="residuales"
             android:text="@string/resid"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/regmod13one" />
+            app:layout_constraintTop_toBottomOf="@+id/regmod13one"
+            tools:ignore="UsingOnClickInXml" />
 
         <Button
             android:id="@+id/button5"
@@ -401,7 +403,8 @@
             android:text="@string/graf"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/regmod13one" />
+            app:layout_constraintTop_toBottomOf="@+id/regmod13one"
+            tools:ignore="UsingOnClickInXml" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

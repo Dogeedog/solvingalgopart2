@@ -687,9 +687,33 @@ public class MainActivity extends AppCompatActivity  {
                                                 modelstr.setSpan(new SubscriptSpan(),(fullstr.indexOf(xone) + 1), (fullstr.indexOf(xone) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                                 modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xone)) + 1, (fullstr.indexOf(xone) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                                 Intent j = new Intent(MainActivity.this, solvedone.class);
+                                                j.putExtra("nvalueres", nvalueint);
                                                 j.putExtra("modelstr", modelstr);
                                                 j.putExtra("b0", coef[0]);
                                                 j.putExtra("b1", coef[1]);
+                                                String regarraytostring = gson.toJson(a);
+                                                j.putExtra("regarray", regarraytostring);
+
+                                                double[][] res = new double[nvalueint][3];
+                                                double modres;
+                                                double resi;
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    //y = b0 + b1*x1
+                                                    modres = coef[0] + (coef[1])*(a[i-1][0]);
+                                                    resi = (a[i-1][1]) - modres;
+                                                    //y data
+                                                    res[i-1][0] = a[i-1][1];
+                                                    //y modelo
+                                                    res[i-1][1] = modres;
+                                                    //residual
+                                                    res[i-1][2] = resi;
+                                                    if (i == nvalueint){
+                                                        String resarraytostring = gson.toJson(res);
+                                                        j.putExtra("res1array", resarraytostring);
+                                                    }
+                                                }
+
+
 
                                                 //valor de t student
                                                 double confnumberpercent = (1 - confnumber/100)/2;
@@ -1068,10 +1092,30 @@ public class MainActivity extends AppCompatActivity  {
                                                 modelstr.setSpan(new SubscriptSpan(), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                                 modelstr.setSpan(new RelativeSizeSpan(0.75f), (fullstr.indexOf(xtwo) + 1), (fullstr.indexOf(xtwo) + 2), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                                 Intent j = new Intent(MainActivity.this, solved.class);
+                                                j.putExtra("nvalueres", nvalueint);
                                                 j.putExtra("modelstr", modelstr);
                                                 j.putExtra("b0t", coef[0]);
                                                 j.putExtra("b1t", coef[1]);
                                                 j.putExtra("b2t", coef[2]);
+
+                                                double[][] res2 = new double[nvalueint][3];
+                                                double modres;
+                                                double resi;
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    //y = b0 + b1x1 + b2x2
+                                                    modres = coef[0] + coef[1]*b[i-1][0] + coef[2]*b[i-1][1];
+                                                    resi = ym[i-1] - modres;
+                                                    // y data
+                                                    res2[i-1][0] = ym[i-1];
+                                                    //y modelo
+                                                    res2[i-1][1] = modres;
+                                                    //residual
+                                                    res2[i-1][2] = resi;
+                                                    if (i == nvalueint){
+                                                        String res2arraytostring = gson.toJson(res2);
+                                                        j.putExtra("res2array", res2arraytostring);
+                                                    }
+                                                }
 
                                                 //regresión
                                                 double reg = regression.calculateRSquared();

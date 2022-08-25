@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/roundbutton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:context=".graphxone">
+
+        <TextView
+            android:id="@+id/textView3one"
+            android:layout_width="249dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/graf"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutgraphbuttonsone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:weightSum="300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView3one">
+
+            <LinearLayout
+                android:id="@+id/lb1one"
+                android:layout_width="0dp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/graph1one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="12sp"
+                    android:text="1">
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lb2one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/graph2one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="12sp"
+                    android:text="2">
+                </Button>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lb3one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/graph3one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="12sp"
+                    android:text="3">
+                </Button>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/mf1one"
+                android:layout_width="350dp"
+                android:layout_height="400dp"
+                app:layout_constraintTop_toBottomOf="@id/layoutgraphbuttonsone"
+                android:layout_marginTop="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="30dp"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

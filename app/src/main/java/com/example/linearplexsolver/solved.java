@@ -3,6 +3,7 @@ package com.example.linearplexsolver;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
@@ -15,6 +16,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -50,6 +54,10 @@ public class solved extends AppCompatActivity {
         input1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         input2 = findViewById(R.id.mean3);
         input2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+
+
+
 
         //formato
         DecimalFormat df = new DecimalFormat("#.####");
@@ -103,11 +111,13 @@ public class solved extends AppCompatActivity {
         icmed = findViewById(R.id.icresvaluetwo);
         double icmedleft = j.getDoubleExtra("icmedleft", 0);
         double icmedright = j.getDoubleExtra("icmedright", 0);
-        String Myox = "MY|Xo";
-        String icbmedstrbf = df.format(icmedleft) + " < " + Myox + " < " + df.format(icmedright);
-        Spannable icbmedstr = new SpannableString(icbmedstrbf);
-        icbmedstr.setSpan(new SubscriptSpan(),(icbmedstrbf.indexOf(Myox) + 1), (icbmedstrbf.indexOf(Myox) + 5), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        icbmedstr.setSpan(new RelativeSizeSpan(0.75f), (icbmedstrbf.indexOf(Myox)) + 1, (icbmedstrbf.indexOf(Myox) + 5), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String Myox = "Y|Xo";
+        Spanned mu = Html.fromHtml("&#956;");
+        String icbmedstrbf = df.format(icmedleft) + " < ";
+        String icbmedstrbf2 = " < " + df.format(icmedright);
+        Spannable icbmedstr = new SpannableString(icbmedstrbf + mu + Myox + icbmedstrbf2);
+        icbmedstr.setSpan(new SubscriptSpan(),(icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox)) + 1, (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 5), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icbmedstr.setSpan(new RelativeSizeSpan(0.75f), (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 1), (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 5), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         icmed.setText(icbmedstr);
         icmed.setTextIsSelectable(true);
 
@@ -226,6 +236,19 @@ public class solved extends AppCompatActivity {
 
     public void graph(View h) {
         Intent j = new Intent(this, graphx.class);
+        startActivity(j);
+    }
+
+    public void residuales(View h){
+        Intent j = new Intent(solved.this, residuales.class);
+        Intent x = getIntent();
+        int nvalueint = x.getIntExtra("nvalueres", 0);
+        j.putExtra("nvalueres", nvalueint);
+        String array1 = x.getStringExtra("res1array");
+        j.putExtra("res1array", array1);
+        String array2 = x.getStringExtra("res2array");
+        j.putExtra("res2array", array2);
+        j.putExtra("vares", "two");
         startActivity(j);
     }
 

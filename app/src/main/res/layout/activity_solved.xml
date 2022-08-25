@@ -21,7 +21,7 @@
             android:gravity="center"
             android:text="@string/reg"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
             android:text="TextView"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/regmod"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
             android:gravity="center"
             android:text="@string/given"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/given"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +85,7 @@
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/mean"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,6 +97,7 @@
             android:layout_marginTop="84dp"
             android:text="@string/calc"
             android:onClick="eval2"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/mean3"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UsingOnClickInXml" />
@@ -111,7 +112,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/button3"
             app:layout_constraintTop_toTopOf="parent" />
@@ -119,14 +120,14 @@
         <TextView
             android:id="@+id/signiftwo"
             android:layout_width="120dp"
-            android:layout_height="51dp"
+            android:layout_height="56dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="151dp"
             android:background="@drawable/rect2"
             android:gravity="center"
             android:text="@string/signific"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -134,14 +135,14 @@
         <TextView
             android:id="@+id/signifvaltwo"
             android:layout_width="180dp"
-            android:layout_height="51dp"
+            android:layout_height="56dp"
             android:background="@drawable/rect"
             android:layout_marginStart="8dp"
             android:layout_marginTop="151dp"
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/signiftwo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -165,7 +166,7 @@
             android:gravity="center"
             android:text="@string/varsigni1"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -180,7 +181,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/signifvar1two"
             app:layout_constraintTop_toTopOf="parent" />
@@ -204,7 +205,7 @@
             android:gravity="center"
             android:text="@string/varsigni2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -219,7 +220,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/signifvar2two"
             app:layout_constraintTop_toTopOf="parent" />
@@ -229,7 +230,7 @@
             android:layout_width="53dp"
             android:layout_height="49dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="285dp"
+            android:layout_marginTop="287dp"
             app:layout_constraintStart_toEndOf="@+id/signifvar2valtwo"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -243,7 +244,7 @@
             android:gravity="center"
             android:text="@string/icb1"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -258,7 +259,7 @@
             android:gravity="center"
             android:text="@string/icb2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icvar1two" />
@@ -273,7 +274,7 @@
             android:gravity="center"
             android:text="@string/icb3"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/icvar2two" />
@@ -289,7 +290,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/icvar1two"
             app:layout_constraintTop_toTopOf="parent" />
@@ -304,7 +305,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/icvar1valuetwo" />
@@ -319,7 +320,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/icvar2valuetwo" />
@@ -334,7 +335,7 @@
             android:gravity="center"
             android:text="@string/ic2"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -349,7 +350,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/icrestwo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -364,7 +365,7 @@
             android:gravity="center"
             android:text="@string/ic3"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -379,7 +380,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/icpretwo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -394,7 +395,7 @@
             android:gravity="center"
             android:text="@string/coef"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -409,7 +410,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:flow_verticalAlign="bottom"
             app:layout_constraintStart_toEndOf="@+id/coeftwo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -420,10 +421,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="754dp"
             android:layout_marginEnd="240dp"
+            android:onClick="residuales"
             android:textSize="13sp"
             android:text="@string/resid"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UsingOnClickInXml" />
 
         <Button
             android:id="@+id/button5"
@@ -435,7 +438,8 @@
             android:textSize="13sp"
             android:text="@string/graf"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UsingOnClickInXml" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

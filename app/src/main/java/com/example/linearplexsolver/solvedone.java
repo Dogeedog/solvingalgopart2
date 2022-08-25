@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -134,11 +135,13 @@ public class solvedone extends AppCompatActivity {
         icbmed = findViewById(R.id.given11one);
         double icbmedleft = j.getDoubleExtra("icmedleft", 0);
         double icbmedright = j.getDoubleExtra("icmedright", 0);
-        String Myox = "MY|Xo";
-        String icbmedstrbf = df.format(icbmedleft) + " < " + Myox + " < " + df.format(icbmedright);
-        Spannable icbmedstr = new SpannableString(icbmedstrbf);
-        icbmedstr.setSpan(new SubscriptSpan(),(icbmedstrbf.indexOf(Myox) + 1), (icbmedstrbf.indexOf(Myox) + 5), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        icbmedstr.setSpan(new RelativeSizeSpan(0.75f), (icbmedstrbf.indexOf(Myox)) + 1, (icbmedstrbf.indexOf(Myox) + 5), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        String Myox = "Y|Xo";
+        Spanned mu = Html.fromHtml("&#956;");
+        String icbmedstrbf = df.format(icbmedleft) + " < ";
+        String icbmedstrbf2 = " < " + df.format(icbmedright);
+        Spannable icbmedstr = new SpannableString(icbmedstrbf + mu + Myox + icbmedstrbf2);
+        icbmedstr.setSpan(new SubscriptSpan(),(icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox)) + 1, (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 5), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        icbmedstr.setSpan(new RelativeSizeSpan(0.75f), (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 1), (icbmedstrbf.length() + mu.length() + icbmedstrbf2.indexOf(Myox) + 5), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         icbmed.setText(icbmedstr);
         icbmed.setTextIsSelectable(true);
 
@@ -183,7 +186,31 @@ public class solvedone extends AppCompatActivity {
     }
 
     public void graphx(View h) {
-        Intent x = new Intent(this, graphx.class);
+        Intent x = new Intent(this, graphxone.class);
+        Intent j = getIntent();
+        String array1 = j.getStringExtra("res1array");
+        String array2 = j.getStringExtra("regarray");
+        int nvalueint = j.getIntExtra("nvalueres", 0);
+        double b0 = j.getDoubleExtra("b0",0);
+        double b1 = j.getDoubleExtra("b1", 0);
+        x.putExtra("res1array", array1);
+        x.putExtra("regarray", array2);
+        x.putExtra("nvalueres", nvalueint);
+        x.putExtra("b0", b0);
+        x.putExtra("b1", b1);
         startActivity(x);
+    }
+
+    public void residuales(View h){
+        Intent j = new Intent(solvedone.this, residuales.class);
+        Intent x = getIntent();
+        int nvalueint = x.getIntExtra("nvalueres", 0);
+        j.putExtra("nvalueres", nvalueint);
+        String array1 = x.getStringExtra("res1array");
+        j.putExtra("res1array", array1);
+        String array2 = x.getStringExtra("res2array");
+        j.putExtra("res2array", array2);
+        j.putExtra("vares", "one");
+        startActivity(j);
     }
 }
