@@ -50,8 +50,8 @@
                 android:id="@+id/graph1"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:textSize="12sp"
-                android:text="1">
+                android:textSize="10sp"
+                android:text="@string/graphmulti">
             </Button>
         </LinearLayout>
 
@@ -96,24 +96,20 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/maineffects"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="100dp"
-        android:weightSum="200"
-        android:padding="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutgraphbuttons">
+
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/mf1"
-            android:layout_width="0dp"
-            android:layout_weight="200"
-            android:layout_height="300dp"/>
+            android:layout_width="350dp"
+            android:layout_height="400dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutgraphbuttons"
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"/>
 
-    </LinearLayout>
+
+
+
 
 
 

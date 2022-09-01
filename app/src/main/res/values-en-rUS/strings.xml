@@ -34,4 +34,6 @@
     <string name="yres">y (data)</string>
     <string name="yres1">y (model)</string>
     <string name="residual">residual</string>
+    <string name="graphmulti">Predicted vs Actual</string>
+    <string name="graphlin">Ordinary Residuals</string>
 </resources>

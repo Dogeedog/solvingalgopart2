@@ -55,10 +55,6 @@ public class solved extends AppCompatActivity {
         input2 = findViewById(R.id.mean3);
         input2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-
-
-
-
         //formato
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -236,6 +232,19 @@ public class solved extends AppCompatActivity {
 
     public void graph(View h) {
         Intent j = new Intent(this, graphx.class);
+        Intent x = getIntent();
+        double b0 = x.getDoubleExtra("b0t",0);
+        double b1 = x.getDoubleExtra("b1t", 0);
+        double b2 = x.getDoubleExtra("b2t", 0);
+        String array1 = x.getStringExtra("res2array");
+        String array2 = x.getStringExtra("regarray");
+        int nvalueint = x.getIntExtra("nvalueres", 0);
+        j.putExtra("res1array", array1);
+        j.putExtra("regarray", array2);
+        j.putExtra("nvalueres", nvalueint);
+        j.putExtra("b0t", b0);
+        j.putExtra("b1t", b1);
+        j.putExtra("b2t", b2);
         startActivity(j);
     }
 

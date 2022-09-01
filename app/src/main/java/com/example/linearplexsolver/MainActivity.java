@@ -1097,6 +1097,8 @@ public class MainActivity extends AppCompatActivity  {
                                                 j.putExtra("b0t", coef[0]);
                                                 j.putExtra("b1t", coef[1]);
                                                 j.putExtra("b2t", coef[2]);
+                                                String regarraytostring = gson.toJson(b);
+                                                j.putExtra("regarray", regarraytostring);
 
                                                 double[][] res2 = new double[nvalueint][3];
                                                 double modres;

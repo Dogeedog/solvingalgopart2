@@ -42,7 +42,13 @@ public class graphxone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphxone);
 
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        b1 = findViewById(R.id.graph1one);
+        b2 = findViewById(R.id.graph2one);
+        b3 = findViewById(R.id.graph3one);
+        test = findViewById(R.id.mf1one);
+
+        test.setVisibility(View.GONE);
+
         Intent j = getIntent();
         String array1 = j.getStringExtra("res1array");
         String array2 = j.getStringExtra("regarray");
@@ -53,36 +59,74 @@ public class graphxone extends AppCompatActivity {
         float b1r = (float) b1rt;
         double[][] regarray = gson.fromJson(array2, double[][].class);
         double[][] res1 = gson.fromJson(array1, double[][].class);
-        float[] xvalues = new float[nvalueint];
-        float[] resvalues = new float[nvalueint];
-        float[][] lineardataset = new float[nvalueint][2];
-
-        for (int i = 1; i <= nvalueint; i++){
-            xvalues[i-1] = (float) regarray[i-1][0];
-            resvalues[i-1] = (float) res1[i-1][0];
-        }
-
-        for (int i = 1; i <= nvalueint; i++){
-            lineardataset[i-1][0] = b0 + b1r*( (float) regarray[i-1][0]);
-            lineardataset[i-1][1] = (float) regarray[i-1][0];
-        }
-        java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[1], b[1]));
-        java.util.Arrays.sort(xvalues);
-        java.util.Arrays.sort(resvalues);
-        ArrayUtils.reverse(resvalues);
-
-        List<Float> b = Arrays.asList(ArrayUtils.toObject(xvalues));
-
-        float xmin = Collections.min(b) - (Collections.min(b)/4);
-        float xmax = Collections.max(b) + (Collections.max(b)/4);
+        float[][] lineardataset = new float[nvalueint][3];
 
 
-        test = (LineChart) findViewById(R.id.mf1one);
-        b1 = findViewById(R.id.graph1one);
-        b2 = findViewById(R.id.graph2one);
-        b3 = findViewById(R.id.graph3one);
-
+        //Botón para la gráfica de residuales ordinaria
         b1.setOnClickListener(v -> {
+
+            for (int i = 1; i <= nvalueint; i++){
+                lineardataset[i-1][0] = (float) res1[i-1][1];
+                lineardataset[i-1][1] = (float) regarray[i-1][0];
+                lineardataset[i-1][2] = (float) res1[i-1][0];
+            }
+            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[1], b[1]));
+
+
+
+            //dataset para plottear el modelo lineal
+            ArrayList<Entry> entrieslist = new ArrayList<>();
+            ArrayList<Entry> entrieslist2 = new ArrayList<>();
+
+            for(int i = 0; i < lineardataset.length; i++){
+                //valores reales (x, y real)
+                entrieslist.add(new Entry(lineardataset[i][1], lineardataset[i][2]));
+                //valores previstos (x, y previsto)
+                entrieslist2.add(new Entry(lineardataset[i][1], lineardataset[i][0]));
+            }
+
+
+            //dataset de los valores reales de y
+
+
+            ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
+
+            LineDataSet data = new LineDataSet(entrieslist, "Y real");
+            data.enableDashedLine(0f, 1f, 0f);
+            data.setColor(Color.parseColor("#5865F2"));
+            data.setValueTextColor(Color.parseColor("#5865F2"));
+            data.setCircleColor(Color.parseColor("#5865F2"));
+            data.setCircleHoleColor(Color.parseColor("#5865F2"));
+            data.setDrawValues(false);
+
+            LineDataSet data2 = new LineDataSet(entrieslist2, "Y modelo");
+            data2.setDrawCircles(false);
+            data2.setColor(Color.WHITE);
+            data2.setDrawValues(false);
+
+
+            linedatasets.add(data);
+            linedatasets.add(data2);
+
+            LineData xtds = new LineData(linedatasets);
+            test.setBorderColor(Color.WHITE);
+            test.getLegend().setTextColor(Color.WHITE);
+            test.getDescription().setTextColor(Color.WHITE);
+            test.getDescription().setText("Residuales del modelo");
+            test.getAxisLeft().setDrawGridLines(false);
+            test.getXAxis().setDrawGridLines(false);
+            test.setData(xtds);
+
+            XAxis xaxis = test.getXAxis();
+            xaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxis = test.getAxisLeft();
+            yaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxisr = test.getAxisRight();
+            yaxisr.setTextColor(Color.WHITE);
+
+            test.invalidate();
             test.setVisibility(View.VISIBLE);
         });
 
@@ -94,56 +138,6 @@ public class graphxone extends AppCompatActivity {
             test.setVisibility(View.GONE);
         });
 
-        //dataset para plottear el modelo lineal
-        ArrayList<Entry> entrieslist = new ArrayList<>();
-        ArrayList<Entry> entrieslist2 = new ArrayList<>();
 
-        for(int i = 0; i < lineardataset.length; i++){
-            entrieslist.add(new Entry(xvalues[i], resvalues[i]));
-            entrieslist2.add(new Entry(lineardataset[i][1], lineardataset[i][0]));
-        }
-
-
-        //dataset de los valores reales de y
-
-
-        ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
-
-        LineDataSet data = new LineDataSet(entrieslist, "Y real");
-        data.enableDashedLine(0f, 1f, 0f);
-        data.setColor(Color.parseColor("#5865F2"));
-        data.setValueTextColor(Color.parseColor("#5865F2"));
-        data.setCircleColor(Color.parseColor("#5865F2"));
-        data.setCircleHoleColor(Color.parseColor("#5865F2"));
-        data.setDrawValues(false);
-
-        LineDataSet data2 = new LineDataSet(entrieslist2, "Y modelo");
-        data2.setDrawCircles(false);
-        data2.setColor(Color.WHITE);
-        data2.setDrawValues(false);
-
-
-        linedatasets.add(data);
-        linedatasets.add(data2);
-
-        LineData xtds = new LineData(linedatasets);
-        test.setBorderColor(Color.WHITE);
-        test.getLegend().setTextColor(Color.WHITE);
-        test.getDescription().setTextColor(Color.WHITE);
-        test.getDescription().setText("Residuales del modelo");
-        test.getAxisLeft().setDrawGridLines(false);
-        test.getXAxis().setDrawGridLines(false);
-        test.setData(xtds);
-
-        XAxis xaxis = test.getXAxis();
-        xaxis.setTextColor(Color.WHITE);
-
-        YAxis yaxis = test.getAxisLeft();
-        yaxis.setTextColor(Color.WHITE);
-
-        YAxis yaxisr = test.getAxisRight();
-        yaxisr.setTextColor(Color.WHITE);
-
-        test.invalidate();
     }
 }

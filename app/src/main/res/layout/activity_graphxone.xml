@@ -50,8 +50,8 @@
                     android:id="@+id/graph1one"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:textSize="12sp"
-                    android:text="1">
+                    android:textSize="10sp"
+                    android:text="@string/graphlin">
                 </Button>
             </LinearLayout>
 
@@ -106,6 +106,8 @@
                 android:layout_marginTop="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="30dp"/>
+
+
 
 
 
