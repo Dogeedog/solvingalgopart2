@@ -7,7 +7,7 @@
     <string name="solve">Resolver</string>
     <string name="reg">Modelo de Regresión</string>
     <string name="given">Dado</string>
-    <string name="signific">Significancia General\n(F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, n-3, 2</small></sub>)</string>
+    <string name="signific">Significancia General (F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, n-3, 2</small></sub>)</string>
     <string name="ic1">I.C. Variables</string>
     <string name="ic2">I.C. Respuesta</string>
     <string name="ic3">I.C. Predicción</string>
@@ -33,6 +33,8 @@
     <string name="yres">y (datos)</string>
     <string name="yres1">y (modelo)</string>
     <string name="residual">residual</string>
-    <string name="graphmulti">Previsto vs Actual</string>
-    <string name="graphlin">Residuales Ordinarios</string>
+    <string name="graphmulti">Dispersión (Ajustado vs Actual)</string>
+    <string name="graphlin">Relación Modelo y Actual</string>
+    <string name="fittedv2">Ajustado</string>
+    <string name="actualv2">Actual</string>
 </resources>

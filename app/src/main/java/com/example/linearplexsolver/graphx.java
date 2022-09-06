@@ -2,15 +2,20 @@ package com.example.linearplexsolver;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -32,6 +37,8 @@ import java.util.List;
 public class graphx extends AppCompatActivity {
 
     LineChart test;
+    TextView g1tv1;
+    TextView g1tv2;
     Button btn1;
     Button btn2;
     Button btn3;
@@ -46,7 +53,11 @@ public class graphx extends AppCompatActivity {
         btn2 = findViewById(R.id.graph2);
         btn3 = findViewById(R.id.graph3);
         test = findViewById(R.id.mf1);
+        g1tv1 = findViewById(R.id.fittedv2);
+        g1tv2 = findViewById(R.id.actualv2);
 
+        g1tv1.setVisibility(View.GONE);
+        g1tv2.setVisibility(View.GONE);
         test.setVisibility(View.GONE);
 
         Intent j = getIntent();
@@ -140,34 +151,48 @@ public class graphx extends AppCompatActivity {
             test.setBorderColor(Color.WHITE);
             test.getLegend().setEnabled(false);
             test.getDescription().setTextColor(Color.WHITE);
-            test.getDescription().setText("Previsto vs Actual");
+            test.getDescription().setText("");
             test.getDescription().setTextSize(12);
             test.getAxisLeft().setDrawGridLines(false);
             test.getXAxis().setDrawGridLines(false);
+            test.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            test.setMarker(mv);
             test.setData(xtds);
 
             XAxis xaxis = test.getXAxis();
             xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xaxis.setAxisMaximum(maxvaluemod);
+            xaxis.setAxisMinimum(minvaluemod);
 
             YAxis yaxis = test.getAxisLeft();
             yaxis.setTextColor(Color.WHITE);
+            yaxis.setAxisMaximum(maxvaluemod);
+            yaxis.setAxisMinimum(minvaluemod);
 
             YAxis yaxisr = test.getAxisRight();
-            yaxisr.setTextColor(Color.WHITE);
+            yaxisr.setEnabled(false);
 
             test.invalidate();
 
             test.setVisibility(View.VISIBLE);
+            g1tv1.setVisibility(View.VISIBLE);
+            g1tv2.setVisibility(View.VISIBLE);
         });
 
         btn2.setOnClickListener(v -> {
 
             test.setVisibility(View.GONE);
+            g1tv1.setVisibility(View.GONE);
+            g1tv2.setVisibility(View.GONE);
         });
 
         btn3.setOnClickListener(v -> {
 
             test.setVisibility(View.GONE);
+            g1tv1.setVisibility(View.GONE);
+            g1tv2.setVisibility(View.GONE);
         });
 
 

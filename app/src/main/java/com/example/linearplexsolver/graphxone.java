@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -35,6 +37,8 @@ public class graphxone extends AppCompatActivity {
     Button b1;
     Button b2;
     Button b3;
+    TextView g1tv1;
+    TextView g1tv2;
     Gson gson = new GsonBuilder().create();
 
     @Override
@@ -46,7 +50,11 @@ public class graphxone extends AppCompatActivity {
         b2 = findViewById(R.id.graph2one);
         b3 = findViewById(R.id.graph3one);
         test = findViewById(R.id.mf1one);
+        g1tv1 = findViewById(R.id.actualv2one);
+        g1tv2 = findViewById(R.id.fittedv2one);
 
+        g1tv1.setVisibility(View.GONE);
+        g1tv2.setVisibility(View.GONE);
         test.setVisibility(View.GONE);
 
         Intent j = getIntent();
@@ -91,7 +99,7 @@ public class graphxone extends AppCompatActivity {
 
             ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
 
-            LineDataSet data = new LineDataSet(entrieslist, "Y real");
+            LineDataSet data = new LineDataSet(entrieslist, getString(R.string.actualv2));
             data.enableDashedLine(0f, 1f, 0f);
             data.setColor(Color.parseColor("#5865F2"));
             data.setValueTextColor(Color.parseColor("#5865F2"));
@@ -99,7 +107,7 @@ public class graphxone extends AppCompatActivity {
             data.setCircleHoleColor(Color.parseColor("#5865F2"));
             data.setDrawValues(false);
 
-            LineDataSet data2 = new LineDataSet(entrieslist2, "Y modelo");
+            LineDataSet data2 = new LineDataSet(entrieslist2, getString(R.string.fittedv2));
             data2.setDrawCircles(false);
             data2.setColor(Color.WHITE);
             data2.setDrawValues(false);
@@ -112,30 +120,41 @@ public class graphxone extends AppCompatActivity {
             test.setBorderColor(Color.WHITE);
             test.getLegend().setTextColor(Color.WHITE);
             test.getDescription().setTextColor(Color.WHITE);
-            test.getDescription().setText("Residuales del modelo");
+            test.getDescription().setText(getString(R.string.graphlin));
             test.getAxisLeft().setDrawGridLines(false);
             test.getXAxis().setDrawGridLines(false);
+            test.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            test.setMarker(mv);
             test.setData(xtds);
 
             XAxis xaxis = test.getXAxis();
             xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            
 
             YAxis yaxis = test.getAxisLeft();
             yaxis.setTextColor(Color.WHITE);
 
             YAxis yaxisr = test.getAxisRight();
-            yaxisr.setTextColor(Color.WHITE);
+            yaxisr.setEnabled(false);
 
             test.invalidate();
             test.setVisibility(View.VISIBLE);
+            g1tv1.setVisibility(View.VISIBLE);
+            g1tv2.setVisibility(View.VISIBLE);
         });
 
         b2.setOnClickListener(v -> {
             test.setVisibility(View.GONE);
+            g1tv1.setVisibility(View.GONE);
+            g1tv2.setVisibility(View.GONE);
         });
 
         b3.setOnClickListener(v -> {
             test.setVisibility(View.GONE);
+            g1tv1.setVisibility(View.GONE);
+            g1tv2.setVisibility(View.GONE);
         });
 
 
