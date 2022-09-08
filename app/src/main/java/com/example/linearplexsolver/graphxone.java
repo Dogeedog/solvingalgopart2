@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.IMarker;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -34,6 +35,9 @@ import java.util.List;
 public class graphxone extends AppCompatActivity {
 
     LineChart test;
+    LineChart g2;
+    TextView g2tv1;
+    TextView g2tv2;
     Button b1;
     Button b2;
     Button b3;
@@ -52,6 +56,13 @@ public class graphxone extends AppCompatActivity {
         test = findViewById(R.id.mf1one);
         g1tv1 = findViewById(R.id.actualv2one);
         g1tv2 = findViewById(R.id.fittedv2one);
+        g2 = findViewById(R.id.mf2one);
+        g2tv1 = findViewById(R.id.fittedone);
+        g2tv2 = findViewById(R.id.residualone);
+
+        g2.setVisibility(View.GONE);
+        g2tv1.setVisibility(View.GONE);
+        g2tv2.setVisibility(View.GONE);
 
         g1tv1.setVisibility(View.GONE);
         g1tv2.setVisibility(View.GONE);
@@ -140,15 +151,91 @@ public class graphxone extends AppCompatActivity {
             yaxisr.setEnabled(false);
 
             test.invalidate();
+            g2.setVisibility(View.GONE);
+            g2tv1.setVisibility(View.GONE);
+            g2tv2.setVisibility(View.GONE);
+
             test.setVisibility(View.VISIBLE);
             g1tv1.setVisibility(View.VISIBLE);
             g1tv2.setVisibility(View.VISIBLE);
         });
 
         b2.setOnClickListener(v -> {
+            for (int i = 1; i <= nvalueint; i++){
+                //y fitted value
+                lineardataset[i-1][0] = (float) res1[i-1][1];
+                //residual
+                lineardataset[i-1][2] = (float) res1[i-1][2];
+            }
+            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[0], b[0]));
+
+
+
+            //dataset para plottear el modelo lineal
+            ArrayList<Entry> entrieslist = new ArrayList<>();
+
+            for(int i = 0; i < lineardataset.length; i++){
+                //(x: fitted, y: residual)
+                entrieslist.add(new Entry(lineardataset[i][0], lineardataset[i][2]));
+            }
+
+
+            //dataset de los valores reales de y
+
+
+            ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
+
+            LineDataSet data = new LineDataSet(entrieslist, "");
+            data.enableDashedLine(0f, 1f, 0f);
+            data.setColor(Color.parseColor("#5865F2"));
+            data.setValueTextColor(Color.parseColor("#5865F2"));
+            data.setCircleColor(Color.parseColor("#5865F2"));
+            data.setCircleHoleColor(Color.parseColor("#5865F2"));
+            data.setDrawValues(false);
+
+
+
+
+
+            linedatasets.add(data);
+
+            LineData xtds = new LineData(linedatasets);
+            g2.setBorderColor(Color.WHITE);
+            g2.getLegend().setEnabled(false);
+            g2.getDescription().setTextColor(Color.WHITE);
+            g2.getDescription().setText(getString(R.string.ordinaryres));
+            g2.getAxisLeft().setDrawGridLines(false);
+            g2.getXAxis().setDrawGridLines(false);
+            g2.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            g2.setMarker(mv);
+            g2.setData(xtds);
+
+            XAxis xaxis = g2.getXAxis();
+            xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+            YAxis yaxis = g2.getAxisLeft();
+            yaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxisr = g2.getAxisRight();
+            yaxisr.setEnabled(false);
+
+            LimitLine ld = new LimitLine(0f);
+            ld.setLineColor(Color.WHITE);
+            ld.setLineWidth(0.25f);
+            yaxis.addLimitLine(ld);
+
+            g2.invalidate();
+
             test.setVisibility(View.GONE);
             g1tv1.setVisibility(View.GONE);
             g1tv2.setVisibility(View.GONE);
+
+            g2.setVisibility(View.VISIBLE);
+            g2tv1.setVisibility(View.VISIBLE);
+            g2tv2.setVisibility(View.VISIBLE);
         });
 
         b3.setOnClickListener(v -> {

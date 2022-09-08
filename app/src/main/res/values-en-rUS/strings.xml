@@ -8,7 +8,7 @@
     <string name="solve">Solve</string>
     <string name="reg">Regression Model</string>
     <string name="given">Given</string>
-    <string name="signific">General Significance (F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, n-3, 2</small></sub>)</string>
+    <string name="signific">General Significance\n(F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, n-3, 2</small></sub>)</string>
     <string name="ic1">C.I. Variables</string>
     <string name="ic2">C.I. Response</string>
     <string name="ic3">C.I. Predicted</string>
@@ -38,4 +38,6 @@
     <string name="graphlin">Relation Fixed and Actual</string>
     <string name="fittedv2">Fitted</string>
     <string name="actualv2">Actual</string>
+    <string name="ordinaryres">Ordinary Residuals</string>
+    <string name="fitvalue">Fitted Value (y)</string>
 </resources>
