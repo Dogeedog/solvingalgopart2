@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/roundbutton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:context=".anova">
+
+        <TextView
+            android:id="@+id/anovatitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="25dp"
+            android:text="@string/anovatable"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            >
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/anova1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:weightSum="500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anovatitle">
+
+            <LinearLayout
+                android:id="@+id/lb1"
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="@string/fv"
+                    android:textColor="@color/white">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="@string/sc"
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="@string/gl"
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="@string/mc"
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="F"
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/anova2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:weightSum="500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anova1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="R"
+                    android:textColor="@color/white">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovareg1"
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovagl1"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovamc1"
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovaf1"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/anova3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:weightSum="500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anova2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="E"
+                    android:textColor="@color/white">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovareg2"
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovagl2"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovamc2"
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/anova4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:weightSum="500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anova3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect3"
+                    android:gravity="center"
+                    android:text="T"
+                    android:textColor="@color/white">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovareg3"
+                    android:layout_width="85dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="75"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/anovagl3"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rect"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="125"
+                android:orientation="vertical">
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="100"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anova4"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/anovainfo"
+            android:textSize="12sp"
+            android:textColor="@color/white">
+        </TextView>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

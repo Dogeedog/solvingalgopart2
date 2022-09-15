@@ -39,13 +39,21 @@ public class graphx extends AppCompatActivity {
 
     LineChart test;
     LineChart g2;
-    TextView g2tv1;
-    TextView g2tv2;
+    LineChart g3;
+    LineChart g4;
     TextView g1tv1;
     TextView g1tv2;
+    TextView g2tv1;
+    TextView g2tv2;
+    TextView g3tv1;
+    TextView g3tv2;
+    TextView g4tv1;
+    TextView g4tv2;
     Button btn1;
     Button btn2;
     Button btn3;
+    Button btn4;
+
     Gson gson = new GsonBuilder().create();
 
     @Override
@@ -56,6 +64,8 @@ public class graphx extends AppCompatActivity {
         btn1 = findViewById(R.id.graph1);
         btn2 = findViewById(R.id.graph2);
         btn3 = findViewById(R.id.graph3);
+        btn4 = findViewById(R.id.graph4);
+
         test = findViewById(R.id.mf1);
         g1tv1 = findViewById(R.id.fittedv2);
         g1tv2 = findViewById(R.id.actualv2);
@@ -64,13 +74,29 @@ public class graphx extends AppCompatActivity {
         g2tv1 = findViewById(R.id.residual);
         g2tv2 = findViewById(R.id.fitted);
 
-        g2tv1.setVisibility(View.GONE);
-        g2tv2.setVisibility(View.GONE);
-        g2.setVisibility(View.GONE);
+        g3= findViewById(R.id.stdresgraph);
+        g3tv1 = findViewById(R.id.fittedstd);
+        g3tv2 = findViewById(R.id.residualstd);
 
+        g4 = findViewById(R.id.cookgraph);
+        g4tv1 = findViewById(R.id.observ);
+        g4tv2 = findViewById(R.id.cooksdistance);
+
+        test.setVisibility(View.GONE);
         g1tv1.setVisibility(View.GONE);
         g1tv2.setVisibility(View.GONE);
-        test.setVisibility(View.GONE);
+
+        g2.setVisibility(View.GONE);
+        g2tv1.setVisibility(View.GONE);
+        g2tv2.setVisibility(View.GONE);
+
+        g3.setVisibility(View.GONE);
+        g3tv1.setVisibility(View.GONE);
+        g3tv2.setVisibility(View.GONE);
+
+        g4.setVisibility(View.GONE);
+        g4tv1.setVisibility(View.GONE);
+        g4tv2.setVisibility(View.GONE);
 
         Intent j = getIntent();
         double b0t = j.getDoubleExtra("b0t",0);
@@ -80,9 +106,12 @@ public class graphx extends AppCompatActivity {
         double b2 = j.getDoubleExtra("b2t", 0);
         String array1 = j.getStringExtra("res1array");
         String array2 = j.getStringExtra("regarray");
+        String array3 = j.getStringExtra("leverage");
+        double mse = j.getDoubleExtra("mse", 0);
         int nvalueint = j.getIntExtra("nvalueres", 0);
         double[][] regarray = gson.fromJson(array2, double[][].class);
         double[][] res1 = gson.fromJson(array1, double[][].class);
+        double[] leverage = gson.fromJson(array3, double[].class);
         float[][] lineardataset = new float[nvalueint][3];
         float[] h1 = new float[nvalueint];
         float[] h2 = new float[nvalueint];
@@ -192,6 +221,14 @@ public class graphx extends AppCompatActivity {
             g2tv2.setVisibility(View.GONE);
             g2.setVisibility(View.GONE);
 
+            g3.setVisibility(View.GONE);
+            g3tv1.setVisibility(View.GONE);
+            g3tv2.setVisibility(View.GONE);
+
+            g4.setVisibility(View.GONE);
+            g4tv1.setVisibility(View.GONE);
+            g4tv2.setVisibility(View.GONE);
+
             test.setVisibility(View.VISIBLE);
             g1tv1.setVisibility(View.VISIBLE);
             g1tv2.setVisibility(View.VISIBLE);
@@ -270,16 +307,197 @@ public class graphx extends AppCompatActivity {
             g1tv1.setVisibility(View.GONE);
             g1tv2.setVisibility(View.GONE);
 
+            g3.setVisibility(View.GONE);
+            g3tv1.setVisibility(View.GONE);
+            g3tv2.setVisibility(View.GONE);
+
+            g4.setVisibility(View.GONE);
+            g4tv1.setVisibility(View.GONE);
+            g4tv2.setVisibility(View.GONE);
+
             g2tv1.setVisibility(View.VISIBLE);
             g2tv2.setVisibility(View.VISIBLE);
             g2.setVisibility(View.VISIBLE);
         });
 
         btn3.setOnClickListener(v -> {
+            float sumstdResidualDev = 0;
+            float stdResidualDev;
+
+            for (int i = 1; i <= nvalueint; i++){
+                //y fitted value
+                lineardataset[i-1][0] = (float) res1[i-1][1];
+                sumstdResidualDev = sumstdResidualDev + (float) Math.pow(res1[i-1][2] , 2);
+            }
+
+            stdResidualDev = (float) Math.sqrt(sumstdResidualDev/(nvalueint-2));
+
+            for (int i = 1; i <= nvalueint; i++){
+                //std residual
+                lineardataset[i-1][1] = (((float) res1[i-1][2])/stdResidualDev);
+            }
+
+            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[0], b[0]));
+
+            //dataset para plottear el modelo lineal
+            ArrayList<Entry> entrieslist = new ArrayList<>();
+
+            for(int i = 0; i < lineardataset.length; i++){
+                //(x: fitted, y: residual)
+                entrieslist.add(new Entry(lineardataset[i][0], lineardataset[i][1]));
+            }
+
+
+            //dataset de los valores reales de y
+
+
+            ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
+
+            LineDataSet data = new LineDataSet(entrieslist, "");
+            data.enableDashedLine(0f, 1f, 0f);
+            data.setColor(Color.parseColor("#5865F2"));
+            data.setValueTextColor(Color.parseColor("#5865F2"));
+            data.setCircleColor(Color.parseColor("#5865F2"));
+            data.setCircleHoleColor(Color.parseColor("#5865F2"));
+            data.setDrawValues(false);
+
+
+
+
+
+            linedatasets.add(data);
+
+            LineData xtds = new LineData(linedatasets);
+            g3.setBorderColor(Color.WHITE);
+            g3.getLegend().setEnabled(false);
+            g3.getDescription().setTextColor(Color.WHITE);
+            g3.getDescription().setText(getString(R.string.stdres));
+            g3.getAxisLeft().setDrawGridLines(false);
+            g3.getXAxis().setDrawGridLines(false);
+            g3.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            g3.setMarker(mv);
+            g3.setData(xtds);
+
+            XAxis xaxis = g3.getXAxis();
+            xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+            YAxis yaxis = g3.getAxisLeft();
+            yaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxisr = g3.getAxisRight();
+            yaxisr.setEnabled(false);
+
+            LimitLine ld = new LimitLine(0f);
+            ld.setLineColor(Color.WHITE);
+            ld.setLineWidth(0.25f);
+            yaxis.addLimitLine(ld);
+
+            g3.invalidate();
 
             test.setVisibility(View.GONE);
             g1tv1.setVisibility(View.GONE);
             g1tv2.setVisibility(View.GONE);
+
+            g2.setVisibility(View.GONE);
+            g2tv1.setVisibility(View.GONE);
+            g2tv2.setVisibility(View.GONE);
+
+            g4.setVisibility(View.GONE);
+            g4tv1.setVisibility(View.GONE);
+            g4tv2.setVisibility(View.GONE);
+
+            g3.setVisibility(View.VISIBLE);
+            g3tv1.setVisibility(View.VISIBLE);
+            g3tv2.setVisibility(View.VISIBLE);
+        });
+
+        btn4.setOnClickListener(v -> {
+
+            for (int i = 1; i <= nvalueint; i++){
+                float firstop = (float)Math.pow(res1[i-1][2],2) / (3*(float)mse);
+                float secondop = (float)leverage[i-1] / (float)Math.pow(1-leverage[i-1],2);
+                //cooks distance
+                lineardataset[i-1][0] = firstop * secondop;
+            }
+            //dataset para plottear el modelo lineal
+            ArrayList<Entry> entrieslist = new ArrayList<>();
+
+            for(int i = 0; i < lineardataset.length; i++){
+                //(x: fitted, y: residual)
+                entrieslist.add(new Entry(i+1, lineardataset[i][0]));
+            }
+
+
+            //dataset de los valores reales de y
+
+
+            ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
+
+            LineDataSet data = new LineDataSet(entrieslist, "");
+            data.enableDashedLine(0f, 1f, 0f);
+            data.setColor(Color.parseColor("#5865F2"));
+            data.setValueTextColor(Color.parseColor("#5865F2"));
+            data.setCircleColor(Color.parseColor("#5865F2"));
+            data.setCircleHoleColor(Color.parseColor("#5865F2"));
+            data.setDrawValues(false);
+
+
+
+
+
+            linedatasets.add(data);
+
+            LineData xtds = new LineData(linedatasets);
+            g4.setBorderColor(Color.WHITE);
+            g4.getLegend().setEnabled(false);
+            g4.getDescription().setTextColor(Color.WHITE);
+            g4.getDescription().setText(getString(R.string.cook));
+            g4.getAxisLeft().setDrawGridLines(false);
+            g4.getXAxis().setDrawGridLines(false);
+            g4.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            g4.setMarker(mv);
+            g4.setData(xtds);
+
+            XAxis xaxis = g4.getXAxis();
+            xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xaxis.setAxisMinimum(0);
+            xaxis.setAxisMaximum(nvalueint+1);
+
+
+            YAxis yaxis = g4.getAxisLeft();
+            yaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxisr = g4.getAxisRight();
+            yaxisr.setEnabled(false);
+
+            LimitLine ld = new LimitLine(0f);
+            ld.setLineColor(Color.WHITE);
+            ld.setLineWidth(0.25f);
+            yaxis.addLimitLine(ld);
+
+            g4.invalidate();
+
+
+            test.setVisibility(View.GONE);
+            g1tv1.setVisibility(View.GONE);
+            g1tv2.setVisibility(View.GONE);
+
+            g2.setVisibility(View.GONE);
+            g2tv1.setVisibility(View.GONE);
+            g2tv2.setVisibility(View.GONE);
+
+            g3.setVisibility(View.GONE);
+            g3tv1.setVisibility(View.GONE);
+            g3tv2.setVisibility(View.GONE);
+
+            g4.setVisibility(View.VISIBLE);
+            g4tv1.setVisibility(View.VISIBLE);
+            g4tv2.setVisibility(View.VISIBLE);
         });
 
 

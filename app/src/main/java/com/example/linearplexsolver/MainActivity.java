@@ -1100,6 +1100,14 @@ public class MainActivity extends AppCompatActivity  {
                                                 String regarraytostring = gson.toJson(b);
                                                 j.putExtra("regarray", regarraytostring);
 
+                                                double[] leveragevalues = new double[nvalueint];
+                                                RealMatrix hatmatrix = regression.calculateHat();
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    leveragevalues[i-1] = hatmatrix.getEntry(i-1,i-1);
+                                                }
+                                                String leveragestr = gson.toJson(leveragevalues);
+                                                j.putExtra("leverage", leveragestr);
+
                                                 double[][] res2 = new double[nvalueint][3];
                                                 double modres;
                                                 double resi;
@@ -1155,7 +1163,13 @@ public class MainActivity extends AppCompatActivity  {
 
                                                 //significancia de regresión general
                                                 double errosq = (regression.estimateErrorVariance());
+                                                j.putExtra("mse", errosq);
                                                 double totalsq = regression.calculateTotalSumOfSquares();
+                                                double totalerror = errosq*(nvalueint-3);
+                                                double totalreg = totalsq-totalerror;
+                                                j.putExtra("totalsum", totalsq);
+                                                j.putExtra("mse2", totalerror);
+                                                j.putExtra("totalreg", totalreg);
                                                 double fountvar = ((totalsq - errosq*(nvalueint-3))/2)/errosq;
                                                 j.putExtra("fountvalue", fountvar);
                                                 if(fountvar > 0){

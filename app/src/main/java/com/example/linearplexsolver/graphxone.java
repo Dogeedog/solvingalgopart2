@@ -36,13 +36,16 @@ public class graphxone extends AppCompatActivity {
 
     LineChart test;
     LineChart g2;
+    LineChart g3;
+    TextView g1tv1;
+    TextView g1tv2;
     TextView g2tv1;
     TextView g2tv2;
+    TextView g3tv1;
+    TextView g3tv2;
     Button b1;
     Button b2;
     Button b3;
-    TextView g1tv1;
-    TextView g1tv2;
     Gson gson = new GsonBuilder().create();
 
     @Override
@@ -59,6 +62,13 @@ public class graphxone extends AppCompatActivity {
         g2 = findViewById(R.id.mf2one);
         g2tv1 = findViewById(R.id.fittedone);
         g2tv2 = findViewById(R.id.residualone);
+        g3= findViewById(R.id.stdresgraphone);
+        g3tv1 = findViewById(R.id.fittedstdone);
+        g3tv2 = findViewById(R.id.residualstdone);
+
+        g3.setVisibility(View.GONE);
+        g3tv1.setVisibility(View.GONE);
+        g3tv2.setVisibility(View.GONE);
 
         g2.setVisibility(View.GONE);
         g2tv1.setVisibility(View.GONE);
@@ -79,6 +89,7 @@ public class graphxone extends AppCompatActivity {
         double[][] regarray = gson.fromJson(array2, double[][].class);
         double[][] res1 = gson.fromJson(array1, double[][].class);
         float[][] lineardataset = new float[nvalueint][3];
+
 
 
         //Botón para la gráfica de residuales ordinaria
@@ -154,6 +165,10 @@ public class graphxone extends AppCompatActivity {
             g2.setVisibility(View.GONE);
             g2tv1.setVisibility(View.GONE);
             g2tv2.setVisibility(View.GONE);
+
+            g3.setVisibility(View.GONE);
+            g3tv1.setVisibility(View.GONE);
+            g3tv2.setVisibility(View.GONE);
 
             test.setVisibility(View.VISIBLE);
             g1tv1.setVisibility(View.VISIBLE);
@@ -233,15 +248,105 @@ public class graphxone extends AppCompatActivity {
             g1tv1.setVisibility(View.GONE);
             g1tv2.setVisibility(View.GONE);
 
+            g3.setVisibility(View.GONE);
+            g3tv1.setVisibility(View.GONE);
+            g3tv2.setVisibility(View.GONE);
+
             g2.setVisibility(View.VISIBLE);
             g2tv1.setVisibility(View.VISIBLE);
             g2tv2.setVisibility(View.VISIBLE);
         });
 
+        //botón para el plot de residuales estandarizados
         b3.setOnClickListener(v -> {
+            float sumstdResidualDev = 0;
+            float stdResidualDev;
+
+            for (int i = 1; i <= nvalueint; i++){
+                //y fitted value
+                lineardataset[i-1][0] = (float) res1[i-1][1];
+                sumstdResidualDev = sumstdResidualDev + (float) Math.pow(res1[i-1][2] , 2);
+            }
+
+            stdResidualDev = (float) Math.sqrt(sumstdResidualDev/(nvalueint-2));
+
+            for (int i = 1; i <= nvalueint; i++){
+                //std residual
+                lineardataset[i-1][1] = (((float) res1[i-1][2])/stdResidualDev);
+            }
+
+            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[0], b[0]));
+
+            //dataset para plottear el modelo lineal
+            ArrayList<Entry> entrieslist = new ArrayList<>();
+
+            for(int i = 0; i < lineardataset.length; i++){
+                //(x: fitted, y: residual)
+                entrieslist.add(new Entry(lineardataset[i][0], lineardataset[i][1]));
+            }
+
+
+            //dataset de los valores reales de y
+
+
+            ArrayList<ILineDataSet> linedatasets = new ArrayList<>();
+
+            LineDataSet data = new LineDataSet(entrieslist, "");
+            data.enableDashedLine(0f, 1f, 0f);
+            data.setColor(Color.parseColor("#5865F2"));
+            data.setValueTextColor(Color.parseColor("#5865F2"));
+            data.setCircleColor(Color.parseColor("#5865F2"));
+            data.setCircleHoleColor(Color.parseColor("#5865F2"));
+            data.setDrawValues(false);
+
+
+
+
+
+            linedatasets.add(data);
+
+            LineData xtds = new LineData(linedatasets);
+            g3.setBorderColor(Color.WHITE);
+            g3.getLegend().setEnabled(false);
+            g3.getDescription().setTextColor(Color.WHITE);
+            g3.getDescription().setText(getString(R.string.stdres));
+            g3.getAxisLeft().setDrawGridLines(false);
+            g3.getXAxis().setDrawGridLines(false);
+            g3.setTouchEnabled(true);
+            IMarker mv = new YourMarkerView(getApplicationContext(), R.layout.marker1var2);
+            g3.setMarker(mv);
+            g3.setData(xtds);
+
+            XAxis xaxis = g3.getXAxis();
+            xaxis.setTextColor(Color.WHITE);
+            xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+            YAxis yaxis = g3.getAxisLeft();
+            yaxis.setTextColor(Color.WHITE);
+
+            YAxis yaxisr = g3.getAxisRight();
+            yaxisr.setEnabled(false);
+
+            LimitLine ld = new LimitLine(0f);
+            ld.setLineColor(Color.WHITE);
+            ld.setLineWidth(0.25f);
+            yaxis.addLimitLine(ld);
+
+            g3.invalidate();
+
             test.setVisibility(View.GONE);
             g1tv1.setVisibility(View.GONE);
             g1tv2.setVisibility(View.GONE);
+
+
+            g2.setVisibility(View.GONE);
+            g2tv1.setVisibility(View.GONE);
+            g2tv2.setVisibility(View.GONE);
+
+            g3.setVisibility(View.VISIBLE);
+            g3tv1.setVisibility(View.VISIBLE);
+            g3tv2.setVisibility(View.VISIBLE);
         });
 
 

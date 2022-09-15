@@ -39,4 +39,16 @@
     <string name="actualv2">Actual</string>
     <string name="ordinaryres">Residuales Ordinarios</string>
     <string name="fitvalue">Valor Ajustado (y)</string>
+    <string name="stdrestv">Residual Estandarizado</string>
+    <string name="stdres">Residuales Estandarizados</string>
+    <string name="cooktv">Distancia de Cook</string>
+    <string name="cook">Distancias de Cook</string>
+    <string name="obs">Observación</string>
+    <string name="anova">ANOVA</string>
+    <string name="anovatable">Tabla ANOVA</string>
+    <string name="fv">F.V.</string>
+    <string name="sc">S.C.</string>
+    <string name="gl">G.L.</string>
+    <string name="mc">M.C.</string>
+    <string name="anovainfo">F.V. = Fuente de Variación; S.C. = Suma de Cuadrados;\n G.L. = Grados de Libertad; M.C. = Media Cuadrática;\nR = Regresión; E = Error; T = Total</string>
 </resources>

@@ -238,13 +238,17 @@ public class solved extends AppCompatActivity {
         double b2 = x.getDoubleExtra("b2t", 0);
         String array1 = x.getStringExtra("res2array");
         String array2 = x.getStringExtra("regarray");
+        double mse = x.getDoubleExtra("mse", 0);
         int nvalueint = x.getIntExtra("nvalueres", 0);
+        String array3 = x.getStringExtra("leverage");
         j.putExtra("res1array", array1);
         j.putExtra("regarray", array2);
         j.putExtra("nvalueres", nvalueint);
         j.putExtra("b0t", b0);
         j.putExtra("b1t", b1);
         j.putExtra("b2t", b2);
+        j.putExtra("leverage", array3);
+        j.putExtra("mse", mse);
         startActivity(j);
     }
 
@@ -259,6 +263,23 @@ public class solved extends AppCompatActivity {
         j.putExtra("res2array", array2);
         j.putExtra("vares", "two");
         startActivity(j);
+    }
+
+    public void anovaf(View h){
+        Intent j = new Intent(this, anova.class);
+        Intent x = getIntent();
+
+        double mse = x.getDoubleExtra("mse2", 0);
+        int nvalueint = x.getIntExtra("nvalueres", 0);
+        double totalsq = x.getDoubleExtra("totalsum",0);
+        double totalreg = x.getDoubleExtra("totalreg",0);
+        j.putExtra("mse2", mse);
+        j.putExtra("nvalueres", nvalueint);
+        j.putExtra("totalsum", totalsq);
+        j.putExtra("totalreg", totalreg);
+        startActivity(j);
+
+
     }
 
 }
