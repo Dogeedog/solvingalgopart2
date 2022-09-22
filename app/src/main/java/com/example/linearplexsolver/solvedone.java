@@ -190,14 +190,18 @@ public class solvedone extends AppCompatActivity {
         Intent j = getIntent();
         String array1 = j.getStringExtra("res1array");
         String array2 = j.getStringExtra("regarray");
+        String array3 = j.getStringExtra("leverageone");
         int nvalueint = j.getIntExtra("nvalueres", 0);
+        double sqerrorvalue = j.getDoubleExtra("varianceone", 0);
         double b0 = j.getDoubleExtra("b0",0);
         double b1 = j.getDoubleExtra("b1", 0);
+        x.putExtra("mse", sqerrorvalue);
         x.putExtra("res1array", array1);
         x.putExtra("regarray", array2);
         x.putExtra("nvalueres", nvalueint);
         x.putExtra("b0", b0);
         x.putExtra("b1", b1);
+        x.putExtra("leverageone", array3);
         startActivity(x);
     }
 
@@ -212,5 +216,20 @@ public class solvedone extends AppCompatActivity {
         j.putExtra("res2array", array2);
         j.putExtra("vares", "one");
         startActivity(j);
+    }
+
+    public void anovafone(View h){
+        Intent j = new Intent(this, anovaone.class);
+        Intent x = getIntent();
+
+        double SSE = x.getDoubleExtra("SSEone", 0);
+        int nvalueint = x.getIntExtra("nvalueres", 0);
+        double totalreg = x.getDoubleExtra("SSTone",0);
+        j.putExtra("SSEone", SSE);
+        j.putExtra("nvalueres", nvalueint);
+        j.putExtra("totalreg", totalreg);
+        startActivity(j);
+
+
     }
 }

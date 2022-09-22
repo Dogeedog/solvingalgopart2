@@ -234,6 +234,7 @@ public class graphx extends AppCompatActivity {
             g1tv2.setVisibility(View.VISIBLE);
         });
 
+        //plot residuales ordinarios
         btn2.setOnClickListener(v -> {
             for (int i = 1; i <= nvalueint; i++){
                 //y fitted value
@@ -320,6 +321,9 @@ public class graphx extends AppCompatActivity {
             g2.setVisibility(View.VISIBLE);
         });
 
+        //plot residuales estandarizados
+        //https://www.isixsigma.com/dictionary/standardized-residual/#:~:text=A%20raw%20residual%20is%20the%20difference%20between%20an%20observed%20value,the%20error%20of%20your%20prediction.
+        //https://www.investopedia.com/terms/r/residual-standard-deviation.asp
         btn3.setOnClickListener(v -> {
             float sumstdResidualDev = 0;
             float stdResidualDev;
@@ -337,14 +341,15 @@ public class graphx extends AppCompatActivity {
                 lineardataset[i-1][1] = (((float) res1[i-1][2])/stdResidualDev);
             }
 
-            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[0], b[0]));
+            java.util.Arrays.sort(lineardataset, (a, b) -> Float.compare(a[1], b[1]));
 
             //dataset para plottear el modelo lineal
             ArrayList<Entry> entrieslist = new ArrayList<>();
 
             for(int i = 0; i < lineardataset.length; i++){
-                //(x: fitted, y: residual)
-                entrieslist.add(new Entry(lineardataset[i][0], lineardataset[i][1]));
+                //(x: residual estandarizado, y: probabilidad normal)
+                float prob = (i + 0.5f)/nvalueint;
+                entrieslist.add(new Entry(lineardataset[i][1], prob));
             }
 
 
@@ -414,10 +419,12 @@ public class graphx extends AppCompatActivity {
             g3tv2.setVisibility(View.VISIBLE);
         });
 
+        //plot distancias de cook
+        //https://www.mathworks.com/help/stats/cooks-distance.html
         btn4.setOnClickListener(v -> {
 
             for (int i = 1; i <= nvalueint; i++){
-                float firstop = (float)Math.pow(res1[i-1][2],2) / (3*(float)mse);
+                float firstop = (float)Math.pow(res1[i-1][2],2) / (2*(float)mse);
                 float secondop = (float)leverage[i-1] / (float)Math.pow(1-leverage[i-1],2);
                 //cooks distance
                 lineardataset[i-1][0] = firstop * secondop;
@@ -479,6 +486,11 @@ public class graphx extends AppCompatActivity {
             ld.setLineColor(Color.WHITE);
             ld.setLineWidth(0.25f);
             yaxis.addLimitLine(ld);
+
+            LimitLine ld2 = new LimitLine(1.0f);
+            ld2.setLineColor(Color.RED);
+            ld2.setLineWidth(0.5f);
+            yaxis.addLimitLine(ld2);
 
             g4.invalidate();
 

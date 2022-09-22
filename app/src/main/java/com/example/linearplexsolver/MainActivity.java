@@ -694,10 +694,15 @@ public class MainActivity extends AppCompatActivity  {
                                                 String regarraytostring = gson.toJson(a);
                                                 j.putExtra("regarray", regarraytostring);
 
+
+
                                                 double[][] res = new double[nvalueint][3];
                                                 double modres;
                                                 double resi;
+                                                double totalx = 0;
                                                 for (int i = 1; i <= nvalueint; i++){
+                                                    //media de variable independiente
+                                                    totalx = totalx + a[i-1][0];
                                                     //y = b0 + b1*x1
                                                     modres = coef[0] + (coef[1])*(a[i-1][0]);
                                                     resi = (a[i-1][1]) - modres;
@@ -713,7 +718,33 @@ public class MainActivity extends AppCompatActivity  {
                                                     }
                                                 }
 
+                                                //sacar leverage values
+                                                //formula: https://xiangyuw.medium.com/high-leverage-points-in-simple-linear-regression-d7bfed545540
+                                                double totalxavg = totalx/nvalueint;
+                                                double SSxMeanDifference = 0;
+                                                double[] leveragevaluesone = new double[nvalueint];
+                                                double ninverse = 1.0 / nvalueint;
 
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    SSxMeanDifference = SSxMeanDifference + Math.pow(a[i-1][0]-totalxavg,2);
+                                                }
+
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    double op1 = Math.pow(a[i-1][0]-totalxavg,2);
+                                                    double op2 = ninverse + (op1/SSxMeanDifference);
+                                                    leveragevaluesone[i-1] = op2;
+                                                }
+                                                String leveragestrone = gson.toJson(leveragevaluesone);
+                                                j.putExtra("leverageone", leveragestrone);
+
+
+
+
+                                                //anova values
+                                                double SSTotalone = regression.regress().getTotalSumSquares();
+                                                double SSErrorOne = regression.regress().getErrorSumSquares();
+                                                j.putExtra("SSTone", SSTotalone);
+                                                j.putExtra("SSEone", SSErrorOne);
 
                                                 //valor de t student
                                                 double confnumberpercent = (1 - confnumber/100)/2;
@@ -754,14 +785,14 @@ public class MainActivity extends AppCompatActivity  {
                                                 }
 
                                                 //intervalo coef b1
-                                                Double cb1left = coef[1]-(tvalue*varstderror[1]);
-                                                Double cb1right = coef[1]+(tvalue*varstderror[1]);
+                                                double cb1left = coef[1]-(tvalue*varstderror[1]);
+                                                double cb1right = coef[1]+(tvalue*varstderror[1]);
                                                 j.putExtra("icb1left", cb1left);
                                                 j.putExtra("icb1right", cb1right);
 
                                                 //intervalo coef b0
-                                                Double cb0left = coef[0]-(tvalue*varstderror[0]);
-                                                Double cb0right = coef[0]+(tvalue*varstderror[0]);
+                                                double cb0left = coef[0]-(tvalue*varstderror[0]);
+                                                double cb0right = coef[0]+(tvalue*varstderror[0]);
                                                 j.putExtra("icb0left", cb0left);
                                                 j.putExtra("icb0right", cb0right);
 
@@ -775,21 +806,6 @@ public class MainActivity extends AppCompatActivity  {
                                                         return;
                                                     }
                                                     double myox = coef[0] + coef[1]*mediadouble;
-                                                    double totalx = 0;
-                                                    SharedPreferences.Editor editor = sp.edit();
-                                                    for (int i = 1; i <= nvalueint; i++){
-                                                        totalx = totalx + a[i-1][0];
-                                                        editor.putString("totalx", String.valueOf(totalx));
-                                                        editor.apply();
-                                                    }
-                                                    String totalxstr = sp.getString("totalx", "0");
-                                                    double totalxd;
-                                                    try{
-                                                        totalxd = Double.parseDouble(totalxstr);
-                                                    } catch(NumberFormatException ex){
-                                                        return;
-                                                    }
-                                                    double totalxavg = totalxd/nvalueint;
                                                     double sxxmedia = regression.getXSumSquares();
                                                     double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
                                                     double mediapart2 = variance*((1.0/nvalueint) + mediapart1);
@@ -809,21 +825,6 @@ public class MainActivity extends AppCompatActivity  {
                                                         return;
                                                     }
                                                     double myox = coef[0] + coef[1]*mediadouble;
-                                                    double totalx = 0;
-                                                    SharedPreferences.Editor editor = sp.edit();
-                                                    for (int i = 1; i <= nvalueint; i++){
-                                                        totalx = totalx + a[i-1][0];
-                                                        editor.putString("totalx", String.valueOf(totalx));
-                                                        editor.apply();
-                                                    }
-                                                    String totalxstr = sp.getString("totalx", "0");
-                                                    double totalxd;
-                                                    try{
-                                                        totalxd = Double.parseDouble(totalxstr);
-                                                    } catch(NumberFormatException ex){
-                                                        return;
-                                                    }
-                                                    double totalxavg = totalxd/nvalueint;
                                                     double sxxmedia = regression.getXSumSquares();
                                                     double mediapart1 = (Math.pow((mediadouble - totalxavg), 2))/sxxmedia;
                                                     double mediapart2 = variance*(1 + (1.0/nvalueint) + mediapart1);
