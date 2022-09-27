@@ -49,6 +49,7 @@
     <string name="fv">F.V.</string>
     <string name="sc">S.C.</string>
     <string name="gl">G.L.</string>
-    <string name="mc">M.C.</string>
-    <string name="anovainfo">F.V. = Fuente de Variación; S.C. = Suma de Cuadrados;\n G.L. = Grados de Libertad; M.C. = Media Cuadrática;\nR = Regresión; E = Error; T = Total</string>
+    <string name="mc">C.M.</string>
+    <string name="anovainfo">F.V. = Fuente de Variación; S.C. = Suma de Cuadrados;\nG.L. = Grados de Libertad; C.M. = Cuadrados Medios;\nR = Regresión; E = Error; T = Total</string>
+    <string name="fisherval">Valor de Fisher (Tablas) = </string>
 </resources>

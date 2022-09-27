@@ -469,6 +469,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/abrevsone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -479,6 +480,32 @@
             android:text="@string/anovainfo"
             android:textSize="12sp"
             android:textColor="@color/white">
+        </TextView>
+
+        <TextView
+            android:id="@+id/fisherstringone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/abrevsone"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/fisherval"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white">
+        </TextView>
+
+        <TextView
+            android:id="@+id/fishervalueone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/abrevsone"
+            app:layout_constraintStart_toEndOf="@+id/fisherstringone"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white">
+
         </TextView>
 
 

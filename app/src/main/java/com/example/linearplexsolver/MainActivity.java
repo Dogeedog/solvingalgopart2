@@ -751,6 +751,12 @@ public class MainActivity extends AppCompatActivity  {
                                                 TDistribution tdist = new TDistribution(nvalueint-2);
                                                 double tvalue = (tdist.inverseCumulativeProbability(confnumberpercent)*(-1));
 
+                                                //valor fisher
+                                                double confnumberpercentf = (confnumber/100);
+                                                FDistribution fdist = new FDistribution(2,nvalueint-3);
+                                                double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
+                                                j.putExtra("fvalue", fvalue);
+
                                                 //MSE^2
                                                 double variance = regression.regress().getMeanSquareError();
                                                 j.putExtra("varianceone", variance);
@@ -1112,7 +1118,14 @@ public class MainActivity extends AppCompatActivity  {
                                                 double[][] res2 = new double[nvalueint][3];
                                                 double modres;
                                                 double resi;
+                                                double totalx1 = 0;
+                                                double totalx2 = 0;
+                                                double totaly = 0;
                                                 for (int i = 1; i <= nvalueint; i++){
+                                                    //total values
+                                                    totalx1 = totalx1 + b[i-1][0];
+                                                    totalx2 = totalx2 + b[i-1][1];
+                                                    totaly = totaly + ym[i-1];
                                                     //y = b0 + b1x1 + b2x2
                                                     modres = coef[0] + coef[1]*b[i-1][0] + coef[2]*b[i-1][1];
                                                     resi = ym[i-1] - modres;
@@ -1127,9 +1140,34 @@ public class MainActivity extends AppCompatActivity  {
                                                         j.putExtra("res2array", res2arraytostring);
                                                     }
                                                 }
+                                                //correlation formula: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC374386/
+
+                                                double x1avg = totalx1/nvalueint;
+                                                double x2avg = totalx2/nvalueint;
+                                                double yavg = totaly/nvalueint;
+                                                double Corrx1op1 = 0;
+                                                double Corrx1op2 = 0;
+                                                double CorrYop = 0;
+                                                double Corrx2op1 = 0;
+                                                double Corrx2op2 = 0;
+
+                                                for (int i = 1; i <= nvalueint; i++){
+                                                    CorrYop = CorrYop + Math.pow(ym[i-1]-yavg, 2);
+
+                                                    Corrx1op1 = Corrx1op1 + (b[i-1][0]-x1avg)*(ym[i-1]-yavg);
+                                                    Corrx1op2 = Corrx1op2 + Math.pow(b[i-1][0]-x1avg,2);
+
+                                                    Corrx2op1 = Corrx2op1 + (b[i-1][1]-x2avg)*(ym[i-1]-yavg);
+                                                    Corrx2op2 = Corrx2op2 + Math.pow(b[i-1][1]-x2avg,2);
+                                                }
+
+                                                double SquaredCorrx1 = Math.pow(Corrx1op1/Math.sqrt(Corrx1op2*CorrYop),2);
+                                                double SquaredCorrx2 = Math.pow(Corrx2op1/Math.sqrt(Corrx2op2*CorrYop),2);
+
 
                                                 //regresión
                                                 double reg = regression.calculateRSquared();
+
                                                 j.putExtra("regtwo", reg);
 
                                                 //valor de t student
@@ -1168,6 +1206,15 @@ public class MainActivity extends AppCompatActivity  {
                                                 double totalsq = regression.calculateTotalSumOfSquares();
                                                 double totalerror = errosq*(nvalueint-3);
                                                 double totalreg = totalsq-totalerror;
+
+                                                double percentSquaredCorrx1 = SquaredCorrx1/(SquaredCorrx1+SquaredCorrx2);
+                                                double percentSquaredCorrx2 = SquaredCorrx2/(SquaredCorrx1+SquaredCorrx2);
+
+                                                double SSx1 = percentSquaredCorrx1*totalreg;
+                                                double SSx2 = percentSquaredCorrx2*totalreg;
+                                                j.putExtra("SSx1", SSx1);
+                                                j.putExtra("SSx2", SSx2);
+
                                                 j.putExtra("totalsum", totalsq);
                                                 j.putExtra("mse2", totalerror);
                                                 j.putExtra("totalreg", totalreg);
@@ -1250,16 +1297,12 @@ public class MainActivity extends AppCompatActivity  {
                                                             {mediadouble},
                                                             {mediadouble2}
                                                     };
-                                                    double totalx1 = 0;
-                                                    double totalx2 = 0;
                                                     double totalx1pwr2 = 0;
                                                     double totalx2pwr2 = 0;
                                                     double totalx1x2 = 0;
                                                     RealMatrix Xor = new Array2DRowRealMatrix(Xo);
                                                     RealMatrix Xotr = Xor.transpose();
                                                     for (int i = 1; i <= nvalueint; i++) {
-                                                        totalx1 = totalx1 + b[i - 1][0];
-                                                        totalx2 = totalx2 + b[i - 1][1];
                                                         totalx1pwr2 = totalx1pwr2 + Math.pow(b[i - 1][0], 2);
                                                         totalx2pwr2 = totalx2pwr2 + Math.pow(b[i - 1][1], 2);
                                                         totalx1x2 = totalx1x2 + b[i - 1][0] * b[i - 1][1];
@@ -1300,16 +1343,12 @@ public class MainActivity extends AppCompatActivity  {
                                                             {mediadouble},
                                                             {mediadouble2}
                                                     };
-                                                    double totalx1 = 0;
-                                                    double totalx2 = 0;
                                                     double totalx1pwr2 = 0;
                                                     double totalx2pwr2 = 0;
                                                     double totalx1x2 = 0;
                                                     RealMatrix Xor = new Array2DRowRealMatrix(Xo);
                                                     RealMatrix Xotr = Xor.transpose();
                                                     for (int i = 1; i <= nvalueint; i++){
-                                                        totalx1 = totalx1 + b[i-1][0];
-                                                        totalx2 = totalx2 + b[i-1][1];
                                                         totalx1pwr2 = totalx1pwr2 + Math.pow(b[i-1][0], 2);
                                                         totalx2pwr2 = totalx2pwr2 + Math.pow(b[i-1][1], 2);
                                                         totalx1x2 = totalx1x2 + b[i-1][0]*b[i-1][1];

@@ -133,8 +133,8 @@ public class solved extends AppCompatActivity {
         siggpng = findViewById(R.id.imageView);
         sigg = findViewById(R.id.signifvaltwo);
         String operatorg = j.getStringExtra("signifg");
-        Double fountvalue = j.getDoubleExtra("fountvalue", 0);
-        Double fvalue = j.getDoubleExtra("fvalue", 0);
+        double fountvalue = j.getDoubleExtra("fountvalue", 0);
+        double fvalue = j.getDoubleExtra("fvalue", 0);
         if(fountvalue > 0){
             String signiffinaltext = df.format(fountvalue) +  " > " + df.format(fvalue);
             sigg.setText(signiffinaltext);
@@ -277,6 +277,17 @@ public class solved extends AppCompatActivity {
         j.putExtra("nvalueres", nvalueint);
         j.putExtra("totalsum", totalsq);
         j.putExtra("totalreg", totalreg);
+
+        double fountvalue = x.getDoubleExtra("fountvalue", 0);
+        double fvalue = x.getDoubleExtra("fvalue", 0);
+        j.putExtra("fvalue", fvalue);
+        j.putExtra("fountvalue", fountvalue);
+
+        double SSx1 = x.getDoubleExtra("SSx1", 0);
+        double SSx2 = x.getDoubleExtra("SSx2", 0);
+        j.putExtra("SSx1", SSx1);
+        j.putExtra("SSx2", SSx2);
+
         startActivity(j);
 
 

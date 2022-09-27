@@ -22,6 +22,7 @@ public class anovaone extends AppCompatActivity {
     TextView anovamc1;
     TextView anovamc2;
     TextView anovaf1;
+    TextView fishersign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class anovaone extends AppCompatActivity {
         anovamc1 = findViewById(R.id.anovamc1one);
         anovamc2 = findViewById(R.id.anovamc2one);
         anovaf1 = findViewById(R.id.anovaf1one);
+        fishersign = findViewById(R.id.fishervalueone);
 
         DecimalFormat df = new DecimalFormat("#.####; - #");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -71,6 +73,18 @@ public class anovaone extends AppCompatActivity {
         anovamc1.setTextIsSelectable(true);
         anovamc2.setTextIsSelectable(true);
         anovaf1.setTextIsSelectable(true);
+
+        double fountvalue = x.getDoubleExtra("fountvalue", 0);
+        double fvalue = x.getDoubleExtra("fvalue", 0);
+        if(fountvalue > 0){
+            String signiffinaltext = df.format(fvalue);
+            fishersign.setText(signiffinaltext);
+            fishersign.setTextIsSelectable(true);
+        }else{
+            String signiffinaltext = df.format(fvalue);
+            fishersign.setText(signiffinaltext);
+            fishersign.setTextIsSelectable(true);
+        }
 
 
     }

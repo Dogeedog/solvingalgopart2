@@ -52,4 +52,5 @@
     <string name="gl">D.F.</string>
     <string name="mc">M.S.</string>
     <string name="anovainfo">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nR = Regression; E = Error; T = Total</string>
+    <string name="fisherval">Fisher\'s Value (Tables) = </string>
 </resources>

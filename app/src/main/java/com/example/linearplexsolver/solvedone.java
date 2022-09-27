@@ -228,6 +228,12 @@ public class solvedone extends AppCompatActivity {
         j.putExtra("SSEone", SSE);
         j.putExtra("nvalueres", nvalueint);
         j.putExtra("totalreg", totalreg);
+
+        double fountvalue = x.getDoubleExtra("fountvalue", 0);
+        double fvalue = x.getDoubleExtra("fvalue", 0);
+        j.putExtra("fvalue", fvalue);
+        j.putExtra("fountvalue", fountvalue);
+
         startActivity(j);
 
 
