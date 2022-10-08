@@ -58,9 +58,9 @@ public class solvedone extends AppCompatActivity {
 
 
         DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
         DecimalFormat df2 = new DecimalFormat("#.##%");
-        df2.setRoundingMode(RoundingMode.CEILING);
+        df2.setRoundingMode(RoundingMode.HALF_UP);
 
         //MSE^2 y errores de los coeficientes
         sqerror = findViewById(R.id.given3one);
@@ -162,7 +162,7 @@ public class solvedone extends AppCompatActivity {
 
     public void eval(View h) {
         DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
         Intent j = getIntent();
         double b0 = j.getDoubleExtra("b0",0);
         double b1 = j.getDoubleExtra("b1", 0);
@@ -225,6 +225,8 @@ public class solvedone extends AppCompatActivity {
         double SSE = x.getDoubleExtra("SSEone", 0);
         int nvalueint = x.getIntExtra("nvalueres", 0);
         double totalreg = x.getDoubleExtra("SSTone",0);
+        double confvalue = x.getDoubleExtra("confvalue",0);
+        j.putExtra("confvalue", confvalue);
         j.putExtra("SSEone", SSE);
         j.putExtra("nvalueres", nvalueint);
         j.putExtra("totalreg", totalreg);

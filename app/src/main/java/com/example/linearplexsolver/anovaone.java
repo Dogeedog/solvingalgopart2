@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -23,6 +24,7 @@ public class anovaone extends AppCompatActivity {
     TextView anovamc2;
     TextView anovaf1;
     TextView fishersign;
+    TextView conftv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,18 @@ public class anovaone extends AppCompatActivity {
         anovamc2 = findViewById(R.id.anovamc2one);
         anovaf1 = findViewById(R.id.anovaf1one);
         fishersign = findViewById(R.id.fishervalueone);
+        conftv = findViewById(R.id.fisherinputsone);
 
         DecimalFormat df = new DecimalFormat("#.####; - #");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        DecimalFormat df2 = new DecimalFormat("#.##;");
 
         Intent x = getIntent();
 
         double totalerror = x.getDoubleExtra("SSEone", 0);
         int nvalueint = x.getIntExtra("nvalueres", 0);
         double totalreg = x.getDoubleExtra("totalreg",0);
+        double confvalue = 1 - x.getDoubleExtra("confvalue",0);
 
         anovareg1.setText(df.format(totalreg-totalerror));
         anovareg2.setText(df.format(totalerror));
@@ -86,6 +91,7 @@ public class anovaone extends AppCompatActivity {
             fishersign.setTextIsSelectable(true);
         }
 
+        conftv.setText(Html.fromHtml("R: &#402;<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-2) + "</small></sub> = "));
 
     }
 }

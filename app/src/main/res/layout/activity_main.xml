@@ -77,16 +77,16 @@
                 android:id="@+id/n"
                 android:layout_width="34dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
                 android:text="n:"
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:flow_verticalAlign="bottom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.042"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toEndOf="@+id/vargroup"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="10dp"
+                />
 
             <EditText
                 android:id="@+id/nnumber"
@@ -126,16 +126,16 @@
                 android:id="@+id/x"
                 android:layout_width="34dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
                 android:text="x:"
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:flow_verticalAlign="bottom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="8dp"
+                />
 
             <TextView
                 android:id="@+id/percentage"
@@ -150,7 +150,7 @@
                 app:flow_verticalAlign="bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.01"
-                app:layout_constraintStart_toEndOf="@+id/vargroup"
+                app:layout_constraintStart_toEndOf="@+id/nnumber"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
@@ -361,6 +361,20 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/nnumber"
                 android:layout_marginBottom="30dp" />
+
+            <ImageButton
+                android:id="@+id/deletebtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/trashicon"
+                android:onClick="deletedata"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/nnumber"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                tools:ignore="UsingOnClickInXml">
+
+            </ImageButton>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

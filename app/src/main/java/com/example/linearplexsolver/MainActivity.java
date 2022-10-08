@@ -1,11 +1,13 @@
 package com.example.linearplexsolver;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +25,7 @@ import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -80,6 +83,8 @@ public class MainActivity extends AppCompatActivity  {
     EditText conf;
     RadioButton choiceonevar;
     RadioButton choicetwovar;
+    AlertDialog dialog;
+    AlertDialog.Builder builder;
     Gson gson = new GsonBuilder().create();
 
 
@@ -433,7 +438,7 @@ public class MainActivity extends AppCompatActivity  {
         choicetwovar = findViewById(R.id.twovar);
         icpred = findViewById(R.id.prediccion);
 
-        //listener del checkbox ic media para abilitar/desabilitar el input
+        //listener del checkbox ic media para habilitar/deshabilitar el input
         icmean.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -458,7 +463,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        //listener del checkbox ic predicción para abilitar/desabilitar el input
+        //listener del checkbox ic predicción para habilitar/deshabilitar el input
         icpred.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -673,9 +678,9 @@ public class MainActivity extends AppCompatActivity  {
                                                 //obtiene el modelo
                                                 SimpleRegression regression = new SimpleRegression();
                                                 DecimalFormat df = new DecimalFormat("#.####; - #");
-                                                df.setRoundingMode(RoundingMode.CEILING);
+                                                df.setRoundingMode(RoundingMode.HALF_UP);
                                                 DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
-                                                df2.setRoundingMode(RoundingMode.CEILING);
+                                                df2.setRoundingMode(RoundingMode.HALF_UP);
                                                 // a array {x, y }
                                                 regression.addData(a);
                                                 double[] coef = regression.regress().getParameterEstimates();
@@ -753,8 +758,9 @@ public class MainActivity extends AppCompatActivity  {
 
                                                 //valor fisher
                                                 double confnumberpercentf = (confnumber/100);
-                                                FDistribution fdist = new FDistribution(2,nvalueint-3);
+                                                FDistribution fdist = new FDistribution(1,nvalueint-2);
                                                 double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
+                                                j.putExtra("confvalue", confnumberpercentf);
                                                 j.putExtra("fvalue", fvalue);
 
                                                 //MSE^2
@@ -1082,9 +1088,9 @@ public class MainActivity extends AppCompatActivity  {
                                                 OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
                                                 //formato
                                                 DecimalFormat df = new DecimalFormat("#.####; - #");
-                                                df.setRoundingMode(RoundingMode.CEILING);
+                                                df.setRoundingMode(RoundingMode.HALF_UP);
                                                 DecimalFormat df2 = new DecimalFormat("+ #.####;- #");
-                                                df2.setRoundingMode(RoundingMode.CEILING);
+                                                df2.setRoundingMode(RoundingMode.HALF_UP);
                                                 regression.newSampleData(ym, b);
                                                 double[] coef = regression.estimateRegressionParameters();
                                                 String b0 = (df.format(coef[0]));
@@ -1198,6 +1204,7 @@ public class MainActivity extends AppCompatActivity  {
                                                 double confnumberpercentf = (confnumber/100);
                                                 FDistribution fdist = new FDistribution(2,nvalueint-3);
                                                 double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
+                                                j.putExtra("confvalue", confnumberpercentf);
 
 
                                                 //significancia de regresión general
@@ -1659,6 +1666,59 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
         });
+    }
+
+    public void deletedata(View v){
+        builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(getString(R.string.warntitle));
+        builder.setMessage(getString(R.string.warntext));
+
+        builder.setPositiveButton(getString(R.string.positivebtn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    nvalue.getText().clear();
+                    nvaluedel.getText().clear();
+                    LinearLayout layout = findViewById(R.id.nlayout);
+                    LinearLayout layouty = findViewById(R.id.ylayout);
+                    LinearLayout layoutxa = findViewById(R.id.xalayout);
+                    LinearLayout layoutxb = findViewById(R.id.xblayout);
+                    layout.removeAllViews();
+                    layouty.removeAllViews();
+                    layoutxa.removeAllViews();
+                    layoutxb.removeAllViews();
+                }catch (Exception ignored) {
+                }
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.negativebtn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        dialog = builder.create();
+        dialog.show();
+
+        Button PositiveBtn = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        PositiveBtn.setTextColor(Color.BLACK);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)PositiveBtn.getLayoutParams();
+        params.topMargin = (int) getResources().getDimension(R.dimen.margin);
+        params.leftMargin = (int) getResources().getDimension(R.dimen.margin);
+        params.rightMargin = (int) getResources().getDimension(R.dimen.margin);
+        PositiveBtn.setLayoutParams(params);
+
+        Button NegativeBtn = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        NegativeBtn.setBackgroundColor(Color.parseColor("#5865F2"));
+        NegativeBtn.setTextColor(Color.BLACK);
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams)NegativeBtn.getLayoutParams();
+        params2.topMargin = (int) getResources().getDimension(R.dimen.margin);
+        params2.leftMargin = (int) getResources().getDimension(R.dimen.margin);
+        params2.rightMargin = (int) getResources().getDimension(R.dimen.margin);
+        NegativeBtn.setLayoutParams(params2);
+
     }
 }
 

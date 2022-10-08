@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
+import org.hipparchus.distribution.continuous.FDistribution;
 import org.w3c.dom.Text;
 
 import java.math.RoundingMode;
@@ -31,6 +33,9 @@ public class anova extends AppCompatActivity {
     TextView anovaf1_1;
     TextView anovaf1_2;
     TextView fishersign;
+    TextView fishersign2;
+    TextView conftv;
+    TextView conftv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +60,13 @@ public class anova extends AppCompatActivity {
         anovaf1_1 = findViewById(R.id.anovaf1_1);
         anovaf1_2 = findViewById(R.id.anovaf1_2);
         fishersign = findViewById(R.id.fishervalue);
+        fishersign2 = findViewById(R.id.fishervalue2);
+        conftv = findViewById(R.id.fisherinputs);
+        conftv2 = findViewById(R.id.fisherinputs2);
 
         DecimalFormat df = new DecimalFormat("#.####; - #");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        DecimalFormat df2 = new DecimalFormat("#.##;");
 
         Intent x = getIntent();
 
@@ -67,6 +76,11 @@ public class anova extends AppCompatActivity {
         double totalreg = x.getDoubleExtra("totalreg",0);
         double SSx1 = x.getDoubleExtra("SSx1", 0);
         double SSx2 = x.getDoubleExtra("SSx2", 0);
+        double confvalue = 1 - x.getDoubleExtra("confvalue",0);
+        double confvaluef = x.getDoubleExtra("confvalue", 0);
+
+        FDistribution fdist = new FDistribution(1,nvalueint-3);
+        double fvalue2 = fdist.inverseCumulativeProbability(confvaluef);
 
         anovareg1.setText(df.format(totalreg));
         anovareg1_1.setText(df.format(SSx1));
@@ -114,14 +128,22 @@ public class anova extends AppCompatActivity {
         double fvalue = x.getDoubleExtra("fvalue", 0);
         if(fountvalue > 0){
             String signiffinaltext = df.format(fvalue);
+            String signiffinaltext2 = df.format(fvalue2);
             fishersign.setText(signiffinaltext);
             fishersign.setTextIsSelectable(true);
+            fishersign2.setText(signiffinaltext2);
+            fishersign2.setTextIsSelectable(true);
         }else{
             String signiffinaltext = df.format(fvalue);
+            String signiffinaltext2 = df.format(fvalue2);
             fishersign.setText(signiffinaltext);
             fishersign.setTextIsSelectable(true);
+            fishersign2.setText(signiffinaltext2);
+            fishersign2.setTextIsSelectable(true);
         }
 
+        conftv.setText(Html.fromHtml("R: &#402;<sub><small>" + df2.format(confvalue) + ", 2, " + (nvalueint-3) + "</small></sub> = "));
+        conftv2.setText(Html.fromHtml("X<sub><small>1</small></sub>, X<sub><small>2</small></sub>: &#402;<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-3) + "</small></sub> = "));
 
     }
 }

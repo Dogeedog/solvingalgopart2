@@ -57,9 +57,9 @@ public class solved extends AppCompatActivity {
 
         //formato
         DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
         DecimalFormat df2 = new DecimalFormat("#.##%");
-        df2.setRoundingMode(RoundingMode.CEILING);
+        df2.setRoundingMode(RoundingMode.HALF_UP);
 
         //coef regresion
         coefv = findViewById(R.id.coefvaluetwo);
@@ -194,7 +194,7 @@ public class solved extends AppCompatActivity {
 
     public void eval2(View h) {
         DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
         Intent j = getIntent();
         double b0 = j.getDoubleExtra("b0t",0);
         double b1 = j.getDoubleExtra("b1t", 0);
@@ -273,6 +273,8 @@ public class solved extends AppCompatActivity {
         int nvalueint = x.getIntExtra("nvalueres", 0);
         double totalsq = x.getDoubleExtra("totalsum",0);
         double totalreg = x.getDoubleExtra("totalreg",0);
+        double confvalue = x.getDoubleExtra("confvalue",0);
+        j.putExtra("confvalue", confvalue);
         j.putExtra("mse2", mse);
         j.putExtra("nvalueres", nvalueint);
         j.putExtra("totalsum", totalsq);

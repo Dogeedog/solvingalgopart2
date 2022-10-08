@@ -8,7 +8,7 @@
     <string name="solve">Solve</string>
     <string name="reg">Regression Model</string>
     <string name="given">Given</string>
-    <string name="signific">General Significance\n(F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, n-3, 2</small></sub>)</string>
+    <string name="signific">General Significance\n(F<sub><small>o</small></sub> &#60; &#x2044; &#62; &#402;<sub><small>&#945;, 2, n-3</small></sub>)</string>
     <string name="ic1">C.I. Variables</string>
     <string name="ic2">C.I. Response</string>
     <string name="ic3">C.I. Predicted</string>
@@ -52,5 +52,9 @@
     <string name="gl">D.F.</string>
     <string name="mc">M.S.</string>
     <string name="anovainfo">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nR = Regression; E = Error; T = Total</string>
-    <string name="fisherval">Fisher\'s Value (Tables) = </string>
+    <string name="fisherval">Fisher\'s Value (Tables)</string>
+    <string name="warntitle">Warning</string>
+    <string name="warntext">Are you sure you want to delete all introduced data?</string>
+    <string name="positivebtn">Yes, delete it</string>
+    <string name="negativebtn">No</string>
 </resources>

@@ -36,7 +36,7 @@ public class residuales extends AppCompatActivity {
         String array2 = j.getStringExtra("res2array");
         double[][] res2 = gson.fromJson(array2, double[][].class);
         DecimalFormat df = new DecimalFormat("#.####; - #");
-        df.setRoundingMode(RoundingMode.CEILING);
+        df.setRoundingMode(RoundingMode.HALF_UP);
 
         LinearLayout layout = findViewById(R.id.res2nlayout);
         LinearLayout layouty = findViewById(R.id.res2ylayout);
