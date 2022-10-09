@@ -40,6 +40,10 @@ public class solved extends AppCompatActivity {
     ImageView siggpng;
     TextView icmed;
     TextView icpred;
+    TextView signiftwotv;
+    TextView signifvar1twotv;
+    TextView signifvar2twotv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,16 +134,19 @@ public class solved extends AppCompatActivity {
         icpred.setTextIsSelectable(true);
 
         //significancia general
+        signiftwotv = findViewById(R.id.signiftwo);
         siggpng = findViewById(R.id.imageView);
         sigg = findViewById(R.id.signifvaltwo);
         String operatorg = j.getStringExtra("signifg");
         double fountvalue = j.getDoubleExtra("fountvalue", 0);
         double fvalue = j.getDoubleExtra("fvalue", 0);
         if(fountvalue > 0){
+            signiftwotv.setText(Html.fromHtml("Significancia General<br>(F<sub><small>o</small></sub> &#62; &#402;<sub><small>&#945;, 2, n-3</small></sub>)"));
             String signiffinaltext = df.format(fountvalue) +  " > " + df.format(fvalue);
             sigg.setText(signiffinaltext);
             sigg.setTextIsSelectable(true);
         }else{
+            signiftwotv.setText(Html.fromHtml("Significancia General<br>(F<sub><small>o</small></sub> &#60; &#402;<sub><small>&#945;, 2, n-3</small></sub>)"));
             String signiffinaltext = df.format(fountvalue) +  " < " + df.format(fvalue);
             sigg.setText(signiffinaltext);
             sigg.setTextIsSelectable(true);
@@ -151,16 +158,19 @@ public class solved extends AppCompatActivity {
         }
 
         //significancia b1
+        signifvar1twotv = findViewById(R.id.signifvar1two);
         sigb1png = findViewById(R.id.imageView2);
         sigb1 = findViewById(R.id.signifvar1valtwo);
         String operator = j.getStringExtra("signif1");
         Double tovalue = j.getDoubleExtra("tovalue1", 0);
         Double tvalue = j.getDoubleExtra("tvalue", 0);
         if(tovalue > 0){
+            signifvar1twotv.setText(Html.fromHtml("Variable 1 (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " > " + df.format(tvalue);
             sigb1.setText(signiffinaltext);
             sigb1.setTextIsSelectable(true);
         }else{
+            signifvar1twotv.setText(Html.fromHtml("Variable 1 (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " < " + df.format(tvalue);
             sigb1.setText(signiffinaltext);
             sigb1.setTextIsSelectable(true);
@@ -172,15 +182,18 @@ public class solved extends AppCompatActivity {
         }
 
         //significancia b2
+        signifvar2twotv = findViewById(R.id.signifvar2two);
         sigb2png = findViewById(R.id.imageView3);
         sigb2 = findViewById(R.id.signifvar2valtwo);
         String operator2 = j.getStringExtra("signif2");
         Double tovalue2 = j.getDoubleExtra("tovalue2", 0);
         if(tovalue2 > 0){
+            signifvar2twotv.setText(Html.fromHtml("Variable 2 (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue2) +  " > " + df.format(tvalue);
             sigb2.setText(signiffinaltext);
             sigb2.setTextIsSelectable(true);
         }else{
+            signifvar2twotv.setText(Html.fromHtml("Variable 2 (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue2) +  " < " + df.format(tvalue);
             sigb2.setText(signiffinaltext);
             sigb2.setTextIsSelectable(true);

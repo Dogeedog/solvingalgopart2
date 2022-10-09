@@ -33,6 +33,7 @@ public class solvedone extends AppCompatActivity {
     TextView coefreg;
     TextView signif;
     ImageView signifpng;
+    TextView regmod6onetv;
 
 
 
@@ -87,16 +88,19 @@ public class solvedone extends AppCompatActivity {
         coefreg.setTextIsSelectable(true);
 
         //significance
+        regmod6onetv = findViewById(R.id.regmod6one);
         signifpng = findViewById(R.id.imageView3one);
         signif = findViewById(R.id.given6one);
         String operator = j.getStringExtra("signif");
         Double tovalue = j.getDoubleExtra("tovalue", 0);
         Double tvalue = j.getDoubleExtra("tvalue", 0);
         if(tovalue > 0){
+            regmod6onetv.setText(Html.fromHtml("Significancia<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-2</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " > " + df.format(tvalue);
             signif.setText(signiffinaltext);
             signif.setTextIsSelectable(true);
         }else{
+            regmod6onetv.setText(Html.fromHtml("Significancia<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-2</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " < " + df.format(tvalue);
             signif.setText(signiffinaltext);
             signif.setTextIsSelectable(true);
@@ -185,7 +189,7 @@ public class solvedone extends AppCompatActivity {
         givenresult.setTextIsSelectable(true);
     }
 
-    public void graphx(View h) {
+    public void graphxone(View h) {
         Intent x = new Intent(this, graphxone.class);
         Intent j = getIntent();
         String array1 = j.getStringExtra("res1array");
@@ -205,7 +209,7 @@ public class solvedone extends AppCompatActivity {
         startActivity(x);
     }
 
-    public void residuales(View h){
+    public void residualesone(View h){
         Intent j = new Intent(solvedone.this, residuales.class);
         Intent x = getIntent();
         int nvalueint = x.getIntExtra("nvalueres", 0);

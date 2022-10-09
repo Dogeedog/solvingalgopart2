@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity  {
                                 }
                             } catch (Exception ignored) {
                             }
-                            Toast.makeText(MainActivity.this, ivalue + " cargar", Toast.LENGTH_SHORT).show();
+                            //aqui iba el toast de cargar
                         }else if(loadvar2 == 2){
                             layouty.removeAllViews();
                             layoutxa.removeAllViews();
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity  {
                                 }
                             } catch (Exception ignored) {
                             }
-                            Toast.makeText(MainActivity.this, ivalue + " cargar", Toast.LENGTH_SHORT).show();
+                            //aqui iba el toast de cargar
                         }
                     } else if(saveradio.isChecked()){
                         if(onevar.isChecked()){
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity  {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("arrayonev"+ivalue, arraytostring);
                             editor.apply();
-                            Toast.makeText(MainActivity.this, ivalue + " guardar", Toast.LENGTH_SHORT).show();
+                            //aqui iba el toast de guardar
                         } else if(twovar.isChecked()){
                             String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
                             int nvalueint;
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity  {
                             editor.putString("arrayY"+ivalue, arrayY);
                             editor.putString("arrayX"+ivalue, arrayX);
                             editor.apply();
-                            Toast.makeText(MainActivity.this, ivalue + " guardar", Toast.LENGTH_SHORT).show();
+                            //aqui iba el toast de guardar
                         }
                     } else if(del.isChecked()){
                         SharedPreferences.Editor editor = sp.edit();
@@ -534,7 +534,6 @@ public class MainActivity extends AppCompatActivity  {
                                 }
                                     double[][] a = new double[nvalueint][2];
                                     if (nvalueint >= 4){
-                                        Toast.makeText(MainActivity.this, "1var", Toast.LENGTH_SHORT).show();
                                         LinearLayout layout = findViewById(R.id.nlayout);
                                         LinearLayout layouty = findViewById(R.id.ylayout);
                                         LinearLayout layoutxa = findViewById(R.id.xalayout);
@@ -670,6 +669,7 @@ public class MainActivity extends AppCompatActivity  {
                                                 confnumber = Double.parseDouble(conflevel);
                                             }
                                             catch(NumberFormatException ex) {
+                                                Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
                                                 return;
                                             }
 
@@ -850,7 +850,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
                                                 startActivity(j);
-                                            } else {
+                                            } else if (confnumber>100){
                                                 Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
                                             }
 
@@ -897,7 +897,6 @@ public class MainActivity extends AppCompatActivity  {
                                     double[][] b = new double[nvalueint][2];
                                     double[] ym = new double[nvalueint];
                                     if (nvalueint >= 4){
-                                        Toast.makeText(MainActivity.this, "2var", Toast.LENGTH_SHORT).show();
                                         LinearLayout layout = findViewById(R.id.nlayout);
                                         LinearLayout layouty = findViewById(R.id.ylayout);
                                         LinearLayout layoutxa = findViewById(R.id.xalayout);
@@ -1081,6 +1080,7 @@ public class MainActivity extends AppCompatActivity  {
                                                 confnumber = Double.parseDouble(conflevel);
                                             }
                                             catch(NumberFormatException ex) {
+                                                Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
                                                 return;
                                             }
                                             if(confnumber >= 1 && confnumber <= 100){
@@ -1379,7 +1379,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
                                                 startActivity(j);
-                                            } else {
+                                            } else if (confnumber>100){
                                                 Toast.makeText(MainActivity.this, R.string.confalert, Toast.LENGTH_SHORT).show();
                                             }
 
@@ -1475,7 +1475,7 @@ public class MainActivity extends AppCompatActivity  {
                             }
                         } catch (Exception ignored) {
                         }
-                        Toast.makeText(MainActivity.this, numbtn + " cargar", Toast.LENGTH_SHORT).show();
+                        //aqui iba el toast de cargar
                     }else if(loadvar2 == 2){
                         layouty.removeAllViews();
                         layoutxa.removeAllViews();
@@ -1521,7 +1521,7 @@ public class MainActivity extends AppCompatActivity  {
                             }
                         } catch (Exception ignored) {
                         }
-                        Toast.makeText(MainActivity.this, numbtn + " cargar", Toast.LENGTH_SHORT).show();
+                        //aqui iba el toast de cargar
                     }
                 } else if(saveradio.isChecked()){
                     if(onevar.isChecked()){
@@ -1577,7 +1577,7 @@ public class MainActivity extends AppCompatActivity  {
                         if (loadn >= 4 && loadvar > 0){
                             btn.setBackgroundResource(R.drawable.rect4);
                         }
-                        Toast.makeText(MainActivity.this, numbtn + " guardar", Toast.LENGTH_SHORT).show();
+                        //aqui iba el toast de guardar
                     } else if(twovar.isChecked()){
                         String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
                         int nvalueint;
@@ -1650,7 +1650,7 @@ public class MainActivity extends AppCompatActivity  {
                         if ((loadn >= 4 || loadn2 >= 4) && (loadvar > 0 || loadvar2 > 0)){
                             btn.setBackgroundResource(R.drawable.rect4);
                         }
-                        Toast.makeText(MainActivity.this, numbtn + " guardar", Toast.LENGTH_SHORT).show();
+                        //aqui  iba el toast de guardar
                     }
                 } else if(del.isChecked()){
                     SharedPreferences.Editor editor = sp.edit();

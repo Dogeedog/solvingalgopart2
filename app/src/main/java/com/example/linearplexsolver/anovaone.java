@@ -67,7 +67,7 @@ public class anovaone extends AppCompatActivity {
         anovamc1.setText(df.format(totalreg-totalerror));
         anovamc2.setText(df.format(mc2));
 
-        anovaf1.setText(df.format(totalreg/mc2));
+        anovaf1.setText(df.format((totalreg-totalerror)/mc2));
 
         anovareg1.setTextIsSelectable(true);
         anovareg2.setTextIsSelectable(true);

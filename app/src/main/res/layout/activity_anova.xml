@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         tools:context=".anova">
 
+
+
         <TextView
             android:id="@+id/anovatitle"
             android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -66,7 +68,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -88,7 +90,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -109,7 +111,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -130,7 +132,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="70dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -162,7 +164,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -183,7 +185,7 @@
 
                 <TextView
                     android:id="@+id/anovareg1"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -207,7 +209,7 @@
 
                 <TextView
                     android:id="@+id/anovagl1"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -230,7 +232,7 @@
 
                 <TextView
                     android:id="@+id/anovamc1"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -253,7 +255,7 @@
 
                 <TextView
                     android:id="@+id/anovaf1"
-                    android:layout_width="70dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -306,7 +308,7 @@
 
                 <TextView
                     android:id="@+id/anovareg1_1"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -329,7 +331,7 @@
 
                 <TextView
                     android:id="@+id/anovagl1_1"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -351,7 +353,7 @@
 
                 <TextView
                     android:id="@+id/anovamc1_1"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -373,7 +375,7 @@
 
                 <TextView
                     android:id="@+id/anovaf1_1"
-                    android:layout_width="70dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -426,7 +428,7 @@
 
                 <TextView
                     android:id="@+id/anovareg1_2"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -449,7 +451,7 @@
 
                 <TextView
                     android:id="@+id/anovagl1_2"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:textSize="11sp"
                     android:layout_height="40dp"
                     android:background="@drawable/rect"
@@ -471,7 +473,7 @@
 
                 <TextView
                     android:id="@+id/anovamc1_2"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -493,7 +495,7 @@
 
                 <TextView
                     android:id="@+id/anovaf1_2"
-                    android:layout_width="70dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -525,7 +527,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -545,7 +547,7 @@
 
                 <TextView
                     android:id="@+id/anovareg2"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -569,7 +571,7 @@
 
                 <TextView
                     android:id="@+id/anovagl2"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -592,7 +594,7 @@
 
                 <TextView
                     android:id="@+id/anovamc2"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -635,7 +637,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/rect3"
                     android:gravity="center"
@@ -655,7 +657,7 @@
 
                 <TextView
                     android:id="@+id/anovareg3"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -679,7 +681,7 @@
 
                 <TextView
                     android:id="@+id/anovagl3"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="11sp"
                     android:background="@drawable/rect"
@@ -804,7 +806,7 @@
             android:layout_width="2dp"
             android:layout_height="36dp"
             android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/anova2"
             android:layout_marginStart="15dp"
             android:layout_marginTop="-8dp"
             app:layout_constraintTop_toBottomOf="@id/anova2"/>
@@ -813,7 +815,7 @@
             android:layout_width="20dp"
             android:layout_height="2dp"
             android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/anova2"
             android:layout_marginStart="15dp"
             android:layout_marginTop="28dp"
             app:layout_constraintTop_toBottomOf="@id/anova2"/>
@@ -822,7 +824,7 @@
             android:layout_width="2dp"
             android:layout_height="56dp"
             android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/anova2"
             android:layout_marginStart="15dp"
             android:layout_marginTop="-28dp"
             app:layout_constraintTop_toBottomOf="@id/anova2_1"/>
@@ -831,7 +833,7 @@
             android:layout_width="20dp"
             android:layout_height="2dp"
             android:background="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/anova2"
             android:layout_marginStart="15dp"
             android:layout_marginTop="28dp"
             app:layout_constraintTop_toBottomOf="@id/anova2_1"/>
