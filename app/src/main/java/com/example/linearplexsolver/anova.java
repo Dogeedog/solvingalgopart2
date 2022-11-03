@@ -142,8 +142,8 @@ public class anova extends AppCompatActivity {
             fishersign2.setTextIsSelectable(true);
         }
 
-        conftv.setText(Html.fromHtml("R: &#402;<sub><small>" + df2.format(confvalue) + ", 2, " + (nvalueint-3) + "</small></sub> = "));
-        conftv2.setText(Html.fromHtml("X<sub><small>1</small></sub>, X<sub><small>2</small></sub>: &#402;<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-3) + "</small></sub> = "));
+        conftv.setText(Html.fromHtml("R: F<sub><small>" + df2.format(confvalue) + ", 2, " + (nvalueint-3) + "</small></sub> = "));
+        conftv2.setText(Html.fromHtml("X<sub><small>1</small></sub>, X<sub><small>2</small></sub>: F<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-3) + "</small></sub> = "));
 
     }
 }

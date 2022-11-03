@@ -91,7 +91,7 @@ public class anovaone extends AppCompatActivity {
             fishersign.setTextIsSelectable(true);
         }
 
-        conftv.setText(Html.fromHtml("R: &#402;<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-2) + "</small></sub> = "));
+        conftv.setText(Html.fromHtml("F<sub><small>" + df2.format(confvalue) + ", 1, " + (nvalueint-2) + "</small></sub> = "));
 
     }
 }

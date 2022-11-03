@@ -165,12 +165,12 @@ public class solved extends AppCompatActivity {
         Double tovalue = j.getDoubleExtra("tovalue1", 0);
         Double tvalue = j.getDoubleExtra("tvalue", 0);
         if(tovalue > 0){
-            signifvar1twotv.setText(Html.fromHtml("Variable 1 (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
+            signifvar1twotv.setText(Html.fromHtml("Significancia (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " > " + df.format(tvalue);
             sigb1.setText(signiffinaltext);
             sigb1.setTextIsSelectable(true);
         }else{
-            signifvar1twotv.setText(Html.fromHtml("Variable 1 (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
+            signifvar1twotv.setText(Html.fromHtml("Significancia (X<sub><small>1</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue) +  " < " + df.format(tvalue);
             sigb1.setText(signiffinaltext);
             sigb1.setTextIsSelectable(true);
@@ -188,12 +188,12 @@ public class solved extends AppCompatActivity {
         String operator2 = j.getStringExtra("signif2");
         Double tovalue2 = j.getDoubleExtra("tovalue2", 0);
         if(tovalue2 > 0){
-            signifvar2twotv.setText(Html.fromHtml("Variable 2 (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
+            signifvar2twotv.setText(Html.fromHtml("Significancia (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#62; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue2) +  " > " + df.format(tvalue);
             sigb2.setText(signiffinaltext);
             sigb2.setTextIsSelectable(true);
         }else{
-            signifvar2twotv.setText(Html.fromHtml("Variable 2 (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
+            signifvar2twotv.setText(Html.fromHtml("Significancia (X<sub><small>2</small></sub>)<br>(T<sub><small>o</small></sub> &#60; &#964;<sub><small>&#945;&#x2044;2, n-3</small></sub>)"));
             String signiffinaltext = df.format(tovalue2) +  " < " + df.format(tvalue);
             sigb2.setText(signiffinaltext);
             sigb2.setTextIsSelectable(true);

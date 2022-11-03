@@ -305,7 +305,7 @@ public class graphxone extends AppCompatActivity {
 
             for(int i = 0; i < lineardataset.length; i++){
                 //(x: residual estandarizado, y: probabilidad)
-                float prob = (i + 0.5f)/nvalueint;
+                float prob = ((i + 0.5f)/nvalueint)*100;
                 entrieslist.add(new Entry(lineardataset[i][1], prob));
             }
 
@@ -433,6 +433,7 @@ public class graphxone extends AppCompatActivity {
             xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xaxis.setAxisMinimum(0);
             xaxis.setAxisMaximum(nvalueint+1);
+            xaxis.setGranularity(1f);
 
 
             YAxis yaxis = g4.getAxisLeft();

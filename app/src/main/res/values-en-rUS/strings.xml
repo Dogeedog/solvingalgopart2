@@ -33,13 +33,13 @@
     <string name="confalert">Value must be between 1–100.</string>
     <string name="yres">y (data)</string>
     <string name="yres1">y (model)</string>
-    <string name="residual">residual</string>
-    <string name="graphmulti">Scatter (Predicted vs Actual)</string>
-    <string name="graphlin">Relation Fixed and Actual</string>
+    <string name="residual">Residual</string>
+    <string name="graphmulti">Scatter (Predicted Values vs Actual)</string>
+    <string name="graphlin">Scatter (Predicted Values vs Actual)</string>
     <string name="fittedv2">Fitted</string>
     <string name="actualv2">Actual</string>
     <string name="ordinaryres">Ordinary Residuals</string>
-    <string name="fitvalue">Fitted Value (y)</string>
+    <string name="fitvalue">Fitted Value (&#375;)</string>
     <string name="stdrestv">Standardized Residual</string>
     <string name="stdres">Standardized Residuals</string>
     <string name="cooktv">Cook\'s Distance</string>
@@ -52,9 +52,10 @@
     <string name="gl">D.F.</string>
     <string name="mc">M.S.</string>
     <string name="anovainfo">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nR = Regression; E = Error; T = Total</string>
-    <string name="fisherval">Fisher\'s Value (Tables)</string>
+    <string name="fisherval">Fisher\'s Value (tables)</string>
     <string name="warntitle">Warning</string>
     <string name="warntext">Are you sure you want to delete all introduced data?</string>
     <string name="positivebtn">Yes, delete it</string>
     <string name="negativebtn">No</string>
+    <string name="tvsave">Input text…</string>
 </resources>

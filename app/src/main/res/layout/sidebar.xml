@@ -20,7 +20,7 @@
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/saveloadlayout"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="106dp"
         android:layout_marginTop="180dp"
         tools:ignore="OnClick,UsingOnClickInXml">
 
@@ -35,7 +35,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addstate"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="90dp">
+        android:layout_marginStart="8dp">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/saveloadtv"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addstate"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp">
     </LinearLayout>
 
     <RadioGroup

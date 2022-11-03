@@ -32,13 +32,13 @@
     <string name="confalert">Introduce un valor entre 1–100.</string>
     <string name="yres">y (datos)</string>
     <string name="yres1">y (modelo)</string>
-    <string name="residual">residual</string>
-    <string name="graphmulti">Dispersión (Ajustado vs Actual)</string>
-    <string name="graphlin">Relación Modelo y Actual</string>
+    <string name="residual">Residual</string>
+    <string name="graphmulti">Dispersión (Valores Ajustados vs Reales)</string>
+    <string name="graphlin">Dispersión (Valores Ajustados vs Reales)</string>
     <string name="fittedv2">Ajustado</string>
-    <string name="actualv2">Actual</string>
+    <string name="actualv2">Real</string>
     <string name="ordinaryres">Residuales Ordinarios</string>
-    <string name="fitvalue">Valor Ajustado (y)</string>
+    <string name="fitvalue">Valor Ajustado (&#375;)</string>
     <string name="stdrestv">Residual Estandarizado</string>
     <string name="stdres">Residuales Estandarizados</string>
     <string name="cooktv">Distancia de Cook</string>
@@ -51,9 +51,10 @@
     <string name="gl">G.L.</string>
     <string name="mc">C.M.</string>
     <string name="anovainfo">F.V. = Fuente de Variación; S.C. = Suma de Cuadrados;\nG.L. = Grados de Libertad; C.M. = Cuadrados Medios;\nR = Regresión; E = Error; T = Total</string>
-    <string name="fisherval">Valor de Fisher (Tablas)</string>
+    <string name="fisherval">Valor de Fisher (tablas)</string>
     <string name="warntitle">Advertencia</string>
     <string name="warntext">¿Deseas eliminar toda la información introducida?</string>
     <string name="positivebtn">Sí, elimínala</string>
     <string name="negativebtn">No</string>
+    <string name="tvsave">Inserta texto…</string>
 </resources>

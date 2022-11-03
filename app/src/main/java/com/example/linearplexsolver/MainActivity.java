@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -94,11 +95,13 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         //Genera los botones de guardar/cargar que el usuario añadió previamente
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         //sp.edit().clear().apply();
         int count = sp.getInt("count", 0);
         for (int i = 0; i < count; i++) {
             LinearLayout layout = findViewById(R.id.saveloadlayout);
+            LinearLayout layout2 = findViewById(R.id.saveloadtv);
+            int width2 = (int) getResources().getDimension(R.dimen.widthstate2);
             int width = (int) getResources().getDimension(R.dimen.widthstate);
             int height = (int) getResources().getDimension(R.dimen.heightstate);
             int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
@@ -114,7 +117,27 @@ public class MainActivity extends AppCompatActivity  {
             params.setMargins(0, 0, 0, topmargin);
             btn.setLayoutParams(params);
             layout.addView(btn);
+
+
+
             int ivalue = i + 1;
+
+
+            EditText tv = new EditText(MainActivity.this);
+            String tvOldStrContent = sp.getString("tvlabel"+ivalue,"");
+            tv.setText(tvOldStrContent);
+            tv.setLineSpacing(1,1);
+            tv.setTextSize(textsize);
+            tv.setId(ivalue);
+            tv.setTag("statetv"+ivalue);
+            tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            tv.setTextColor(Color.WHITE);
+            tv.setHint(getResources().getString(R.string.tvsave));
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width2, height);
+            params2.setMargins(0, 0, 0, topmargin);
+            tv.setLayoutParams(params2);
+            layout2.addView(tv);
+
             //cuando realmente se guarda algo de información q se cambie el color del boton
             int loadn = sp.getInt("nvalueone"+ivalue, 0);
             int loadn2 = sp.getInt("nvaluetwo"+ivalue, 0);
@@ -122,9 +145,41 @@ public class MainActivity extends AppCompatActivity  {
             int loadvar2 = sp.getInt("varvaluetwo"+ivalue,0);
             if ((loadn >= 4 || loadn2 >= 4) && (loadvar > 0 || loadvar2 > 0)){
                 btn.setBackgroundResource(R.drawable.rect4);
+                tv.setBackgroundResource(R.drawable.rect);
+                tv.setEnabled(true);
             } else  {
                 btn.setBackgroundResource(R.drawable.rect5);
+                tv.setBackgroundResource(R.drawable.rect3);
+                tv.setEnabled(false);
             }
+
+            tv.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String tvcontent = "";
+                    try {
+                        tvcontent = tv.getText().toString();
+                    }catch (Exception ignored) {
+                    }
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("tvlabel"+ivalue, tvcontent);
+                    editor.apply();
+
+                }
+            });
+
+
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -240,6 +295,10 @@ public class MainActivity extends AppCompatActivity  {
                                 int loadvar = sp.getInt("varvalueone"+ivalue, 0);
                                 if (loadn >= 4 && loadvar > 0){
                                     btn.setBackgroundResource(R.drawable.rect4);
+                                    String tvtag = "statetv"+ivalue;
+                                    EditText tv = layout2.findViewWithTag(tvtag);
+                                    tv.setBackgroundResource(R.drawable.rect);
+                                    tv.setEnabled(true);
                                 }
                             }
                             catch(NumberFormatException ex) {
@@ -295,6 +354,10 @@ public class MainActivity extends AppCompatActivity  {
                                 int loadvar = sp.getInt("varvaluetwo"+ivalue, 0);
                                 if (loadn >= 4 && (loadvar > 0 || loadvar2 > 0)){
                                     btn.setBackgroundResource(R.drawable.rect4);
+                                    String tvtag = "statetv"+ivalue;
+                                    EditText tv = layout2.findViewWithTag(tvtag);
+                                    tv.setBackgroundResource(R.drawable.rect);
+                                    tv.setEnabled(true);
                                 }
                             }
                             catch(NumberFormatException ex) {
@@ -364,6 +427,14 @@ public class MainActivity extends AppCompatActivity  {
                         editor.remove("varvaluetwo"+ivalue);
                         editor.apply();
                         btn.setBackgroundResource(R.drawable.rect5);
+                        String tvtag = "statetv"+ivalue;
+                        EditText tv = layout2.findViewWithTag(tvtag);
+                        try {
+                            tv.getText().clear();
+                        }catch (Exception ignored) {
+                        }
+                        tv.setBackgroundResource(R.drawable.rect3);
+                        tv.setEnabled(false);
                     }
                 }
             });
@@ -502,6 +573,8 @@ public class MainActivity extends AppCompatActivity  {
                 switch (checkedId){
                     //Para 1 entrada y 1 de respuesta
                     case R.id.onevar:
+                        icmean.setChecked(false);
+                        icpred.setChecked(false);
                         xbhead = findViewById(R.id.xbcol);
                         xbhead.setVisibility(View.INVISIBLE);
                         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub> + B<sub><small>1</small></sub>" +
@@ -863,6 +936,8 @@ public class MainActivity extends AppCompatActivity  {
                         break;
                     //Para 2 entradas y 1 respuesta
                     case R.id.twovar:
+                        icmean.setChecked(false);
+                        icpred.setChecked(false);
                         xbhead = findViewById(R.id.xbcol);
                         xbhead.setVisibility(View.VISIBLE);
                         ((TextView)findViewById(R.id.textView)).setText(Html.fromHtml("y=B<sub><small>o</small></sub> + B<sub><small>1</small></sub>" +
@@ -1397,13 +1472,15 @@ public class MainActivity extends AppCompatActivity  {
 
     public void newstate(View v){
         LinearLayout layout = findViewById(R.id.saveloadlayout);
+        LinearLayout layout2 = findViewById(R.id.saveloadtv);
         int width = (int) getResources().getDimension(R.dimen.widthstate);
+        int width2 = (int) getResources().getDimension(R.dimen.widthstate2);
         int height = (int) getResources().getDimension(R.dimen.heightstate);
         int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
         int textsize = (int) getResources().getDimension(R.dimen.textstate);
         Button btn = new Button(MainActivity.this);
         btn.setTextSize(textsize);
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         //obtiene "count", que es la cantidad de botones ya existentes
         int count = sp.getInt("count", 0);
         SharedPreferences.Editor editor = sp.edit();
@@ -1422,6 +1499,49 @@ public class MainActivity extends AppCompatActivity  {
         params.setMargins(0, 0, 0, topmargin);
         btn.setLayoutParams(params);
         layout.addView(btn);
+
+        EditText tv = new EditText(MainActivity.this);
+        tv.setTextSize(textsize);
+        tv.setId(numbtn);
+        tv.setTag("statetv"+numbtn);
+        tv.setBackgroundResource(R.drawable.rect3);
+        tv.setHint(getResources().getString(R.string.tvsave));
+        tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        tv.setTextColor(Color.WHITE);
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width2, height);
+        params2.setMargins(0, 0, 0, topmargin);
+        tv.setLayoutParams(params2);
+        tv.setEnabled(false);
+        layout2.addView(tv);
+
+        tv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String tvcontent = "";
+                try {
+                    tvcontent = tv.getText().toString();
+                }catch (Exception ignored) {
+                }
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("tvlabel"+numbtn, tvcontent);
+                editor.apply();
+
+            }
+        });
+
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1576,6 +1696,10 @@ public class MainActivity extends AppCompatActivity  {
                         int loadvar = sp.getInt("varvalueone"+numbtn, 0);
                         if (loadn >= 4 && loadvar > 0){
                             btn.setBackgroundResource(R.drawable.rect4);
+                            String tvtag = "statetv"+numbtn;
+                            EditText tv = layout2.findViewWithTag(tvtag);
+                            tv.setBackgroundResource(R.drawable.rect);
+                            tv.setEnabled(true);
                         }
                         //aqui iba el toast de guardar
                     } else if(twovar.isChecked()){
@@ -1649,6 +1773,10 @@ public class MainActivity extends AppCompatActivity  {
                         int loadvar2 = sp.getInt("varvaluetwo"+numbtn, 0);
                         if ((loadn >= 4 || loadn2 >= 4) && (loadvar > 0 || loadvar2 > 0)){
                             btn.setBackgroundResource(R.drawable.rect4);
+                            String tvtag = "statetv"+numbtn;
+                            EditText tv = layout2.findViewWithTag(tvtag);
+                            tv.setBackgroundResource(R.drawable.rect);
+                            tv.setEnabled(true);
                         }
                         //aqui  iba el toast de guardar
                     }
@@ -1663,6 +1791,14 @@ public class MainActivity extends AppCompatActivity  {
                     editor.remove("varvaluetwo"+numbtn);
                     editor.apply();
                     btn.setBackgroundResource(R.drawable.rect5);
+                    String tvtag = "statetv"+numbtn;
+                    EditText tv = layout2.findViewWithTag(tvtag);
+                    try {
+                        tv.getText().clear();
+                    }catch (Exception ignored) {
+                    }
+                    tv.setBackgroundResource(R.drawable.rect4);
+                    tv.setEnabled(false);
                 }
             }
         });
