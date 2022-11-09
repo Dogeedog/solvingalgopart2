@@ -1,9 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/roundbutton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".menu">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/menutext1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="¿Qué deseas analizar?"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/menubtn1"
+            app:layout_constraintTop_toBottomOf="@+id/menutext1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:text="Diseño de Experimentos"
+            android:textColor="@color/white"
+            android:gravity="bottom|center"
+            android:background="@drawable/whitepad"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:onClick="doe"
+            tools:ignore="UsingOnClickInXml">
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            app:layout_constraintTop_toBottomOf="@+id/menubtn1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="70dp"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:background="@drawable/whitepad"
+            android:text="Análisis de\nRegresión Lineal"
+            android:textColor="@color/white"
+            android:gravity="bottom|center"
+            android:paddingBottom="20dp"
+            android:textSize="20sp"
+            android:onClick="linearreg"
+            android:textStyle="bold"
+            tools:ignore="UsingOnClickInXml">
+        </androidx.appcompat.widget.AppCompatButton>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
