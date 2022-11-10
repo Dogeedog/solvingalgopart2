@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/frag1">
+
+    <fragment
+        android:id="@+id/frag1"
+        android:name="com.example.linearplexsolver.frag1"
+        android:label="fragment_frag1"
+        tools:layout="@layout/fragment_frag1" />
+    <fragment
+        android:id="@+id/frag2"
+        android:name="com.example.linearplexsolver.frag2"
+        android:label="fragment_frag2"
+        tools:layout="@layout/fragment_frag2" />
+</navigation>

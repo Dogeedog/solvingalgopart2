@@ -16,60 +16,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/menutext1"
+        <fragment
+            android:id="@+id/fragContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toTopOf="@id/btmv"
+            android:layout_marginBottom="54dp"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="¿Qué deseas analizar?"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="50sp"
-            android:textStyle="bold">
-        </TextView>
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/my_nav"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/menubtn1"
-            app:layout_constraintTop_toBottomOf="@+id/menutext1"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/btmv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:padding="20dp"
-            android:layout_marginTop="70dp"
-            android:layout_width="350dp"
-            android:layout_height="150dp"
-            android:text="Diseño de Experimentos"
-            android:textColor="@color/white"
-            android:gravity="bottom|center"
-            android:background="@drawable/whitepad"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:onClick="doe"
-            tools:ignore="UsingOnClickInXml">
-        </androidx.appcompat.widget.AppCompatButton>
+            app:layout_constraintTop_toBottomOf="@id/fragContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect3noround"
+            app:menu="@menu/bottom_menu"
+            />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            app:layout_constraintTop_toBottomOf="@+id/menubtn1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="70dp"
-            android:layout_width="350dp"
-            android:layout_height="150dp"
-            android:background="@drawable/whitepad"
-            android:text="Análisis de\nRegresión Lineal"
-            android:textColor="@color/white"
-            android:gravity="bottom|center"
-            android:paddingBottom="20dp"
-            android:textSize="20sp"
-            android:onClick="linearreg"
-            android:textStyle="bold"
-            tools:ignore="UsingOnClickInXml">
-        </androidx.appcompat.widget.AppCompatButton>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

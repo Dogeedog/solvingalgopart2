@@ -57,8 +57,7 @@
     <string name="positivebtn">Sí, elimínala</string>
     <string name="negativebtn">No</string>
     <string name="tvsave">Inserta texto…</string>
-    <string name="title_activity_base">base</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="menu1">Regresión Lineal</string>
+    <string name="menu2">Diseño de Experimentos</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

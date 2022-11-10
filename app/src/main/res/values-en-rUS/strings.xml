@@ -58,4 +58,6 @@
     <string name="positivebtn">Yes, delete it</string>
     <string name="negativebtn">No</string>
     <string name="tvsave">Input text…</string>
+    <string name="menu1">Linear Regression</string>
+    <string name="menu2">Design of Experiments</string>
 </resources>
