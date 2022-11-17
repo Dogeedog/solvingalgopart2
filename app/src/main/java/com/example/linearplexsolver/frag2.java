@@ -34,6 +34,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.hipparchus.distribution.continuous.FDistribution;
+
 public class frag2 extends Fragment {
 
     EditText nvalue;
@@ -344,7 +346,7 @@ public class frag2 extends Fragment {
                 double totalsumSq = 0;
                 double total = 0;
                 double totalSumSqPerTreat = 0;
-                double[] averageePerTreat = new double[tempAint];
+                double[] averagePerTreat = new double[tempAint];
                 double temptotalperTreat = 0;
                 //i = tratamientos; j = réplicas
                 for (int i = 0; i < avalueint[0]; i++){
@@ -354,13 +356,35 @@ public class frag2 extends Fragment {
                         total += a[j][i];
                         totalsumSq += a[j][i]*a[j][i];
                         if (j == nvalueint[0] - 1){
-                            averageePerTreat[i] = temptotalperTreat/tempNint;
+                            averagePerTreat[i] = temptotalperTreat/tempNint;
                             temptotalperTreat = temptotalperTreat*temptotalperTreat;
                             totalSumSqPerTreat += temptotalperTreat;
                             temptotalperTreat = 0;
                         }
                     }
                 }
+
+                double v = Math.pow(total, 2) / (tempAint * tempNint);
+                double SSt = totalsumSq - v;
+                double SStrat = (totalSumSqPerTreat/tempNint) - v;
+                double SSe = SSt - SStrat;
+                double confnumberpercentf = (confnumber / 100);
+                FDistribution fdist = new FDistribution(tempAint-1, tempAint*(tempNint-1));
+                double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
+                String averagePerTreatArrayStr = gson.toJson(averagePerTreat);
+                x.putExtra("averagePerTreatArrayStr", averagePerTreatArrayStr);
+                x.putExtra("confvalue", confnumberpercentf);
+                x.putExtra("fvalue", fvalue);
+                x.putExtra("SSt", SSt);
+                x.putExtra("SStrat", SStrat);
+                x.putExtra("SSe", SSe);
+                x.putExtra("avalue", tempAint);
+                x.putExtra("nvalue", tempNint);
+                startActivity(x);
+
+
+
+
 
 
             }

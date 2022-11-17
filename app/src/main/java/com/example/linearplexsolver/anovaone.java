@@ -53,6 +53,7 @@ public class anovaone extends AppCompatActivity {
         int nvalueint = x.getIntExtra("nvalueres", 0);
         double totalreg = x.getDoubleExtra("totalreg",0);
         double confvalue = 1 - x.getDoubleExtra("confvalue",0);
+        String averagePerTreatArrayStr = x.getStringExtra("averagePerTreatArrayStr");
 
         anovareg1.setText(df.format(totalreg-totalerror));
         anovareg2.setText(df.format(totalerror));

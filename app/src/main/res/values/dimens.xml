@@ -12,6 +12,7 @@
     <dimen name="text1stbutton">6sp</dimen>
     <dimen name="widthstate">88dp</dimen>
     <dimen name="widthstate2">138dp</dimen>
+    <dimen name="widthstate3">220dp</dimen>
     <dimen name="heightstate">40dp</dimen>
     <dimen name="textstate">5sp</dimen>
     <dimen name="marginstate">14dp</dimen>

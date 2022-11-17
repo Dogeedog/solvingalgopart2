@@ -64,4 +64,5 @@
     <string name="replicas">Replicates:</string>
     <string name="doeunif">Design of Experiments\nSingle-Factor</string>
     <string name="anovainfoDOE">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nTR = Treatments; E = Error; T = Total</string>
+    <string name="ictreat">C.I. of Treatments</string>
 </resources>
