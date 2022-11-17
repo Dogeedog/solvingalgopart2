@@ -1,14 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layoutDOE"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".frag2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="frag2" />
+        android:background="@drawable/roundbutton"
+        android:fillViewport="true">
 
-</FrameLayout>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textViewDOE"
+                    android:layout_width="249dp"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="30dp"
+                    android:textStyle="bold"
+                    android:text="@string/doeunif"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/aDOE"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tratamientos"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:flow_verticalAlign="bottom"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDOE"
+                    android:layout_marginTop="44dp"
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/anumberDOE"
+                    android:layout_width="37dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    android:ems="10"
+                    android:hint="4"
+                    android:background="@drawable/rect"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/aDOE"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDOE" />
+
+                <TextView
+                    android:id="@+id/nDOE"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/replicas"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:flow_verticalAlign="bottom"
+                    app:layout_constraintStart_toEndOf="@id/anumberDOE"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDOE"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="44dp"
+                    />
+
+                <EditText
+                    android:id="@+id/nnumberDOE"
+                    android:layout_width="37dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    android:ems="10"
+                    android:hint="3"
+                    android:background="@drawable/rect"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/nDOE"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDOE" />
+
+
+
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="100dp"
+                    android:layout_height="51dp"
+                    android:gravity="end"
+                    android:text="@string/confidence"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:flow_verticalAlign="bottom"
+                    app:layout_constraintEnd_toStartOf="@id/percetagenumber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nnumberDOE"
+                    android:layout_marginTop="16dp"/>
+                <EditText
+                    android:id="@+id/percetagenumber"
+                    android:layout_width="58dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rect"
+                    android:ems="10"
+                    android:hint="1-100"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/percentage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nnumberDOE"
+                    android:layout_marginTop="16dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="246dp"
+                android:text="@string/solve"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/starterlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button2"
+                android:layout_marginTop="8dp"
+                />
+
+
+
+
+            <ImageButton
+                android:id="@+id/savingbuttonDOE"
+                android:background="@drawable/save"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp"/>
+
+            <ImageButton
+                android:id="@+id/deletebtnDOE"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/trashicon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp">
+
+            </ImageButton>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/naviewDOE"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@drawable/roundbutton"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/sidebar">
+
+        </include>
+
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

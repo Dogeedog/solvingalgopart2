@@ -59,5 +59,8 @@
     <string name="tvsave">Inserta texto…</string>
     <string name="menu1">Regresión Lineal</string>
     <string name="menu2">Diseño de Experimentos</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tratamientos">Tratamientos\n(a<sub><small>i</small></sub>):</string>
+    <string name="replicas">Réplicas:</string>
+    <string name="doeunif">Diseño de Experimentos\nUnifactorial</string>
+    <string name="anovainfoDOE">F.V. = Fuente de Variación; S.C. = Suma de Cuadrados;\nG.L. = Grados de Libertad; C.M. = Cuadrados Medios;\nTR = Tratamientos; E = Error; T = Total</string>
 </resources>

@@ -60,4 +60,8 @@
     <string name="tvsave">Input text…</string>
     <string name="menu1">Linear Regression</string>
     <string name="menu2">Design of Experiments</string>
+    <string name="tratamientos">Treatments\n(a<sub><small>i</small></sub>):</string>
+    <string name="replicas">Replicates:</string>
+    <string name="doeunif">Design of Experiments\nSingle-Factor</string>
+    <string name="anovainfoDOE">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nTR = Treatments; E = Error; T = Total</string>
 </resources>

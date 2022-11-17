@@ -3,6 +3,7 @@
 <resources>
     <dimen name="width">58dp</dimen>
     <dimen name="height">35dp</dimen>
+    <dimen name="height2">44dp</dimen>
     <dimen name="width4solvebutton">120dp</dimen>
     <dimen name="height4solvebutton">45dp</dimen>
     <dimen name="margin">8dp</dimen>

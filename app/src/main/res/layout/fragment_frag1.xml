@@ -372,11 +372,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/trashicon"
-                android:onClick="deletedataf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="30dp"
-                tools:ignore="UsingOnClickInXml">
+                android:layout_marginTop="30dp">
 
             </ImageButton>
 
