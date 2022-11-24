@@ -65,4 +65,11 @@
     <string name="doeunif">Design of Experiments\nSingle-Factor</string>
     <string name="anovainfoDOE">S.V. = Source of Variation; S.S. = Sum of Squares;\n D.F. = Degrees of Freedom; M.S. = Mean Sum of Square;\nTR = Treatments; E = Error; T = Total</string>
     <string name="ictreat">C.I. of Treatments</string>
+    <string name="doeequation">Equation</string>
+    <string name="icmeandif">C.I. Difference of Mean Treatments</string>
+    <string name="sel_treat">Select treatments to compare:</string>
+    <string name="sel">Select...</string>
+    <string name="icmeandifTEMP">0 &#8804; &#956;<sub><small> x </small></sub> - &#956;<sub><small> y </small></sub> &#8804; 0</string>
+    <string name="seltitle">Select a treatment</string>
+    <string name="cancelkey">Cancel</string>
 </resources>
