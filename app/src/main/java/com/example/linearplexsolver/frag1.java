@@ -129,7 +129,8 @@ public class frag1 extends Fragment {
             Button btn = new Button(requireActivity());
             btn.setTextSize(textsize);
             btn.setText(String.valueOf(i + 1));
-            btn.setId(i + 1);
+            int tempid = View.generateViewId();
+            btn.setId(tempid);
             btn.setTag("state" + i + 1);
             btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             btn.setTextColor(Color.BLACK);
@@ -147,7 +148,8 @@ public class frag1 extends Fragment {
             tv.setText(tvOldStrContent);
             tv.setLineSpacing(1, 1);
             tv.setTextSize(textsize);
-            tv.setId(ivalue);
+            int tempid2 = View.generateViewId();
+            tv.setId(tempid2);
             tv.setTag("statetv" + ivalue);
             tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             tv.setTextColor(Color.WHITE);
@@ -1495,7 +1497,8 @@ public class frag1 extends Fragment {
                 editor.apply();
                 int numbtn = sp.getInt("count", 1);
                 btn.setText(String.valueOf(numbtn));
-                btn.setId(numbtn);
+                int tempid = View.generateViewId();
+                btn.setId(tempid);
                 btn.setTag("state"+numbtn);
                 btn.setBackgroundResource(R.drawable.rect5);
                 btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -1507,7 +1510,8 @@ public class frag1 extends Fragment {
 
                 EditText tv = new EditText(requireActivity());
                 tv.setTextSize(textsize);
-                tv.setId(numbtn);
+                int tempid2 = View.generateViewId();
+                tv.setId(tempid2);
                 tv.setTag("statetv"+numbtn);
                 tv.setBackgroundResource(R.drawable.rect3);
                 tv.setHint(getResources().getString(R.string.tvsave));

@@ -651,27 +651,87 @@
 
         </TextView>
 
-        <LinearLayout
-            android:id="@+id/LSDlinearlayout"
+        <TextView
+            android:id="@+id/lsdvalue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/LSDlinearlayout2"
-            app:layout_constraintTop_toBottomOf="@+id/tvLSD"
-            android:layout_marginTop="24dp"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLSD"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp">
+        </TextView>
 
         <LinearLayout
-            android:id="@+id/LSDlinearlayout2"
+            android:id="@+id/starterlayoutDOE2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@+id/LSDlinearlayout"
+            android:weightSum="100"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLSD"
-            android:layout_marginTop="24dp"
-            />
+            app:layout_constraintTop_toBottomOf="@id/lsdvalue"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:id="@+id/LSDlinearlayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="19"
+                android:layout_marginStart="8dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/LSDlinearlayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="70"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/LSDlinearlayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="11"
+                android:layout_marginEnd="8dp"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/DOEResBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resid"
+            app:layout_constraintTop_toBottomOf="@id/starterlayoutDOE2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/DOEGrafBtn"
+            android:layout_marginTop="16dp"
+            >
+
+        </Button>
+
+        <Button
+            android:id="@+id/DOEGrafBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/graf"
+            app:layout_constraintTop_toBottomOf="@id/starterlayoutDOE2"
+            app:layout_constraintStart_toEndOf="@id/DOEResBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="16dp"
+            >
+
+        </Button>
+
+
 
 
 

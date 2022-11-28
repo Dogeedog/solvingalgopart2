@@ -71,4 +71,8 @@
     <string name="icmeandifTEMP">0 &#8804; &#956;<sub><small> x </small></sub> - &#956;<sub><small> y </small></sub> &#8804; 0</string>
     <string name="seltitle">Selecciona un tratamiento</string>
     <string name="cancelkey">Cancelar</string>
+    <string name="responsetv">Respuesta</string>
+    <string name="trattvg">Tratamientos</string>
+    <string name="avgtreat">Promedio por Tratamiento</string>
+    <string name="granavg">Gran Promedio</string>
 </resources>

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +55,9 @@ public class solvedDOEoneFactor extends AppCompatActivity {
     AlertDialog dialog2;
     AlertDialog.Builder builder2;
     TextView icMeanDifValue;
+    TextView lsdvaluetv;
+    Button resbtn;
+    Button grafbtn;
     Gson gson = new GsonBuilder().create();
 
     @Override
@@ -79,6 +83,7 @@ public class solvedDOEoneFactor extends AppCompatActivity {
 
         Intent x = getIntent();
 
+        double totalAvg = x.getDoubleExtra("totalAvg", 0);
         double totalerror = x.getDoubleExtra("SSe", 0);
         int avalueint = x.getIntExtra("avalue", 0);
         int nvalueint = x.getIntExtra("nvalue", 0);
@@ -119,16 +124,21 @@ public class solvedDOEoneFactor extends AppCompatActivity {
         conftv.setText(Html.fromHtml("F<sub><small>" + df2.format(confvalue) + ", " + df2.format(avalueint-1) +", " + df2.format((long) avalueint *(nvalueint-1)) + "</small></sub> = "));
 
         String averagePerTreatArrayStr = x.getStringExtra("averagePerTreatArrayStr");
+        String dataArrayStr = x.getStringExtra("dataArrayStr");
         double[] averagePerTreatArray = gson.fromJson(averagePerTreatArrayStr, double[].class);
         double confnumberpercent = (confvalue) / 2;
         TDistribution tdist = new TDistribution((long) avalueint *(nvalueint-1));
         double tvalue = (tdist.inverseCumulativeProbability(confnumberpercent) * (-1));
         double icop1 = tvalue * Math.sqrt(mc2/nvalueint);
+        double[][] CIperTreat = new double[avalueint][2];
 
+
+        double LSDvalue = tvalue * Math.sqrt((2 * mc2) / nvalueint);
 
         LinearLayout baselayout = findViewById(R.id.starterlayoutDOE);
         int width = (int) getResources().getDimension(R.dimen.widthstate3); //obtiene manualmente el width 58 de dimens
         int width3 = (int) getResources().getDimension(R.dimen.widthinput);
+        int width4 = (int) getResources().getDimension(R.dimen.widthstate3);
         int width2 = (int) getResources().getDimension(R.dimen.width); //obtiene manualmente el width 58 de dimens
         int height = (int) getResources().getDimension(R.dimen.height); //obtiene manualmente el height 35 de dimens
         int height2 = (int) getResources().getDimension(R.dimen.height2);
@@ -140,7 +150,8 @@ public class solvedDOEoneFactor extends AppCompatActivity {
             //if para hacer columna de n (solo textviews)
             if (i == 0){
                 LinearLayout aCol = new LinearLayout(solvedDOEoneFactor.this);
-                aCol.setId(i);
+                int tempid = View.generateViewId();
+                aCol.setId(tempid);
                 aCol.setTag("aColr"+i);
                 aCol.setOrientation(LinearLayout.VERTICAL);
                 aCol.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -156,7 +167,8 @@ public class solvedDOEoneFactor extends AppCompatActivity {
                     tv.setTextSize(textsize);
                     tv.setTypeface(Typeface.DEFAULT_BOLD);
                     tv.setText(Html.fromHtml("a<sub><small>" + j + "</small></sub>"));
-                    tv.setId(j);
+                    int tempid2 = View.generateViewId();
+                    aCol.setId(tempid2);
                     tv.setTextColor(Color.WHITE);
                     tv.setBackgroundResource(R.drawable.rect3);
                     tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -168,7 +180,8 @@ public class solvedDOEoneFactor extends AppCompatActivity {
 
             } else{
                 LinearLayout aCol = new LinearLayout(solvedDOEoneFactor.this);
-                aCol.setId(i);
+                int tempid = View.generateViewId();
+                aCol.setId(tempid);
                 aCol.setTag("aColr"+i);
                 aCol.setOrientation(LinearLayout.VERTICAL);
                 aCol.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -183,11 +196,14 @@ public class solvedDOEoneFactor extends AppCompatActivity {
                     TextView tv = new TextView(solvedDOEoneFactor.this);
                     tv.setTypeface(Typeface.DEFAULT_BOLD);
                     tv.setTextSize(textsize);
+                    CIperTreat[j-1][0] = averagePerTreatArray[j-1]-icop1;
+                    CIperTreat[j-1][1] = averagePerTreatArray[j-1]+icop1;
                     tv.setText(Html.fromHtml(
                             df.format(averagePerTreatArray[j-1]-icop1) + " &#8804; " + "&#956;<sub><small>" + j + "</small></sub>" + " &#8804; " + df.format(averagePerTreatArray[j-1]+icop1)
                     ));
                     tv.setTextIsSelectable(true);
-                    tv.setId(j);
+                    int tempid2 = View.generateViewId();
+                    aCol.setId(tempid2);
                     tv.setTextColor(Color.WHITE);
                     tv.setBackgroundResource(R.drawable.rect);
                     tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -203,8 +219,12 @@ public class solvedDOEoneFactor extends AppCompatActivity {
 
         }
 
+        lsdvaluetv = findViewById(R.id.lsdvalue);
+        String lsdvalueSetTextstr = "LSD = " + df.format(LSDvalue);
+        lsdvaluetv.setText(lsdvalueSetTextstr);
         LinearLayout baselayout2 = findViewById(R.id.LSDlinearlayout);
         LinearLayout baselayout3 = findViewById(R.id.LSDlinearlayout2);
+        LinearLayout baselayout4 = findViewById(R.id.LSDlinearlayout3);
         Combinations c = new Combinations(avalueint,2);
         List<int[]> al = new ArrayList<>();
         for(int[] iterate : c){
@@ -215,17 +235,17 @@ public class solvedDOEoneFactor extends AppCompatActivity {
             int[] comb = al.get(i);
             int v1 = comb[0];
             int v2 = comb[1];
-            double op = averagePerTreatArray[v1] - averagePerTreatArray[v2];
+            double op = Math.abs(averagePerTreatArray[v1] - averagePerTreatArray[v2]);
             TextView tv = new TextView(solvedDOEoneFactor.this);
             tv.setTextSize(textsize);
             tv.setTypeface(Typeface.DEFAULT_BOLD);
-            String plchldr = df.format(averagePerTreatArray[v1]) + " - " +  df.format(averagePerTreatArray[v2]) + " = " + df.format(op);
-            tv.setText(plchldr);
-            tv.setId(i);
+            tv.setText(Html.fromHtml(df.format(averagePerTreatArray[v1]) + " - " +  df.format(averagePerTreatArray[v2]) + " = " + df.format(op) + " &#62; " + df.format(LSDvalue)));
+            int tempid = View.generateViewId();
+            tv.setId(tempid);
             tv.setTextColor(Color.WHITE);
             tv.setBackgroundResource(R.drawable.rect);
             tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width3, height); //58, 35
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width4, height); //58, 35
             params2.setMargins(0, 0, 0, topmargin);
             tv.setLayoutParams(params2);
             baselayout3.addView(tv);
@@ -233,15 +253,29 @@ public class solvedDOEoneFactor extends AppCompatActivity {
             TextView tv2 = new TextView(solvedDOEoneFactor.this);
             tv2.setTextSize(textsize);
             tv2.setTypeface(Typeface.DEFAULT_BOLD);
-            tv2.setText(Html.fromHtml("a<sub><small>" + v1 + "</small></sub> vs a<sub><small>" + v2 + "</small></sub>"));
-            tv2.setId(i);
+            tv2.setText(Html.fromHtml("a<sub><small>" + (v1+1) + "</small></sub> vs a<sub><small>" + (v2+1) + "</small></sub>"));
+            int tempid2 = View.generateViewId();
+            tv2.setId(tempid2);
             tv2.setTextColor(Color.WHITE);
-            tv2.setBackgroundResource(R.drawable.rect);
+            tv2.setBackgroundResource(R.drawable.rect3);
             tv2.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-            LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(width3, height); //58, 35
+            LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(width2, height); //58, 35
             params3.setMargins(0, 0, 0, topmargin);
             tv2.setLayoutParams(params3);
             baselayout2.addView(tv2);
+
+            ImageView tv3 = new ImageView(solvedDOEoneFactor.this);
+            int tempid3 = View.generateViewId();
+            tv3.setId(tempid3);
+            if (op > LSDvalue){
+                tv3.setBackgroundResource(R.mipmap.check);;
+            }else{
+                tv3.setBackgroundResource(R.mipmap.checknt);;
+            }
+            LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(height, height); //58, 35
+            params4.setMargins(0, 0, 0, topmargin);
+            tv3.setLayoutParams(params4);
+            baselayout4.addView(tv3);
         }
 
 
@@ -339,6 +373,37 @@ public class solvedDOEoneFactor extends AppCompatActivity {
                 NegativeBtn.setLayoutParams(params2);
             }
         });
+
+        resbtn = findViewById(R.id.DOEResBtn);
+        grafbtn = findViewById(R.id.DOEGrafBtn);
+
+        resbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent x = new Intent(solvedDOEoneFactor.this, DOEresiduales.class);
+                x.putExtra("dataArrayStr", dataArrayStr);
+                x.putExtra("averagePerTreatArrayStr", averagePerTreatArrayStr);
+                x.putExtra("avalue", avalueint);
+                x.putExtra("nvalue", nvalueint);
+                startActivity(x);
+            }
+        });
+
+        grafbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent x = new Intent(solvedDOEoneFactor.this, DOEuniGraf.class);
+                String CIperTreatStr = gson.toJson(CIperTreat);
+                x.putExtra("CIperTreatStr", CIperTreatStr);
+                x.putExtra("dataArrayStr", dataArrayStr);
+                x.putExtra("averagePerTreatArrayStr", averagePerTreatArrayStr);
+                x.putExtra("avalue", avalueint);
+                x.putExtra("nvalue", nvalueint);
+                x.putExtra("totalAvg", totalAvg);
+                startActivity(x);
+            }
+        });
+
     }
 
 

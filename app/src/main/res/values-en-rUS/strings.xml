@@ -72,4 +72,8 @@
     <string name="icmeandifTEMP">0 &#8804; &#956;<sub><small> x </small></sub> - &#956;<sub><small> y </small></sub> &#8804; 0</string>
     <string name="seltitle">Select a treatment</string>
     <string name="cancelkey">Cancel</string>
+    <string name="responsetv">Response</string>
+    <string name="trattvg">Treatments</string>
+    <string name="avgtreat">Treatment\'s Average</string>
+    <string name="granavg">Mean of Means</string>
 </resources>

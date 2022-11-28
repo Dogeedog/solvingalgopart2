@@ -216,7 +216,8 @@ public class frag2 extends Fragment {
                         //if para hacer columna de n (solo textviews)
                         if (i == 0){
                             LinearLayout aCol = new LinearLayout(requireActivity());
-                            aCol.setId(i);
+                            int tempid = View.generateViewId();
+                            aCol.setId(tempid);
                             aCol.setTag("aCol"+i);
                             aCol.setOrientation(LinearLayout.VERTICAL);
                             aCol.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -233,7 +234,8 @@ public class frag2 extends Fragment {
                                 tv.setTypeface(Typeface.DEFAULT_BOLD);
                                 if (j == 0){
                                     tv.setText("n");
-                                    tv.setId(j);
+                                    int tempid2 = View.generateViewId();
+                                    tv.setId(tempid2);
                                     tv.setTextColor(Color.WHITE);
                                     tv.setBackgroundResource(R.drawable.rect3);
                                     tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -242,7 +244,8 @@ public class frag2 extends Fragment {
                                     tv.setLayoutParams(params2);
                                 }else {
                                     tv.setText((String.valueOf(j)));
-                                    tv.setId(j);
+                                    int tempid2 = View.generateViewId();
+                                    tv.setId(tempid2);
                                     tv.setTextColor(Color.WHITE);
                                     tv.setBackgroundResource(R.drawable.rect3);
                                     tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -255,7 +258,8 @@ public class frag2 extends Fragment {
 
                         } else{
                             LinearLayout aCol = new LinearLayout(requireActivity());
-                            aCol.setId(i);
+                            int tempid = View.generateViewId();
+                            aCol.setId(tempid);
                             aCol.setTag("aCol"+i);
                             aCol.setOrientation(LinearLayout.VERTICAL);
                             aCol.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -272,7 +276,8 @@ public class frag2 extends Fragment {
                                     tv.setTypeface(Typeface.DEFAULT_BOLD);
                                     tv.setTextSize(textsize);
                                     tv.setText(Html.fromHtml("a<sub><small>" + i + "</small></sub>"));
-                                    tv.setId(j);
+                                    int tempid2 = View.generateViewId();
+                                    tv.setId(tempid2);
                                     tv.setTextColor(Color.WHITE);
                                     tv.setBackgroundResource(R.drawable.rect3);
                                     tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -284,7 +289,8 @@ public class frag2 extends Fragment {
                                     EditText tv = new EditText(getActivity());
                                     String valuetags = "vt" + i + j;
                                     tv.setTextSize(textsize);
-                                    tv.setId(j);
+                                    int tempid2 = View.generateViewId();
+                                    tv.setId(tempid2);
                                     tv.setTag(valuetags);
                                     tv.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                                     tv.setTextColor(Color.WHITE);
@@ -364,6 +370,7 @@ public class frag2 extends Fragment {
                     }
                 }
 
+                double totalAvg = total/(avalueint[0]*nvalueint[0]);
                 double v = Math.pow(total, 2) / (tempAint * tempNint);
                 double SSt = totalsumSq - v;
                 double SStrat = (totalSumSqPerTreat/tempNint) - v;
@@ -372,6 +379,9 @@ public class frag2 extends Fragment {
                 FDistribution fdist = new FDistribution(tempAint-1, tempAint*(tempNint-1));
                 double fvalue = fdist.inverseCumulativeProbability(confnumberpercentf);
                 String averagePerTreatArrayStr = gson.toJson(averagePerTreat);
+                String dataArrayStr = gson.toJson(a);
+                x.putExtra("totalAvg", totalAvg);
+                x.putExtra("dataArrayStr", dataArrayStr);
                 x.putExtra("averagePerTreatArrayStr", averagePerTreatArrayStr);
                 x.putExtra("confvalue", confnumberpercentf);
                 x.putExtra("fvalue", fvalue);
