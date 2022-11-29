@@ -1,5 +1,6 @@
 package com.example.linearplexsolver;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -89,6 +90,200 @@ public class frag2 extends Fragment {
         //Genera los botones de guardar/cargar que el usuario añadió previamente
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(requireActivity());
         //sp.edit().clear().apply();
+
+        int count = sp.getInt("countD1", 0);
+
+        for (int i = 0; i < count; i++) {
+
+            LinearLayout layout = getView().findViewById(R.id.saveloadlayout);
+            LinearLayout layout2 = getView().findViewById(R.id.saveloadtv);
+            int width = (int) getResources().getDimension(R.dimen.widthstate);
+            int width2 = (int) getResources().getDimension(R.dimen.widthstate2);
+            int height = (int) getResources().getDimension(R.dimen.heightstate);
+            int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
+            int textsize = (int) getResources().getDimension(R.dimen.textstate);
+            Button btn = new Button(requireActivity());
+            btn.setTextSize(textsize);
+            btn.setText(String.valueOf(i+1));
+            int tempid = View.generateViewId();
+            btn.setId(tempid);
+            btn.setTag("stateD1"+i+1);
+            btn.setBackgroundResource(R.drawable.rect5);
+            btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            btn.setTextColor(Color.BLACK);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+            params.setMargins(0, 0, 0, topmargin);
+            btn.setLayoutParams(params);
+            layout.addView(btn);
+
+            int ivalue = i + 1;
+
+            EditText tv = new EditText(requireActivity());
+            String tvOldStrContent = sp.getString("tvlabelD1" + ivalue, "");
+            tv.setText(tvOldStrContent);
+            tv.setLineSpacing(1, 1);
+            tv.setTextSize(textsize);
+            int tempid2 = View.generateViewId();
+            tv.setId(tempid2);
+            tv.setTag("statetvD1"+ivalue);
+            tv.setHint(getResources().getString(R.string.tvsave));
+            tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            tv.setTextColor(Color.WHITE);
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width2, height);
+            params2.setMargins(0, 0, 0, topmargin);
+            tv.setLayoutParams(params2);
+            tv.setEnabled(false);
+            layout2.addView(tv);
+
+            //cuando realmente se guarda algo de información q se cambie el color del boton
+            int loadn = sp.getInt("nvalueoneD1" + ivalue, 0);
+            int loada = sp.getInt("avalueD1" + ivalue, 0);
+            if (loadn >= 2 || loada >= 2){
+                btn.setBackgroundResource(R.drawable.rect4);
+                tv.setBackgroundResource(R.drawable.rect);
+                tv.setEnabled(true);
+            } else {
+                btn.setBackgroundResource(R.drawable.rect5);
+                tv.setBackgroundResource(R.drawable.rect3);
+                tv.setEnabled(false);
+            }
+
+            tv.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String tvcontent = "";
+                    try {
+                        tvcontent = tv.getText().toString();
+                    }catch (Exception ignored) {
+                    }
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("tvlabelD1"+ivalue, tvcontent);
+                    editor.apply();
+
+                }
+            });
+
+
+
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    state = getView().findViewById(R.id.saveorload);
+                    saveradio = getView().findViewById(R.id.save);
+                    loadradio = getView().findViewById(R.id.load);
+                    choicesv2 = getView().findViewById(R.id.vargroup);
+                    onevar = getView().findViewById(R.id.onevar);
+                    twovar = getView().findViewById(R.id.twovar);
+                    del = getView().findViewById(R.id.eraseslot);
+                    LinearLayout baselayout = getView().findViewById(R.id.starterlayout);
+                    if(loadradio.isChecked()){
+                        int loada = sp.getInt("avalueD1"+ivalue, 0);
+                        int loadn = sp.getInt("nvalueoneD1"+ivalue, 0);
+                        avalue = getView().findViewById(R.id.anumberDOE);
+                        nvalue = getView().findViewById(R.id.nnumberDOE);
+                        //1 o 2 para respetar lo que haya guardado el usuario, son almacenados en sp cuando el usuario guarda
+                        baselayout.removeAllViews();
+                        avalue.setText(String.valueOf(loada));
+                        nvalue.setText(String.valueOf(loadn));
+                        String array = sp.getString("arrayonevD1"+ivalue,null);
+                        double[][] a = gson.fromJson(array, double[][].class);
+                        //aqui se obtiene el array en forma y con los siguientes for se introduce toda la información guardada
+                        for (int i = 1; i <= loada; i++) {
+                            String AddedLayoutTag = "aCol" + i;
+                            LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+                            for (int j = 1; j <= loadn; j++){
+                                String valuetags = "vt" + i + j;
+                                EditText content = aFoundCol.findViewWithTag(valuetags);
+                                String restoredata = String.valueOf(a[j-1][i-1]);
+                                if(!restoredata.equals("0.0")){
+                                    content.setText(restoredata);
+                                }
+                            }
+                        }
+                        //aqui iba el toast de cargar
+
+                    } else if(saveradio.isChecked()){
+
+                        String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
+                        String avaluestr = avalue.getText().toString();
+                        int nvalueint;
+                        int avalueint2;
+                        try {
+                            nvalueint = Integer.parseInt(nvaluestr);
+                            avalueint2 = Integer.parseInt(avaluestr);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("nvalueoneD1"+ivalue, nvalueint);
+                            editor.putInt("avalueD1"+ivalue, avalueint2);
+                            editor.apply();
+                        }
+                        catch(NumberFormatException ex) {
+                            return;
+                        }
+                        double[][] a = new double[nvalueint][avalueint2];
+                        //serie de try's para evitar eliminar (guarda info en las matrices) el input al añadir mas filas
+
+                        for (int i = 1; i <= avalueint2; i++) {
+                            String AddedLayoutTag = "aCol" + i;
+                            LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+                            for (int j = 1; j <= nvalueint; j++){
+                                String valuetags = "vt" + i + j;
+                                EditText content = aFoundCol.findViewWithTag(valuetags);
+                                String contentstring = content.getText().toString();
+                                try {
+                                    double contentint = Double.parseDouble(contentstring);
+                                    a[j - 1][i - 1] = contentint;
+                                }catch (Exception ignored) {
+                                }
+                            }
+                        }
+
+                        //Transforma el array en string para almacenarlo en sharedpreferences.
+                        String arraytostring = gson.toJson(a);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("arrayonevD1"+ivalue, arraytostring);
+                        editor.apply();
+                        int loadn = sp.getInt("nvalueoneD1"+ivalue, 0);
+                        int loada = sp.getInt("avalueD1"+ivalue, 0);
+                        if (loadn >= 2 && loada >= 2){
+                            btn.setBackgroundResource(R.drawable.rect4);
+                            String tvtag = "statetvD1"+ivalue;
+                            EditText tv = layout2.findViewWithTag(tvtag);
+                            tv.setBackgroundResource(R.drawable.rect);
+                            tv.setEnabled(true);
+                        }
+                        //aqui iba el toast de guardar
+
+                    } else if(del.isChecked()){
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.remove("arrayonevD1"+ivalue);
+                        editor.remove("nvalueoneD1"+ivalue);
+                        editor.remove("avalueD1"+ivalue);
+                        editor.apply();
+                        btn.setBackgroundResource(R.drawable.rect5);
+                        String tvtag = "statetvD1"+ivalue;
+                        EditText tv = layout2.findViewWithTag(tvtag);
+                        try {
+                            tv.getText().clear();
+                        }catch (Exception ignored) {
+                        }
+                        tv.setBackgroundResource(R.drawable.rect3);
+                        tv.setEnabled(false);
+                    }
+                }
+            });
+
+        }
 
         mdrawer = getView().findViewById(R.id.drawer_layoutDOE);
         toggle = getView().findViewById(R.id.savingbuttonDOE);
@@ -326,14 +521,17 @@ public class frag2 extends Fragment {
                 LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
                 for (int j = 1; j <= nvalueint[0]; j++){
                     String valuetags = "vt" + i + j;
-                    EditText content = aFoundCol.findViewWithTag(valuetags);
-                    String contentstring = content.getText().toString();
-                    try {
+                    try{
+                        EditText content = aFoundCol.findViewWithTag(valuetags);
+                        String contentstring = content.getText().toString();
+
                         double contentint = Double.parseDouble(contentstring);
                         a[j - 1][i - 1] = contentint;
-                    } catch (NumberFormatException ex) {
+
+                    }catch (Exception e){
                         return;
                     }
+
                 }
             }
 
@@ -401,6 +599,239 @@ public class frag2 extends Fragment {
         });
 
 
+
+        newstatebtn = getView().findViewById(R.id.addstate);
+        newstatebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layout = getView().findViewById(R.id.saveloadlayout);
+                LinearLayout layout2 = getView().findViewById(R.id.saveloadtv);
+                int width = (int) getResources().getDimension(R.dimen.widthstate);
+                int width2 = (int) getResources().getDimension(R.dimen.widthstate2);
+                int height = (int) getResources().getDimension(R.dimen.heightstate);
+                int topmargin = (int) getResources().getDimension(R.dimen.marginstate); //top margin
+                int textsize = (int) getResources().getDimension(R.dimen.textstate);
+                Button btn = new Button(requireActivity());
+                btn.setTextSize(textsize);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+                //obtiene "count", que es la cantidad de botones ya existentes
+                int count = sp.getInt("countD1", 0);
+                SharedPreferences.Editor editor = sp.edit();
+                //count+1 pq se agrega un botón
+                editor.putInt("countD1", (count + 1));
+                editor.putInt("stateD1" + count, count);
+                editor.apply();
+                int numbtn = sp.getInt("countD1", 1);
+                btn.setText(String.valueOf(numbtn));
+                int tempid = View.generateViewId();
+                btn.setId(tempid);
+                btn.setTag("stateD1"+numbtn);
+                btn.setBackgroundResource(R.drawable.rect5);
+                btn.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                btn.setTextColor(Color.BLACK);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+                params.setMargins(0, 0, 0, topmargin);
+                btn.setLayoutParams(params);
+                layout.addView(btn);
+
+                EditText tv = new EditText(requireActivity());
+                tv.setTextSize(textsize);
+                int tempid2 = View.generateViewId();
+                tv.setId(tempid2);
+                tv.setTag("statetvD1"+numbtn);
+                tv.setBackgroundResource(R.drawable.rect3);
+                tv.setHint(getResources().getString(R.string.tvsave));
+                tv.setGravity(Gravity.CENTER | Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                tv.setTextColor(Color.WHITE);
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(width2, height);
+                params2.setMargins(0, 0, 0, topmargin);
+                tv.setLayoutParams(params2);
+                tv.setEnabled(false);
+                layout2.addView(tv);
+
+                tv.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String tvcontent = "";
+                        try {
+                            tvcontent = tv.getText().toString();
+                        }catch (Exception ignored) {
+                        }
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("tvlabelD1"+numbtn, tvcontent);
+                        editor.apply();
+
+                    }
+                });
+
+
+
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        state = getView().findViewById(R.id.saveorload);
+                        saveradio = getView().findViewById(R.id.save);
+                        loadradio = getView().findViewById(R.id.load);
+                        choicesv2 = getView().findViewById(R.id.vargroup);
+                        onevar = getView().findViewById(R.id.onevar);
+                        twovar = getView().findViewById(R.id.twovar);
+                        del = getView().findViewById(R.id.eraseslot);
+                        LinearLayout baselayout = getView().findViewById(R.id.starterlayout);
+                        if(loadradio.isChecked()){
+                            int loada = sp.getInt("avalueD1"+numbtn, 0);
+                            int loadn = sp.getInt("nvalueoneD1"+numbtn, 0);
+                            avalue = getView().findViewById(R.id.anumberDOE);
+                            nvalue = getView().findViewById(R.id.nnumberDOE);
+                            //1 o 2 para respetar lo que haya guardado el usuario, son almacenados en sp cuando el usuario guarda
+                            baselayout.removeAllViews();
+                            avalue.setText(String.valueOf(loada));
+                            nvalue.setText(String.valueOf(loadn));
+                            String array = sp.getString("arrayonevD1"+numbtn,null);
+                            double[][] a = gson.fromJson(array, double[][].class);
+                            //aqui se obtiene el array en forma y con los siguientes for se introduce toda la información guardada
+                            for (int i = 1; i <= loada; i++) {
+                                String AddedLayoutTag = "aCol" + i;
+                                LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+                                for (int j = 1; j <= loadn; j++){
+                                    String valuetags = "vt" + i + j;
+                                    EditText content = aFoundCol.findViewWithTag(valuetags);
+                                    String restoredata = String.valueOf(a[j-1][i-1]);
+                                    if(!restoredata.equals("0.0")){
+                                        content.setText(restoredata);
+                                    }
+                                }
+                            }
+                            //aqui iba el toast de cargar
+
+                        } else if(saveradio.isChecked()){
+
+                            String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
+                            String avaluestr = avalue.getText().toString();
+                            int nvalueint;
+                            int avalueint2;
+                            try {
+                                nvalueint = Integer.parseInt(nvaluestr);
+                                avalueint2 = Integer.parseInt(avaluestr);
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt("nvalueoneD1"+numbtn, nvalueint);
+                                editor.putInt("avalueD1"+numbtn, avalueint2);
+                                editor.apply();
+                            }
+                            catch(NumberFormatException ex) {
+                                return;
+                            }
+                            double[][] a = new double[nvalueint][avalueint2];
+                            //serie de try's para evitar eliminar (guarda info en las matrices) el input al añadir mas filas
+
+                            for (int i = 1; i <= avalueint2; i++) {
+                                String AddedLayoutTag = "aCol" + i;
+                                LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+                                for (int j = 1; j <= nvalueint; j++){
+                                    String valuetags = "vt" + i + j;
+                                    EditText content = aFoundCol.findViewWithTag(valuetags);
+                                    String contentstring = content.getText().toString();
+                                    try {
+                                        double contentint = Double.parseDouble(contentstring);
+                                        a[j - 1][i - 1] = contentint;
+                                    }catch (Exception ignored) {
+                                    }
+                                }
+                            }
+
+                            //Transforma el array en string para almacenarlo en sharedpreferences.
+                            String arraytostring = gson.toJson(a);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("arrayonevD1"+numbtn, arraytostring);
+                            editor.apply();
+                            int loadn = sp.getInt("nvalueoneD1"+numbtn, 0);
+                            int loada = sp.getInt("avalueD1"+numbtn, 0);
+                            if (loadn >= 2 && loada >= 2){
+                                btn.setBackgroundResource(R.drawable.rect4);
+                                String tvtag = "statetvD1"+numbtn;
+                                EditText tv = layout2.findViewWithTag(tvtag);
+                                tv.setBackgroundResource(R.drawable.rect);
+                                tv.setEnabled(true);
+                            }
+                            //aqui iba el toast de guardar
+
+                        } else if(del.isChecked()){
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.remove("arrayonevD1"+numbtn);
+                            editor.remove("nvalueoneD1"+numbtn);
+                            editor.remove("avalueD1"+numbtn);
+                            editor.apply();
+                            btn.setBackgroundResource(R.drawable.rect5);
+                            String tvtag = "statetvD1"+numbtn;
+                            EditText tv = layout2.findViewWithTag(tvtag);
+                            try {
+                                tv.getText().clear();
+                            }catch (Exception ignored) {
+                            }
+                            tv.setBackgroundResource(R.drawable.rect3);
+                            tv.setEnabled(false);
+                        }
+                    }
+                });
+            }
+        });
+
+        deletebtn = getView().findViewById(R.id.deletebtnDOE);
+        deletebtn.setOnClickListener(v -> {
+            builder = new AlertDialog.Builder(requireActivity());
+            builder.setTitle(getString(R.string.warntitle));
+            builder.setMessage(getString(R.string.warntext));
+
+            builder.setPositiveButton(getString(R.string.positivebtn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        nvalue.getText().clear();
+                        avalue.getText().clear();
+                        LinearLayout layout = getView().findViewById(R.id.starterlayout);
+                        layout.removeAllViews();
+                    }catch (Exception ignored) {
+                    }
+                }
+            });
+
+            builder.setNegativeButton(getString(R.string.negativebtn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            dialog = builder.create();
+            dialog.show();
+
+            Button PositiveBtn = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            PositiveBtn.setTextColor(Color.BLACK);
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)PositiveBtn.getLayoutParams();
+            params.topMargin = (int) getResources().getDimension(R.dimen.margin);
+            params.leftMargin = (int) getResources().getDimension(R.dimen.margin);
+            params.rightMargin = (int) getResources().getDimension(R.dimen.margin);
+            PositiveBtn.setLayoutParams(params);
+
+            Button NegativeBtn = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            NegativeBtn.setBackgroundColor(Color.parseColor("#5865F2"));
+            NegativeBtn.setTextColor(Color.BLACK);
+            ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams)NegativeBtn.getLayoutParams();
+            params2.topMargin = (int) getResources().getDimension(R.dimen.margin);
+            params2.leftMargin = (int) getResources().getDimension(R.dimen.margin);
+            params2.rightMargin = (int) getResources().getDimension(R.dimen.margin);
+            NegativeBtn.setLayoutParams(params2);
+        });
 
 
 

@@ -730,14 +730,15 @@ public class frag1 extends Fragment {
                                         //(y) for para encontrar cada boton por tag
                                         for (int i = 1; i <= nvalueint; i++) {
                                             String butagy = "y" + i;
-                                            EditText content = layouty.findViewWithTag(butagy);
-                                            String contentstring = content.getText().toString();
-                                            try {
+                                            try{
+                                                EditText content = layouty.findViewWithTag(butagy);
+                                                String contentstring = content.getText().toString();
                                                 double contentint = Double.parseDouble(contentstring);
                                                 a[i - 1][1] = contentint;
-                                            } catch (NumberFormatException ex) {
+                                            }catch (Exception e) {
                                                 return;
                                             }
+
                                         }
                                         //(xa) for para encontrar cada boton por tag
                                         for (int i = 1; i <= nvalueint; i++) {
@@ -1123,14 +1124,16 @@ public class frag1 extends Fragment {
                                         //(y) for para encontrar cada boton por tag
                                         for (int i = 1; i <= nvalueint; i++) {
                                             String butagy = "ytwo" + i;
-                                            EditText content = layouty.findViewWithTag(butagy);
-                                            String contentstring = content.getText().toString();
-                                            try {
+                                            try{
+                                                EditText content = layouty.findViewWithTag(butagy);
+                                                String contentstring = content.getText().toString();
+
                                                 double contentint = Double.parseDouble(contentstring);
                                                 ym[i - 1] = contentint;
-                                            } catch (NumberFormatException ex) {
+                                            }catch (Exception e) {
                                                 return;
                                             }
+
                                         }
                                         //(xa) for para encontrar cada boton por tag
                                         for (int i = 1; i <= nvalueint; i++) {
@@ -1806,7 +1809,7 @@ public class frag1 extends Fragment {
                                 tv.getText().clear();
                             }catch (Exception ignored) {
                             }
-                            tv.setBackgroundResource(R.drawable.rect4);
+                            tv.setBackgroundResource(R.drawable.rect3);
                             tv.setEnabled(false);
                         }
                     }
