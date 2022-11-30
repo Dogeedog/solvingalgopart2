@@ -533,7 +533,6 @@ public class frag2 extends Fragment {
                                     tv.setTextSize(textsize);
                                     int tempid2 = View.generateViewId();
                                     tv.setId(tempid2);
-                                    tv.setSaveEnabled(true);
                                     tv.setTag(valuetags);
                                     tv.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                                     tv.setTextColor(Color.WHITE);
@@ -888,8 +887,6 @@ public class frag2 extends Fragment {
             int axs = 1;
         }
         else {
-            avalue = getView().findViewById(R.id.anumberDOE);
-            nvalue = getView().findViewById(R.id.nnumberDOE);
             String astr = outState.getString("avalueState");
             String nstr = outState.getString("nvalueState");
             avalue.setText(astr);
