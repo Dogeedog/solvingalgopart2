@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -74,8 +76,52 @@ public class frag2 extends Fragment {
 
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // Save state to the savedInstanceState
+        avalue = getView().findViewById(R.id.anumberDOE);
+        nvalue = getView().findViewById(R.id.nnumberDOE);
+        final int[] avalueint = {0};
+        final int[] nvalueint = {0};
+        String avaluestr = avalue.getText().toString(); //obtener cantidad de filas
+        outState.putString("avalueState", avaluestr);
+        try {
+            avalueint[0] = Integer.parseInt(avaluestr);
+        } catch (Exception ignored) {
+        }
+        String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
+        outState.putString("nvalueState", nvaluestr);
+        try {
+            nvalueint[0] = Integer.parseInt(nvaluestr);
+        } catch (Exception ignored) {
+        }
+        //(y) for para encontrar cada boton por tag
+        for (int i = 1; i <= avalueint[0]; i++) {
+            LinearLayout baselayout = getView().findViewById(R.id.starterlayout);
+            String AddedLayoutTag = "aCol" + i;
+            LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+            for (int j = 1; j <= nvalueint[0]; j++){
+                String valuetags = "vt" + i + j;
+                try{
+                    EditText content = aFoundCol.findViewWithTag(valuetags);
+                    String contentstring = content.getText().toString();
+                    outState.putString("contentstrState"+i+j, contentstring);
+                }catch (Exception e){
+                    return;
+                }
+
+            }
+        }
+
+
+        super.onSaveInstanceState(outState);
+        //savedInstanceState.putString("MyString", );
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -86,7 +132,8 @@ public class frag2 extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle outState) {
+
         //Genera los botones de guardar/cargar que el usuario añadió previamente
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(requireActivity());
         //sp.edit().clear().apply();
@@ -486,6 +533,7 @@ public class frag2 extends Fragment {
                                     tv.setTextSize(textsize);
                                     int tempid2 = View.generateViewId();
                                     tv.setId(tempid2);
+                                    tv.setSaveEnabled(true);
                                     tv.setTag(valuetags);
                                     tv.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                                     tv.setTextColor(Color.WHITE);
@@ -508,6 +556,8 @@ public class frag2 extends Fragment {
 
             }
         });
+
+
 
         Button tebtn = getView().findViewById(R.id.button2);
         tebtn.setOnClickListener(v1 -> {
@@ -832,6 +882,50 @@ public class frag2 extends Fragment {
             params2.rightMargin = (int) getResources().getDimension(R.dimen.margin);
             NegativeBtn.setLayoutParams(params2);
         });
+
+        super.onCreate(outState);
+        if (outState == null) {
+            int axs = 1;
+        }
+        else {
+            avalue = getView().findViewById(R.id.anumberDOE);
+            nvalue = getView().findViewById(R.id.nnumberDOE);
+            String astr = outState.getString("avalueState");
+            String nstr = outState.getString("nvalueState");
+            avalue.setText(astr);
+            nvalue.setText(nstr);
+            String avaluestr = avalue.getText().toString(); //obtener cantidad de filas
+            try {
+                avalueint[0] = Integer.parseInt(avaluestr);
+            } catch (Exception ignored) {
+            }
+            String nvaluestr = nvalue.getText().toString(); //obtener cantidad de filas
+            try {
+                nvalueint[0] = Integer.parseInt(nvaluestr);
+            } catch (Exception ignored) {
+            }
+
+            int tempAint = avalueint[0];
+            int tempNint = nvalueint[0];
+            double[][] a = new double[tempNint][tempAint];
+            //(y) for para encontrar cada boton por tag
+            for (int i = 1; i <= avalueint[0]; i++) {
+                LinearLayout baselayout = getView().findViewById(R.id.starterlayout);
+                String AddedLayoutTag = "aCol" + i;
+                LinearLayout aFoundCol = baselayout.findViewWithTag(AddedLayoutTag);
+                for (int j = 1; j <= nvalueint[0]; j++){
+                    String valuetags = "vt" + i + j;
+                    try{
+                        EditText content = aFoundCol.findViewWithTag(valuetags);
+                        String contentstring = outState.getString("contentstrState"+i+j);
+                        content.setText(contentstring);
+                    }catch (Exception e){
+                        return;
+                    }
+
+                }
+            }
+        }
 
 
 

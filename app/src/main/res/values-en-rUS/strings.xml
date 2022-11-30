@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LinearPlex Solver</string>
+    <string name="app_name">Linear Regression Solver</string>
     <string name="text1">You shouldn\'t see this</string>
     <string name="confidence">Confidence level:</string>
     <string name="mean">C.I. Mean Response</string>
@@ -68,7 +68,7 @@
     <string name="doeequation">Equation</string>
     <string name="icmeandif">C.I. Difference of Mean Treatments</string>
     <string name="sel_treat">Select treatments to compare:</string>
-    <string name="sel">Select...</string>
+    <string name="sel">Select…</string>
     <string name="icmeandifTEMP">0 &#8804; &#956;<sub><small> x </small></sub> - &#956;<sub><small> y </small></sub> &#8804; 0</string>
     <string name="seltitle">Select a treatment</string>
     <string name="cancelkey">Cancel</string>
@@ -76,4 +76,7 @@
     <string name="trattvg">Treatments</string>
     <string name="avgtreat">Treatment\'s Average</string>
     <string name="granavg">Mean of Means</string>
+    <string name="doeplot1tv">Mean Response &amp;\nC.I. per Treatment</string>
+    <string name="doeplot2tv">Mean Response</string>
+    <string name="doeplot3tv">Response per Treatment</string>
 </resources>

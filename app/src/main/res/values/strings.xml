@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LinearPlex Solver</string>
+    <string name="app_name">Linear Regression Solver</string>
     <string name="text1">No deberías ver esto</string>
     <string name="confidence">Porcentaje de Confianza:</string>
     <string name="mean">I.C. Respuesta Media</string>
@@ -67,7 +67,7 @@
     <string name="doeequation">Ecuación</string>
     <string name="icmeandif">I.C. Diferencia de Tratamientos Promedio</string>
     <string name="sel_treat">Selecciona tratamientos a comparar:</string>
-    <string name="sel">Seleccionar...</string>
+    <string name="sel">Seleccionar…</string>
     <string name="icmeandifTEMP">0 &#8804; &#956;<sub><small> x </small></sub> - &#956;<sub><small> y </small></sub> &#8804; 0</string>
     <string name="seltitle">Selecciona un tratamiento</string>
     <string name="cancelkey">Cancelar</string>
@@ -75,4 +75,7 @@
     <string name="trattvg">Tratamientos</string>
     <string name="avgtreat">Promedio por Tratamiento</string>
     <string name="granavg">Gran Promedio</string>
+    <string name="doeplot1tv">Respuesta Media &amp;\nI.C. por Tratamiento</string>
+    <string name="doeplot2tv">Respuesta Media</string>
+    <string name="doeplot3tv">Respuesta por Tratamiento</string>
 </resources>

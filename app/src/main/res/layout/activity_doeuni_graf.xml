@@ -29,8 +29,10 @@
 
         <Button
             android:id="@+id/DOEPlot1btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:textSize="11sp"
+            android:text="@string/doeplot1tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/DOEPlot2btn"
             app:layout_constraintTop_toBottomOf="@id/textView3"
@@ -40,8 +42,10 @@
 
         <Button
             android:id="@+id/DOEPlot2btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:textSize="11sp"
+            android:text="@string/doeplot2tv"
             app:layout_constraintStart_toEndOf="@id/DOEPlot1btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView3"
@@ -51,12 +55,14 @@
 
         <Button
             android:id="@+id/DOEPlot3btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:textSize="11sp"
+            android:text="@string/doeplot3tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/DOEPlot2btn"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp">
 
         </Button>
 

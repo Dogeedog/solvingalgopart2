@@ -58,6 +58,7 @@ public class solvedDOEoneFactor extends AppCompatActivity {
     TextView lsdvaluetv;
     Button resbtn;
     Button grafbtn;
+    TextView RSquaredtv;
     Gson gson = new GsonBuilder().create();
 
     @Override
@@ -76,10 +77,13 @@ public class solvedDOEoneFactor extends AppCompatActivity {
         anovaf1 = findViewById(R.id.anovaf1oneDOE);
         fishersign = findViewById(R.id.fishervalueoneDOE);
         conftv = findViewById(R.id.fisherinputsoneDOE);
+        RSquaredtv = findViewById(R.id.doeRSqauaredvalue);
 
         DecimalFormat df = new DecimalFormat("#.####; - #");
         df.setRoundingMode(RoundingMode.HALF_UP);
         DecimalFormat df2 = new DecimalFormat("#.##;");
+        DecimalFormat df3 = new DecimalFormat("#.##%");
+        df3.setRoundingMode(RoundingMode.HALF_UP);
 
         Intent x = getIntent();
 
@@ -117,6 +121,9 @@ public class solvedDOEoneFactor extends AppCompatActivity {
         anovamc1.setTextIsSelectable(true);
         anovamc2.setTextIsSelectable(true);
         anovaf1.setTextIsSelectable(true);
+
+        double RSquaredValue = totaltrat/totalreg;
+        RSquaredtv.setText(Html.fromHtml("R<sup><small>2</small></sup>: " + df3.format(RSquaredValue)));
 
         String signiffinaltext = df.format(fvalue);
         fishersign.setText(signiffinaltext);
